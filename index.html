@@ -5,13 +5,13 @@
   
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <link rel="dns-prefetch" href="https://qiongqiongwoo.github.io">
+  <link rel="dns-prefetch" href="https://qiongqiongwoo.github.io/blog">
   <title>blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="日常工作学习的一些简单记录，粗俗浅显。">
 <meta property="og:type" content="website">
 <meta property="og:title" content="blog">
-<meta property="og:url" content="https://qiongqiongwoo.github.io/index.html">
+<meta property="og:url" content="https://qiongqiongwoo.github.io/blog/index.html">
 <meta property="og:site_name" content="blog">
 <meta property="og:description" content="日常工作学习的一些简单记录，粗俗浅显。">
 <meta property="og:locale" content="default">
@@ -146,7 +146,7 @@
 <ul>
 <li>browser进程：与用户交互、浏览器的前进后退、各个tab页面的管理等</li>
 <li>GPU进程：3D页面绘制等</li>
-<li>浏览器渲染进程（Render进程，其内部是多线程的）每个tab对应一个，相互独立。<br><img src="/2018/12/14/浏览器渲染/1.png" alt="image"><br>2、如上所述Render进程是多线程的</li>
+<li>浏览器渲染进程（Render进程，其内部是多线程的）每个tab对应一个，相互独立。<br><img src="/blog/2018/12/14/浏览器渲染/1.png" alt="image"><br>2、如上所述Render进程是多线程的</li>
 <li>JS引擎线程—– 主线程（JS内核负责解析和运行代码，一个Render进程只有一个JS引擎线程）</li>
 <li>GUI渲染线程：负责渲染浏览器界面，当界面需要repaint或者reflow时就会执行。</li>
 <li>事件触发线程：事件被触发时，将事件添加到事件处理队列等待JS引擎被执行。</li>
@@ -160,7 +160,7 @@
 <li>一旦stack为空，主线程就去读取任务队列中的异步任务进行执行</li>
 <li>主线程循环重复上面三个步骤</li>
 <li>事件触发线程注册函数，当事件触发时，被推入event loop（消息队列的形式，消息队列中每一条信息都对应着一个事件）</li>
-<li>主线程函数栈执行完后，循环从消息队列中取消息进行处理<br><img src="/2018/12/14/浏览器渲染/2.png" alt="image"><br>5、web worker &amp; share worker</li>
+<li>主线程函数栈执行完后，循环从消息队列中取消息进行处理<br><img src="/blog/2018/12/14/浏览器渲染/2.png" alt="image"><br>5、web worker &amp; share worker</li>
 <li>JS引擎向浏览器申请开一个子线程做一些耗时处理（此子线程不能操作dom，完全受JS引擎的控制）</li>
 <li>share worker是浏览器的多个tab共享的，web worker属于单独的一个tab<br>6、宏任务（macro-task）和微任务(micro-task)的执行</li>
 <li>宏任务： script\setTimeout\setTimeInterval\setTimeImmediate\</li>
@@ -168,7 +168,7 @@
 <li>根据html standard，在每个macro-task执行完之后，UI都会重新渲染，如果再micro-task中完成数据的处理，则当前task执行完之后就可以得到最终的UI，但如果在一个新的task中进行执行，需要两次渲染才能得到最终的UI，这也是promise要好于setTimeOut的地方。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(<span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">     console.log(<span class="string">'定时器开始啦’)</span></span><br><span class="line"><span class="string"> &#125;);</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"> new Promise(function(resolve)&#123;</span></span><br><span class="line"><span class="string">     console.log('</span>马上执行<span class="keyword">for</span>循环啦’);</span><br><span class="line">     <span class="keyword">for</span>(var i = 0; i &lt; 10000; i++)&#123;</span><br><span class="line">         i == 99 &amp;&amp; resolve();</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;).<span class="keyword">then</span>(<span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">     console.log(<span class="string">'执行then函数啦’)</span></span><br><span class="line"><span class="string"> &#125;);</span></span><br><span class="line"><span class="string"> console.log('</span>代码执行结束’);</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<p>// 浏览器的执行结果为  马上执行for循环啦 -&gt; 代码执行结束 -&gt; 执行then函数啦 -&gt; 定时器开始啦<br>1.整体script作为第一个宏任务进入主线程，这是第一轮宏任务。<br>2.遇到setTimeout，其回调函数被分发到宏任务Event Queue中，这是第二个宏任务。<br>3.继续执行，打印【马上执行for循环啦】<br>4.遇到promise.then()微任务，这是第一轮宏任务下的微任务，因为整体script是第一轮宏任务嘛<br>5.继续执行，打印【代码执行结束】<br>6.现在整体script作为第一轮宏任务，去检查这一轮下的微任务，发现有一个promise.then()，去执行它<br>（至此现在第一轮宏任务，以及这一轮宏任务下的微任务都被执行过了）<br>7.开始第二轮宏任务，发现宏任务队列里有一个setTimeout，执行它，就打印了【定时器开始啦】<br>// 注意： node中的执行结果和上面是不同的<br>7、浏览器渲染流程<br><img src="/2018/12/14/浏览器渲染/3.png" alt="image"><br>style Tree的结构<br><img src="/2018/12/14/浏览器渲染/4.png" alt="image"></p>
+<p>// 浏览器的执行结果为  马上执行for循环啦 -&gt; 代码执行结束 -&gt; 执行then函数啦 -&gt; 定时器开始啦<br>1.整体script作为第一个宏任务进入主线程，这是第一轮宏任务。<br>2.遇到setTimeout，其回调函数被分发到宏任务Event Queue中，这是第二个宏任务。<br>3.继续执行，打印【马上执行for循环啦】<br>4.遇到promise.then()微任务，这是第一轮宏任务下的微任务，因为整体script是第一轮宏任务嘛<br>5.继续执行，打印【代码执行结束】<br>6.现在整体script作为第一轮宏任务，去检查这一轮下的微任务，发现有一个promise.then()，去执行它<br>（至此现在第一轮宏任务，以及这一轮宏任务下的微任务都被执行过了）<br>7.开始第二轮宏任务，发现宏任务队列里有一个setTimeout，执行它，就打印了【定时器开始啦】<br>// 注意： node中的执行结果和上面是不同的<br>7、浏览器渲染流程<br><img src="/blog/2018/12/14/浏览器渲染/3.png" alt="image"><br>style Tree的结构<br><img src="/blog/2018/12/14/浏览器渲染/4.png" alt="image"></p>
 <ul>
 <li>Dom树构建的过程包括符号化和构建树两个过程，符号化采用符号识别算法</li>
 <li>DomContentLoaded仅当dom加载完成不包括样式表，onload事件是dom、样式、图片、脚本全都执行完毕了</li>
@@ -208,7 +208,7 @@
 <p>14、两个js的执行并非等到完全下载完<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;body&gt;</span><br><span class="line">&lt;script src=<span class="string">"1.js"</span>&gt;&lt;/script&gt;  // 如果1下载5s， 2下载10s，1在5s后执行，2在10s后执行</span><br><span class="line">&lt;script src=<span class="string">"2.js"</span>&gt;&lt;/script&gt;  // 如果1下载10s， 2下载5s, 1在10s后执行，1执行完再执行2</span><br><span class="line">&lt;/body&gt;</span><br></pre></td></tr></table></figure></p>
 <p>15：渲染过程的一个例子（一下为firefox的例子）<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;doc&gt;</span><br><span class="line">&lt;title&gt;A few quotes&lt;/title&gt;</span><br><span class="line">&lt;para class=<span class="string">"emph"</span>&gt;</span><br><span class="line">  Franklin said that &lt;quote&gt;<span class="string">"A penny saved is a penny earned."</span>&lt;/quote&gt;</span><br><span class="line">&lt;/para&gt;</span><br><span class="line">&lt;para&gt;</span><br><span class="line">  FDR said &lt;quote&gt;<span class="string">"We have nothing to fear but &lt;span class="</span>emph<span class="string">"&gt;fear itself.&lt;/span&gt;"</span>&lt;/quote&gt;</span><br><span class="line">&lt;/para&gt;</span><br><span class="line">&lt;/doc&gt;</span><br></pre></td></tr></table></figure></p>
 <p>css 规则如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"> /* rule 1 */ doc &#123; display: block; text-indent: 1em; &#125;</span><br><span class="line">/* rule 2 */ title &#123; display: block; font-size: 3em; &#125;</span><br><span class="line">/* rule 3 */ para &#123; display: block; &#125;</span><br><span class="line">/* rule 4 */ [class=<span class="string">"emph"</span>] &#123; font-style: italic; &#125;</span><br></pre></td></tr></table></figure></p>
-<p>对应的dom树、css规则树以及style context tree分别为：(此段描述的未 attachment的过程：其实就是dom树上的每个节点，找到其对应的style的过程)<br><img src="/2018/12/14/浏览器渲染/5.png" alt="image"></p>
+<p>对应的dom树、css规则树以及style context tree分别为：(此段描述的未 attachment的过程：其实就是dom树上的每个节点，找到其对应的style的过程)<br><img src="/blog/2018/12/14/浏览器渲染/5.png" alt="image"></p>
 <ul>
 <li>css rule tree结构为（css rule tree是根据dom树构建出来的，所以4节点有两个</li>
 <li>CSS匹配HTML元素是一个相当复杂和有性能问题的事情。所以，你就会在N多地方看到很多人都告诉你，DOM树要小，CSS尽量用id和class，千万不要过渡层叠下去</li>
