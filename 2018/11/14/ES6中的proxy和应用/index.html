@@ -6,18 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="https://qiongqiongwoo.github.io/blog">
-  <title>Archives: 2018 | blog</title>
+  <title>ES6中的proxy和应用 | blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="日常工作学习的一些简单记录，粗俗浅显。">
-<meta property="og:type" content="website">
-<meta property="og:title" content="blog">
-<meta property="og:url" content="https://qiongqiongwoo.github.io/blog/archives/2018/index.html">
+  <meta name="description" content="1、ES6 中的Proxy的使用1234567891011121314151617var p = new Proxy(target, handler) // target为被包裹的对象，handler为处理方式handler能代理的方法有： get、set、has、constructvar target = &amp;#123;   a : ‘111’, ‘b’: ‘fasdf&apos;&amp;#125;Var new">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ES6中的proxy和应用">
+<meta property="og:url" content="https://qiongqiongwoo.github.io/blog/2018/11/14/ES6中的proxy和应用/index.html">
 <meta property="og:site_name" content="blog">
-<meta property="og:description" content="日常工作学习的一些简单记录，粗俗浅显。">
+<meta property="og:description" content="1、ES6 中的Proxy的使用1234567891011121314151617var p = new Proxy(target, handler) // target为被包裹的对象，handler为处理方式handler能代理的方法有： get、set、has、constructvar target = &amp;#123;   a : ‘111’, ‘b’: ‘fasdf&apos;&amp;#125;Var new">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-01-04T10:21:10.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="blog">
-<meta name="twitter:description" content="日常工作学习的一些简单记录，粗俗浅显。">
+<meta name="twitter:title" content="ES6中的proxy和应用">
+<meta name="twitter:description" content="1、ES6 中的Proxy的使用1234567891011121314151617var p = new Proxy(target, handler) // target为被包裹的对象，handler为处理方式handler能代理的方法有： get、set、has、constructvar target = &amp;#123;   a : ‘111’, ‘b’: ‘fasdf&apos;&amp;#125;Var new">
   
   
   <link rel="stylesheet" type="text/css" href="/blog/./main.d2db49.css">
@@ -120,331 +121,101 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-ES6中的proxy和应用" class="article article-type-post " itemscope="" itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/blog/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/blog/2018/12/24/call和apply以及this的指向深入/" class="archive-article-date">
-  	<time datetime="2018-12-24T07:14:37.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-24</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/blog/2018/12/24/call和apply以及this的指向深入/">call和apply以及this的指向深入</a>
+    <h1 class="article-title" itemprop="name">
+      ES6中的proxy和应用
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/blog/2018/12/23/js中概念总结/" class="archive-article-date">
-  	<time datetime="2018-12-23T10:32:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-23</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/blog/2018/12/23/js中概念总结/">JS中的概念总结</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">react, dom diff</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/blog/2018/12/21/Reactdiff以及代码实现/" class="archive-article-date">
-  	<time datetime="2018-12-21T09:39:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-21</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/blog/2018/12/21/Reactdiff以及代码实现/">React diff以及代码实现</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">react, dom diff</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/blog/2018/12/14/浏览器渲染/" class="archive-article-date">
-  	<time datetime="2018-12-14T06:21:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-14</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/blog/2018/12/14/浏览器渲染/">浏览器渲染</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">浏览器渲染</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/blog/2018/12/14/整理的css知识/" class="archive-article-date">
-  	<time datetime="2018-12-14T05:01:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-14</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/blog/2018/12/14/整理的css知识/">整理的css知识</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">css</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/blog/2018/12/13/compose的执行和实现方式/" class="archive-article-date">
-  	<time datetime="2018-12-13T07:11:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-13</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/blog/2018/12/13/compose的执行和实现方式/">compose的执行和实现方式</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">js, node, compose</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/blog/2018/12/12/客户端http请求的header信息/" class="archive-article-date">
-  	<time datetime="2018-12-12T07:41:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-12</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/blog/2018/12/12/客户端http请求的header信息/">客户端http请求的header信息</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">header, http request, htttp options</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/blog/2018/11/14/ES6中的proxy和应用/" class="archive-article-date">
+        
+        <a href="/blog/2018/11/14/ES6中的proxy和应用/" class="archive-article-date">
   	<time datetime="2018-11-14T10:18:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-14</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/blog/2018/11/14/ES6中的proxy和应用/">ES6中的proxy和应用</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>1、ES6 中的Proxy的使用<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">var p = new Proxy(target, handler) // target为被包裹的对象，handler为处理方式</span><br><span class="line">handler能代理的方法有： get、<span class="built_in">set</span>、has、construct</span><br><span class="line">var target = &#123;</span><br><span class="line">   a : ‘111’, ‘b’: ‘fasdf<span class="string">'</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">Var newObj = Proxy(target, &#123;</span></span><br><span class="line"><span class="string">    Set: function(target, key, value) &#123;</span></span><br><span class="line"><span class="string">        console.log(key, ‘被设置。。。’)</span></span><br><span class="line"><span class="string">        target[key] = value</span></span><br><span class="line"><span class="string">    &#125;，</span></span><br><span class="line"><span class="string">    get: function(target, key) &#123;</span></span><br><span class="line"><span class="string">        console.log(key, ‘被读取。。。’)</span></span><br><span class="line"><span class="string">        return target[key]</span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string">&#125;)</span></span><br><span class="line"><span class="string">newObj.name = ‘fasdfdf’</span></span><br><span class="line"><span class="string">console.log(nameObj.name)</span></span><br></pre></td></tr></table></figure></p>
+<p>2、Proxy的应用<br>（1）添加虚拟属性<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">var person = &#123;</span><br><span class="line">  fisrsName: <span class="string">'张'</span>,</span><br><span class="line">  lastName: <span class="string">'小白'</span></span><br><span class="line">&#125;;</span><br><span class="line">var proxyedPerson = new Proxy(person, &#123;</span><br><span class="line">  get: <span class="keyword">function</span> (target, key) &#123;</span><br><span class="line">    <span class="keyword">if</span>(key === <span class="string">'fullName'</span>)&#123;</span><br><span class="line">      <span class="built_in">return</span> [target.fisrsName, target.lastName].join(<span class="string">' '</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">return</span> target[key];</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="built_in">set</span>: <span class="keyword">function</span> (target, key, value) &#123;</span><br><span class="line">    <span class="keyword">if</span>(key === <span class="string">'fullName'</span>)&#123;</span><br><span class="line">      var fullNameInfo = value.split(<span class="string">' '</span>);</span><br><span class="line">      target.fisrsName = fullNameInfo[0];</span><br><span class="line">      target.lastName = fullNameInfo[1];</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      target[key] = value;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line">console.log(<span class="string">'姓:%s, 名:%s, 全名: %s'</span>, proxyedPerson.fisrsName, proxyedPerson.lastName, proxyedPerson.fullName);</span><br><span class="line">// 姓:张, 名:小白, 全名: 张 小白</span><br><span class="line">proxyedPerson.fullName = <span class="string">'李 小露'</span>;</span><br><span class="line">console.log(<span class="string">'姓:%s, 名:%s, 全名: %s'</span>, proxyedPerson.fisrsName, proxyedPerson.lastName, proxyedPerson.fullName);</span><br><span class="line">// 姓:李, 名:小露, 全名: 李 小露</span><br></pre></td></tr></table></figure></p>
+<p>（2）用来做私有变量隐藏<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">var api = &#123;</span><br><span class="line">  _secret: <span class="string">'xxxx'</span>,</span><br><span class="line">  _otherSec: <span class="string">'bbb'</span>,</span><br><span class="line">  ver: <span class="string">'v0.0.1'</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">api = new Proxy(api, &#123;</span><br><span class="line">  get: <span class="keyword">function</span>(target, key) &#123;</span><br><span class="line">    // 以 _ 下划线开头的都认为是 私有的</span><br><span class="line">    <span class="keyword">if</span> (key.startsWith(<span class="string">'_'</span>)) &#123;</span><br><span class="line">      console.log(<span class="string">'私有变量不能被访问'</span>);</span><br><span class="line">      <span class="built_in">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">return</span> target[key];</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="built_in">set</span>: <span class="keyword">function</span>(target, key, value) &#123;</span><br><span class="line">    <span class="keyword">if</span> (key.startsWith(<span class="string">'_'</span>)) &#123;</span><br><span class="line">      console.log(<span class="string">'私有变量不能被修改'</span>);</span><br><span class="line">      <span class="built_in">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    target[key] = value;</span><br><span class="line">  &#125;,</span><br><span class="line">  has: <span class="keyword">function</span>(target, key) &#123;</span><br><span class="line">    <span class="built_in">return</span> key.startsWith(<span class="string">'_'</span>) ? <span class="literal">false</span> : (key <span class="keyword">in</span> target);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line">api._secret; // 私有变量不能被访问</span><br><span class="line">console.log(api.ver); // v0.0.1</span><br><span class="line">api._otherSec = 3; // 私有变量不能被修改</span><br><span class="line">console.log(<span class="string">'_secret'</span> <span class="keyword">in</span> api); // <span class="literal">true</span></span><br><span class="line">console.log(<span class="string">'ver'</span> <span class="keyword">in</span> api); // <span class="literal">false</span></span><br></pre></td></tr></table></figure></p>
+<p>（3）在代理中实现属性赋值的校验<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">Animal</span></span>() &#123;</span><br><span class="line">  <span class="built_in">return</span> createValidator(this, animalValidator);</span><br><span class="line">&#125;</span><br><span class="line">var animalValidator = &#123;</span><br><span class="line">  name: <span class="keyword">function</span>(name) &#123;</span><br><span class="line">    // 动物的名字必须是字符串类型的</span><br><span class="line">    <span class="built_in">return</span> typeof name === <span class="string">'string'</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">function</span> createValidator(target, validator) &#123;</span><br><span class="line">  <span class="built_in">return</span> new Proxy(target, &#123;</span><br><span class="line">    <span class="built_in">set</span>: <span class="keyword">function</span>(target, key, value) &#123;</span><br><span class="line">      <span class="keyword">if</span> (validator[key]) &#123;</span><br><span class="line">        // 符合验证条件</span><br><span class="line">        <span class="keyword">if</span> (validator[key](value)) &#123;</span><br><span class="line">          target[key] = value;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          throw Error(`Cannot <span class="built_in">set</span> <span class="variable">$&#123;key&#125;</span> to <span class="variable">$&#123;value&#125;</span>. Invalid.`);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        target[key] = value</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br><span class="line">var dog = new Animal();</span><br><span class="line">dog.name = <span class="string">'dog'</span>;</span><br><span class="line">console.log(dog.name);</span><br><span class="line">dog.name = 123; // Uncaught Error: Cannot <span class="built_in">set</span> name to 123. Invalid.</span><br></pre></td></tr></table></figure></p>
+<p>3、用ES5实现Proxy<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="built_in">clone</span>(myObj)&#123;</span><br><span class="line">    <span class="keyword">if</span>(typeof(myObj) != <span class="string">'object'</span> || myObj == null) <span class="built_in">return</span> myObj;</span><br><span class="line">    var newObj = new Object();</span><br><span class="line">    <span class="keyword">for</span>(var i <span class="keyword">in</span> myObj)&#123;</span><br><span class="line">      newObj[i] = <span class="built_in">clone</span>(myObj[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">return</span> newObj;</span><br><span class="line">&#125;</span><br><span class="line">/*代理实现类*/</span><br><span class="line"><span class="keyword">function</span> ProxyCopy(target,handle)&#123;</span><br><span class="line">  var targetCopy = <span class="built_in">clone</span>(target);</span><br><span class="line">  Object.keys(targetCopy).forEach(<span class="keyword">function</span>(key)&#123;</span><br><span class="line">    Object.defineProperty(targetCopy, key, &#123;</span><br><span class="line">      get: <span class="function"><span class="title">function</span></span>() &#123;</span><br><span class="line">        <span class="built_in">return</span> handle.get &amp;&amp; handle.get(target,key);</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="built_in">set</span>: <span class="keyword">function</span>(newVal) &#123;</span><br><span class="line">        handle.set &amp;&amp; handle.set();</span><br><span class="line">        target[key] = newVal;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;)</span><br><span class="line">  <span class="built_in">return</span> targetCopy;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var person = &#123;name:<span class="string">''</span>&#125;;</span><br><span class="line">var personCopy = new ProxyCopy(person,&#123;</span><br><span class="line">  get(target,key)&#123;</span><br><span class="line">    console.log(<span class="string">'get方法被拦截。。。'</span>);</span><br><span class="line">    <span class="built_in">return</span> target[key];</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="built_in">set</span>(target,key,value)&#123;</span><br><span class="line">    console.log(<span class="string">'set方法被拦截。。。'</span>)</span><br><span class="line">    // <span class="built_in">return</span> <span class="literal">true</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line">person.name = <span class="string">'arvin'</span>;  // 未有拦截日志打出</span><br><span class="line">personCopy.name = <span class="string">'arvin'</span>;  // <span class="built_in">set</span>方法被拦截。。。</span><br><span class="line">console.log(person.name);   // 未有拦截日志打出</span><br><span class="line">console.log(personCopy.name);   // get方法被拦截。。。</span><br><span class="line">// 这个的缺点是不能检测新添加的属性</span><br></pre></td></tr></table></figure></p>
+<p>4、以上es5中的实现利用了Object.defineProperty作用<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Object.defineProperty(obj, prop, descriptor) // 返回 obj</span><br><span class="line">Descriptor是一个obj属性有：</span><br><span class="line">value： 属性值</span><br><span class="line">writable：是否可以重写</span><br><span class="line">enumerable: 是否可以被枚举</span><br><span class="line">configurable: 目标属性是否可以被删除或者再次修改</span><br><span class="line">除此之外，还有<span class="built_in">set</span>和get属性，当给一个属性定义getter和setter时，这个属性称之为访问描述符， js会忽略他本身的value以及writable属性，取而代之的访问<span class="built_in">set</span>和get函数。</span><br><span class="line">Object.defineProperty(obj, key, &#123;</span><br><span class="line">  <span class="built_in">set</span>: <span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">    console.log(’<span class="built_in">set</span>….<span class="string">')</span></span><br><span class="line"><span class="string">  &#125;,</span></span><br><span class="line"><span class="string">  get: function()&#123;</span></span><br><span class="line"><span class="string">    console.log(‘get...'</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>5、proxy在vue中的作用（实现双向绑定，即监听值的变化）</p>
 
-        <div class="article-info info-on-right">
-          
-          
+      
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+
+      
+        
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/blog/2018/11/04/MongoDB/" class="archive-article-date">
-  	<time datetime="2018-11-04T10:08:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-04</time>
-</a>
+<nav id="article-nav">
+  
+    <a href="/blog/2018/12/12/客户端http请求的header信息/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          客户端http请求的header信息
+        
+      </div>
+    </a>
+  
+  
+    <a href="/blog/2018/11/04/MongoDB/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">MongoDB</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/blog/2018/11/04/MongoDB/">MongoDB</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
   
 
-    
+  
+
+  
 
 
           </div>
@@ -467,8 +238,8 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
