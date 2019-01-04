@@ -20,7 +20,7 @@
 <meta property="og:image" content="https://qiongqiongwoo.github.io/blog/2018/12/21/Reactdiff以及代码实现/2.png">
 <meta property="og:image" content="https://qiongqiongwoo.github.io/blog/2018/12/21/Reactdiff以及代码实现/3.png">
 <meta property="og:image" content="https://qiongqiongwoo.github.io/blog/2018/12/21/Reactdiff以及代码实现/4.png">
-<meta property="og:updated_time" content="2019-01-04T09:58:21.000Z">
+<meta property="og:updated_time" content="2019-01-04T10:45:34.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="React diff以及代码实现">
 <meta name="twitter:description" content="因为虚拟DOM是内存数据，性能是极高的，而对实际DOM进行操作的仅仅是Diff部分，因而能达到提高性能的目的。这样就需要每次获取dom的diff。react diff（1）diff 流程（2）tree diff:    假设： web ui 中 dom节点跨层级移动的操作很少，可以忽略不计。    优化：两棵树只比较同层节点是否相等，如果不等，直接删除，否则新建。    缺点： 如果出现跨层操作，">
@@ -67,10 +67,6 @@
 		</nav>
 		<nav class="header-smart-menu">
     		
-    			
-    			<a q-on="click: openSlider(e, 'innerArchive')" href="javascript:void(0)">JS/React/ES6</a>
-    			
-            
 		</nav>
 		<nav class="header-nav">
 			<div class="social">
@@ -211,6 +207,17 @@
 	</div>
 
       
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/blog/categories/JS-React//" class="article-tag-list-link color4">JS/React</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
 
       
 

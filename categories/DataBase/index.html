@@ -6,20 +6,18 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="https://qiongqiongwoo.github.io/blog">
-  <title>JS中的概念总结 | blog</title>
+  <title>Category: DataBase | blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="1、call、apply、bind的区别  call apply 和bind都是用来改变this的指向的 call 和 bind都是顺序传参数，apply是传数组 利用call和apply会直接执行当前函数，bind不会2、reduce是es5中的内容1234var arr=“qweqrq&quot;var info= arr.split(&apos;&apos;).reduce((a,b)=&amp;gt;    (a[b]++ |">
-<meta name="keywords" content="react, dom diff">
-<meta property="og:type" content="article">
-<meta property="og:title" content="JS中的概念总结">
-<meta property="og:url" content="https://qiongqiongwoo.github.io/blog/2018/12/23/js中概念总结/index.html">
+  <meta name="description" content="普普通通小码农的日常工作学习的一些粗俗浅显的记录。">
+<meta property="og:type" content="website">
+<meta property="og:title" content="blog">
+<meta property="og:url" content="https://qiongqiongwoo.github.io/blog/categories/DataBase/index.html">
 <meta property="og:site_name" content="blog">
-<meta property="og:description" content="1、call、apply、bind的区别  call apply 和bind都是用来改变this的指向的 call 和 bind都是顺序传参数，apply是传数组 利用call和apply会直接执行当前函数，bind不会2、reduce是es5中的内容1234var arr=“qweqrq&quot;var info= arr.split(&apos;&apos;).reduce((a,b)=&amp;gt;    (a[b]++ |">
+<meta property="og:description" content="普普通通小码农的日常工作学习的一些粗俗浅显的记录。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-01-04T10:46:31.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="JS中的概念总结">
-<meta name="twitter:description" content="1、call、apply、bind的区别  call apply 和bind都是用来改变this的指向的 call 和 bind都是顺序传参数，apply是传数组 利用call和apply会直接执行当前函数，bind不会2、reduce是es5中的内容1234var arr=“qweqrq&quot;var info= arr.split(&apos;&apos;).reduce((a,b)=&amp;gt;    (a[b]++ |">
+<meta name="twitter:title" content="blog">
+<meta name="twitter:description" content="普普通通小码农的日常工作学习的一些粗俗浅显的记录。">
   
   
   <link rel="stylesheet" type="text/css" href="/blog/./main.d2db49.css">
@@ -122,157 +120,60 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-js中概念总结" class="article article-type-post " itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+            
   
-    <h1 class="article-title" itemprop="name">
-      JS中的概念总结
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/blog/archives/2018" class="archive-year">2018</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/blog/2018/11/04/MongoDB/" class="archive-article-date">
+  	<time datetime="2018-11-04T10:08:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-04</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/blog/2018/11/04/MongoDB/">MongoDB</a>
     </h1>
   
 
-        
-        <a href="/blog/2018/12/23/js中概念总结/" class="archive-article-date">
-  	<time datetime="2018-12-23T10:32:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-23</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>1、call、apply、bind的区别</p>
-<ul>
-<li>call apply 和bind都是用来改变this的指向的</li>
-<li>call 和 bind都是顺序传参数，apply是传数组</li>
-<li>利用call和apply会直接执行当前函数，bind不会<br>2、reduce是es5中的内容<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var arr=“qweqrq<span class="string">"</span></span><br><span class="line"><span class="string">var info= arr.split('').reduce((a,b)=&gt;</span></span><br><span class="line"><span class="string">    (a[b]++ || (a[b]=1),a),&#123;&#125;)</span></span><br><span class="line"><span class="string">console.log(info)</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>3、forEach、 map 、 reduce的区别</p>
-<ul>
-<li>forEach 方法是将数组中的每一个值取出做一些程序员想让他们做的事情</li>
-<li>map 方法 是将数组中的每一个值放入一个方法中做一些程序员想让他们做的事情后返回一个新的数组</li>
-<li>reduce 方法 将数组中的每一个值与前面的被返回相加的总和(初试值为数组的第一个值或者initialValue</li>
-</ul>
-<p>4、async await 以及promise<br>promise解决的是回调场景中的状态处理问题，async/await解决的是回调嵌套的问题。<br>（1）async是声明在回调环境函数<br>（2）await是运行在等待回调结果过程中<br>（3）promise是封装了回调操作的原子任务</p>
-<p>5、require import &amp; export &amp; moudle.exports<br>（1）node中用的是commonJs规范，export和require<br>（2）为了在客户端使用，因此有了amd和cmd规范，二者都是异步加载，唯一不同的是依赖的模块执行的时机不同，amd是一边加载一边执行，cmd是加载完后才执行。<br>（3）es6中的规范是export和import，但由于commonJs深入人心，因此还是有很多人使用commonJs规范。<br>（4）require可以出现在代码中，import只能在代码的最顶层</p>
-<p>6、JS异步的实现方式<br>（1）回调   =&gt; 容易出现多重嵌套的问题，代码可读性差<br>（2）事件监听（on和fire）<br>（3）发布和订阅<br>（4）promise对象<br>（5）es6中的新加的generate<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Function *gen(x) &#123;</span><br><span class="line">  var y = yield x + 2;</span><br><span class="line">  <span class="built_in">return</span> y;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>generator函数函数名和function之间加*，所有的执行片段用yield分割。函数的返回值是一个iterator，每次调用next就返回当前当前yield片段的值。<br>适合于返回值有多个状态的情况。<br>（6）es7中的await和async</p>
-<p>7、json和jsonp的区别：json是一种数据格式、jsonp是一种跨域的数据格式传输协议</p>
-<p>8、浏览器同源策略限制不允许跨域。<br>  非跨域是指： 相同的域名、相同的协议、相同的端口。实现跨域的方式：<br>（1）所有含有src属性的标签都不受同源策略限制，比如img，script，iframe，因此可以使用JSONP的方式，即客户端传递一个callback，服务端用callback包裹json数据，返回js片段，这样客户端就可以随意使用json数据，实现跨域了。比如统计点击率时经常用img标签。（jsonp的形式只支持get请求，不支持post请求。）<br>（2）基于jquery的跨域，方式见下（9）<br>  (3) 利用document.domain进行跨域，document.domain可以进行赋值，但只可以设置为当前的域名或者基础域名。<br>因此对于同一个基础域名的相同协议相同端口的跨域请求，可以通过设置document.domain来实现跨域。<br>（4）window.postMessage()<br>（5）cors：跨域资源共享是w3c的一个规范，这个主要在服务器的实现，前端发送请求没有区别。这和jsonp的区别是jsonp只支持get，cors可以支持post。</p>
-<p>9、用jquery实现跨域的方式<br>（1）直接将dataType设置为jsonp<br>/<em>当前网址是localhost:3000</em>/<br>js代码<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">$.ajax(&#123;</span><br><span class="line"><span class="built_in">type</span>:<span class="string">"get"</span>,</span><br><span class="line">url:<span class="string">"http://localhost:3000/showAll"</span>,/*url写异域的请求地址*/</span><br><span class="line">dataType:<span class="string">"jsonp"</span>,/*加上datatype*/</span><br><span class="line">Jsonp: ‘cb<span class="string">', // 传递给请求处理程序或页面的，用以获得jsonp回调函数名的参数名(默认为:callback)</span></span><br><span class="line"><span class="string">jsonpCallback:”success",/*设置一个回调函数，名字随便取，和下面的函数里的名字相同就行*/</span></span><br><span class="line"><span class="string">success:function(data)&#123;</span></span><br><span class="line"><span class="string">  console.log(data)</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">&#125;);</span></span><br><span class="line"><span class="string">/*而在异域服务器上，*/</span></span><br><span class="line"><span class="string">app.js</span></span><br><span class="line"><span class="string">app.get('</span>/showAll<span class="string">',students.showAll);/*这和不跨域的写法相同*/</span></span><br><span class="line"><span class="string">/*在异域服务器的showAll函数里，*/</span></span><br><span class="line"><span class="string">var db = require("./database");</span></span><br><span class="line"><span class="string">exports.showAll = function(req,res)&#123;</span></span><br><span class="line"><span class="string">/**设置响应头允许ajax跨域访问**/</span></span><br><span class="line"><span class="string">res.setHeader("Access-Control-Allow-Origin","*");</span></span><br><span class="line"><span class="string">/*星号表示所有的异域请求都可以接受，*/</span></span><br><span class="line"><span class="string">res.setHeader("Access-Control-Allow-Methods","GET,POST");</span></span><br><span class="line"><span class="string">var con = db.getCon();</span></span><br><span class="line"><span class="string">con.query("select * from t_students",function(error,rows)&#123;</span></span><br><span class="line"><span class="string">if(error)&#123;</span></span><br><span class="line"><span class="string">console.log("数据库出错："+error);</span></span><br><span class="line"><span class="string">&#125;else&#123;</span></span><br><span class="line"><span class="string">/*注意这里，返回的就是jsonP的回调函数名+数据了*/</span></span><br><span class="line"><span class="string">res.send("cb("+JSON.stringify(r)+")");</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">&#125;);</span></span><br><span class="line"><span class="string">&#125;</span></span><br></pre></td></tr></table></figure></p>
-<p>（2）直接调用$.getJson进行跨域请求数据，其内部原理是判断是否跨域、如果非跨域，直接用ajax方式发送请求，否则用script标签的方式<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">jQuery.getJSON(url,data,success(data,status,<span class="keyword">function</span>(data)&#123;</span><br><span class="line">   Console.log(data)</span><br><span class="line">&#125;))</span><br></pre></td></tr></table></figure></p>
-<p>// url是可以非同源的Url，data为一起传递到服务器的数据。<br>10、xss和csrf的区别<br>（1）xss通过输入框或者textare等，往页面上注入一段js，csrf是伪装成当前登录用户发送请求，甚至更改当前用户的信息。<br>（2）csrf的一种实现方式是xss，csrf注重结果。<br>（3）xss避免的一种方式是将html标签进行过滤或者对内容进行encode，另外cookie信息不要放用户名和密码，必要时需要加md5加密，csrf的方式是前后端交互加令牌。<br>11、cookie &amp; session<br>（1）cookie不设置过期时间则保存在内存中，否则保存在硬盘中，下次打开会话，还能读取。cookie可以设置path和domain，且具有不可跨域性。<br>（2）cookie是保存在浏览器上，session是保存在服务器中，因此cookie不是很安全，别人可以分析并且伪装。<br>（3）cookie的value最大为4M，有些浏览器有限制每个站最多设置20个cookie。<br>（4）session会占用服务器资源。<br>12： ajax防止重复发送请求<br>（1）点击后disable掉button<br>（2）发送此请求时，abort掉上一个请求<br>13：xhr（ajax）和fetch的区别<br>（1）ajax为xhr，有abort状态(因为ajax是一个xmlhttpRequest，有个表示状态的readystatus，abort会将此值置为0，readystatus小于3，接收到的responseText未空)，fetch是基于promise实现的，只有resolve和reject状态，因而fetch没有abort状态。<br>（2）fetch发送请求是不带cookie的，只有通过fetch（url, {credentials: ‘inlucde’ }）来加上<br>（3）服务器返回400以及500状态是，fetch并不能reject，只有网络请求失败时会。<br>14、ajax的readystatux状态<br>（1） 0: 未初始化或者被abort到初始状态<br>（2）1：已经初始化正在send请求<br>（3）2： send已经完成<br>（4）3： 已经解析了部分返回内容，未解析完<br>（5）4： 相应内容已经解析完成<br>15、函数防抖和节流<br>（1） 防抖： 一段时间内，没有执行该函数，则一定时间后执行该函数，如果再次触发了事件，则从0开始计数，到达一定时间后再执行事件。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> debounce(fn, <span class="built_in">wait</span>) &#123;</span><br><span class="line">    var timer = null;</span><br><span class="line">    <span class="built_in">return</span> <span class="function"><span class="title">function</span></span>() &#123;</span><br><span class="line">       var context = this;</span><br><span class="line">      var args = arguments;</span><br><span class="line">      <span class="keyword">if</span>( timer != null) clearTimeout(timer)</span><br><span class="line">      timer = setTimeout(() =&gt; &#123;</span><br><span class="line">         fn.apply(context, args)</span><br><span class="line">      &#125;, <span class="built_in">wait</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">handle</span></span>() &#123;</span><br><span class="line">   Console.log(‘handle<span class="string">')</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">window.addEventListener(’scroll’, debounce(handle, 1000))</span></span><br></pre></td></tr></table></figure></p>
-<p>（2）节流：持续触发事件，保证一段时间内，调用一次当前函数。( 且能保证一段时间内至少执行一次)<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> throttle(fn, <span class="built_in">wait</span>) &#123;</span><br><span class="line">    var prev = Date.now();</span><br><span class="line">    <span class="built_in">return</span> <span class="function"><span class="title">function</span></span>() &#123;</span><br><span class="line">        var now = Date.now();</span><br><span class="line">        var context = this;</span><br><span class="line">        var args = arguments;</span><br><span class="line">        If (prev - now &gt; delay) &#123;</span><br><span class="line">          fn(context, args);</span><br><span class="line">          Prev = Date.now();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">handle</span></span>() &#123;</span><br><span class="line">   console.log(<span class="string">'handle'</span>)</span><br><span class="line">&#125;</span><br><span class="line">window.addEventListener(<span class="string">'scroll'</span>, throttle(handle, 1000))</span><br></pre></td></tr></table></figure></p>
-<p>16、vue和react的对比<br>（1）vue和react都提倡组件化开发，都是数据驱动，都是通过props向组件传递参数，都有virtual dom<br>（2）数据绑定： vue是双向数据绑定、react是单向<br>（3）大规模协作的项目用react方便，小的项目用vue方便<br>（2）开发风格：react用的是jsx，vue推荐使用的是 js css都在一个文件<br>17、 gulp 和 webpack的区别<br>18、原型和原型链<br>（1）每个对象都有 <strong>proto</strong> 属性， 但只有函数对象才有 prototype属性<br>（2）对象的<strong>proto</strong>属性指向他的构造函数 person1.<strong>proto</strong> = Person.prototype<br> Person.<strong>proto</strong> = Function.prototype<br> Person.prototype.<strong>proto</strong> = Object.prototype<br>19、img的加载 - 懒加载<br>（1）用img的src进行加载或者用css中background加载<br>（2）重要的信息比如logo适合用img标签，如果图片特别大，建议用css中的background，这样不会影响整体框架在加载<br>（3）动态的设置img的src信息即可<br>20、函数闭包<br>（1）闭包的例子：oldLog还保持旧值，而getLogNumber用新的值的原因可以从类定义，每个函数方法保存是单独的一份这点来区分。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">var gLogNumber, gIncreaseNumber, gSetNumber;</span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">setupSomeGlobals</span></span>() &#123;</span><br><span class="line">  // 局部变量num最后会保存在闭包中</span><br><span class="line">  var num = 42;</span><br><span class="line">  // 将一些对于函数的引用存储为全局变量</span><br><span class="line">  gLogNumber = <span class="function"><span class="title">function</span></span>() &#123; console.log(num); &#125;</span><br><span class="line">  gIncreaseNumber = <span class="function"><span class="title">function</span></span>() &#123; num++; &#125;</span><br><span class="line">  gSetNumber = <span class="keyword">function</span>(x) &#123; num = x; &#125;</span><br><span class="line">&#125;</span><br><span class="line">setupSomeGlobals();</span><br><span class="line">gIncreaseNumber();</span><br><span class="line">gLogNumber(); // 43</span><br><span class="line">gSetNumber(5);</span><br><span class="line">gLogNumber(); // 5</span><br><span class="line">var oldLog = gLogNumber;</span><br><span class="line">setupSomeGlobals();</span><br><span class="line">gLogNumber(); // 42</span><br><span class="line">oldLog() // 5</span><br></pre></td></tr></table></figure></p>
-<p>（2）下例中result是闭包变量，i最后值为3，list[3]是undefined<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> buildList(list) &#123;</span><br><span class="line">    var result = [];</span><br><span class="line">    <span class="keyword">for</span> (var i = 0; i &lt; list.length; i++) &#123;</span><br><span class="line">        var item = <span class="string">'item'</span> + i;</span><br><span class="line">        result.push( <span class="function"><span class="title">function</span></span>() &#123;console.log(item + <span class="string">' '</span> + list[i])&#125; );</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">testList</span></span>() &#123;</span><br><span class="line">    var fnlist = buildList([1,2,3]);</span><br><span class="line">    // 使用j是为了防止搞混---可以使用i</span><br><span class="line">    <span class="keyword">for</span> (var j = 0; j &lt; fnlist.length; j++) &#123;</span><br><span class="line">        fnlist[j]();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"> testList() //输出 <span class="string">"item2 undefined"</span> 3 次</span><br></pre></td></tr></table></figure></p>
-<p>(3) 总结</p>
-<ul>
-<li>函数内使用了关键字function就创建了一个闭包</li>
-<li>闭包相当于一个副本，当函数退出时，所有的局部变量保存在其中</li>
-<li>闭包函数每次被调用，都会被创建一份新的局部变量存储。<br>21、JS中的this<br>（1）在普通函数中，非严格模式下，this指向window，否则指向undefined；<br>（2）作为构造函数中的this指向实例对象<br>（3）call和apply可以改变this中的指向<br>（4）箭头函数在执行前已经定死了this的指向<br>22、常见的几类前端安全性问题：</li>
-</ul>
-<ol>
-<li>老生常谈的XSS（cross site script）  处理方式： 对输入(和URL参数)进行过滤，对输出进行编码。对cookie中的关键信息设置httponly属性，防止被js读取。</li>
-<li>警惕iframe带来的风险：防止自己的网页被iframe（1）直接判断当前网页的host是否和window.top的host是否相同(2)后台配置：header(‘X-Frame-Options:Deny’); iframe别人的网页时： 需要iframe设置sandbox属性，禁止iframe脚本、ajax请求、form表单、限制origin等</li>
-<li>别被点击劫持了（clickjacking）利用iframe先响应click事件，防御策略是后台配置：header(‘X-Frame-Options:Deny’);</li>
-<li>错误的内容推断 (比如：上传的图片是用js片段文件)</li>
-<li>防火防盗防猪队友：不安全的第三方依赖包（第三方插件本身存在漏洞）</li>
-<li>用了HTTPS也可能掉坑里，比如用户直接输入域名，未指定为https方式，会被拦截者获取并模拟服务器与前端交互，处理方式是强制前端用https进行通信</li>
-<li>本地存储数据泄露：本地存储不放敏感信息，只放一些公共信息</li>
-<li>缺失静态资源完整性校验：从cdn中获取的js是被拦截处理过的，导致系统不能正常运行。处理方式有：对引用的script或者css加签名，浏览器拿到资源后，首先进行内容hash，值相同才会进行下一步处理，否则不执行。（ Subresource Integrity  | 内容安全策略中添加所有的 Content-Security-Policy: require-sri-for script;）<br>23：pwa 离线缓存<br>（1）相当于在浏览器和服务器之间加了一层service worker， 用来控制离线缓存，可以将一些不经常更改的静态文件放到缓存中，提升用户体验。并且还可以生成一个原生的操作图标。但这个强制使用https，且浏览器兼容差。<br>24:Post请求数据的格式：<br>（1）默认：application/x-www-form-urlencoded<br>（2）上传图片： multipart/form-data<br>（3）application/json;charset=utf-8<br>（4）xml<br>25: 硬件加速：将渲染的过程交给GPU进行处理，提高渲染性能。<br>26: let const var区别<br>var支持预定义 以及重复定义 其他二者不可<br>let有了块级作用域<br>const变量不可以改 不可以不赋值</li>
-</ol>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">react, dom diff</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
+        <div class="article-info info-on-right">
+          
+          
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/blog/categories/JS-React//" class="article-tag-list-link color4">JS/React</a>
+        			<a href="/blog/categories/DataBase//" class="article-tag-list-link color4">DataBase</a>
         		</li>
       		
 		</ul>
 	</div>
 
 
-      
-
-      
-        
-      
-      <div class="clearfix"></div>
-    </div>
+        </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/blog/2018/12/24/call和apply以及this的指向深入/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          call和apply以及this的指向深入
-        
-      </div>
-    </a>
   
   
-    <a href="/blog/2018/12/21/Reactdiff以及代码实现/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">React diff以及代码实现</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-  
-  
+    </div></section>
   
 
-  
-
-  
-
-  
+    
 
 
           </div>
@@ -295,10 +196,10 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: true,
+		isPost: false,
 		isArchive: false,
 		isTag: false,
-		isCategory: false,
+		isCategory: true,
 		open_in_new: false,
 		toc_hide_index: true,
 		root: "/blog/",
