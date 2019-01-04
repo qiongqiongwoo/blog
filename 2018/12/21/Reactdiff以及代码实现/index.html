@@ -6,12 +6,12 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="https://qiongqiongwoo.github.io/blog">
-  <title>Reactdiff以及代码实现 | blog</title>
+  <title>React diff以及代码实现 | blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="因为虚拟DOM是内存数据，性能是极高的，而对实际DOM进行操作的仅仅是Diff部分，因而能达到提高性能的目的。这样就需要每次获取dom的diff。react diff（1）diff 流程（2）tree diff:    假设： web ui 中 dom节点跨层级移动的操作很少，可以忽略不计。    优化：两棵树只比较同层节点是否相等，如果不等，直接删除，否则新建。    缺点： 如果出现跨层操作，">
 <meta name="keywords" content="react, dom diff">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Reactdiff以及代码实现">
+<meta property="og:title" content="React diff以及代码实现">
 <meta property="og:url" content="https://qiongqiongwoo.github.io/blog/2018/12/21/Reactdiff以及代码实现/index.html">
 <meta property="og:site_name" content="blog">
 <meta property="og:description" content="因为虚拟DOM是内存数据，性能是极高的，而对实际DOM进行操作的仅仅是Diff部分，因而能达到提高性能的目的。这样就需要每次获取dom的diff。react diff（1）diff 流程（2）tree diff:    假设： web ui 中 dom节点跨层级移动的操作很少，可以忽略不计。    优化：两棵树只比较同层节点是否相等，如果不等，直接删除，否则新建。    缺点： 如果出现跨层操作，">
@@ -20,9 +20,9 @@
 <meta property="og:image" content="https://qiongqiongwoo.github.io/blog/2018/12/21/Reactdiff以及代码实现/2.png">
 <meta property="og:image" content="https://qiongqiongwoo.github.io/blog/2018/12/21/Reactdiff以及代码实现/3.png">
 <meta property="og:image" content="https://qiongqiongwoo.github.io/blog/2018/12/21/Reactdiff以及代码实现/4.png">
-<meta property="og:updated_time" content="2019-01-04T09:54:04.000Z">
+<meta property="og:updated_time" content="2019-01-04T09:58:21.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Reactdiff以及代码实现">
+<meta name="twitter:title" content="React diff以及代码实现">
 <meta name="twitter:description" content="因为虚拟DOM是内存数据，性能是极高的，而对实际DOM进行操作的仅仅是Diff部分，因而能达到提高性能的目的。这样就需要每次获取dom的diff。react diff（1）diff 流程（2）tree diff:    假设： web ui 中 dom节点跨层级移动的操作很少，可以忽略不计。    优化：两棵树只比较同层节点是否相等，如果不等，直接删除，否则新建。    缺点： 如果出现跨层操作，">
 <meta name="twitter:image" content="https://qiongqiongwoo.github.io/blog/2018/12/21/Reactdiff以及代码实现/1.png">
   
@@ -134,7 +134,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Reactdiff以及代码实现
+      React diff以及代码实现
     </h1>
   
 
