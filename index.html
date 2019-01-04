@@ -122,6 +122,75 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-call和apply以及this的指向深入" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2019/12/24/call和apply以及this的指向深入/">call和apply以及this的指向深入</a>
+    </h1>
+  
+
+        
+        <a href="/blog/2019/12/24/call和apply以及this的指向深入/" class="archive-article-date">
+  	<time datetime="2019-12-24T07:14:37.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-24</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>1、call的一种实现， apply的实现同下，唯一不同的是传入的arguments是全部的变量数组<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">var a = &#123;</span><br><span class="line">    name: <span class="string">'zhangsan'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var b = <span class="keyword">function</span>(age) &#123;</span><br><span class="line">console.log(this.name)</span><br><span class="line">console.log(age)</span><br><span class="line">&#125;</span><br><span class="line">Function.prototype.call2 = <span class="keyword">function</span>(context)&#123;</span><br><span class="line">  //  call 和 apply的作用 是在 要绑定的obj上添加一个fn， fn为当前要执行的fn，通过执行obj.fn改变真正执行时候的this</span><br><span class="line">  context.fn = this</span><br><span class="line">  var args = Array.prototype.slice.call(arguments,1);</span><br><span class="line">  var result = context.fn(...args)</span><br><span class="line">    delete context.fn</span><br><span class="line">  <span class="built_in">return</span> result</span><br><span class="line">&#125;</span><br><span class="line">b.call2(a, <span class="string">'23'</span>)</span><br></pre></td></tr></table></figure></p>
+<p>2、执行上下文：js引擎在执行一段代码之前，会将当前代码中用到的变量、函数以及this放到一个object中。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">var a = 1;</span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">fun</span></span>() &#123;</span><br><span class="line">   <span class="string">'use strict'</span>;</span><br><span class="line">      var a = 2;</span><br><span class="line">      <span class="built_in">return</span> this.a;</span><br><span class="line">&#125;</span><br><span class="line">fun();//严格模式下函数中的this为undefined，非严格模式下this = window （非严格模式下this为undefined时会默认指向window）</span><br><span class="line">var a = 1;</span><br><span class="line">Var obj = &#123;</span><br><span class="line">    a: 2,</span><br><span class="line">    b: <span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">        <span class="keyword">function</span> <span class="function"><span class="title">test</span></span>()&#123;</span><br><span class="line">            console.log(this.a)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">test</span>()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">obj.b()  // 同样在输出为1 而不是2</span><br><span class="line">var a = 1;</span><br><span class="line">Var obj = &#123;</span><br><span class="line">    a: 2,</span><br><span class="line">    b: <span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">       console.log(this.a)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">Obj.b()  // this为obj，输出为2</span><br><span class="line">var t = obj.b</span><br><span class="line">t() // 输出为1 此时代码执行的上下文为window</span><br></pre></td></tr></table></figure></p>
+<p>3、箭头函数的this是不变的<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">var a = 1;</span><br><span class="line">var obj = &#123;</span><br><span class="line">  a: 2</span><br><span class="line">&#125;;</span><br><span class="line">var fun = () =&gt; console.log(this.a); // 箭头函数会捕获当前上下文的this作为执行的this并且保持不变，此处为window</span><br><span class="line">fun();//1</span><br><span class="line">fun.call(obj)//1</span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">Fun</span></span>() &#123;</span><br><span class="line">  this.name = <span class="string">'Damonare'</span>;</span><br><span class="line">&#125;</span><br><span class="line">Fun.prototype.say = () =&gt; &#123;</span><br><span class="line">   console.log(this);</span><br><span class="line">&#125;</span><br><span class="line">var f = new Fun();</span><br><span class="line">f.say();//window  say在定义时已经确定上下文是window</span><br></pre></td></tr></table></figure></p>
+<p>4、构造函数中的this代表实例对象<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">function Fun() &#123;</span><br><span class="line">  this.name = &apos;Damonre&apos;;</span><br><span class="line">  this.age = 21;</span><br><span class="line">  this.sex = &apos;man&apos;;</span><br><span class="line">  this.run = function () &#123;</span><br><span class="line">    return this.name + &apos;正在跑步&apos;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">var a = new Fun();</span><br><span class="line">a.run() // Damonre</span><br></pre></td></tr></table></figure></p>
+<p>5、<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">Fun</span></span>() &#123;</span><br><span class="line">  this.name = <span class="string">'Damonare'</span>;</span><br><span class="line">    this.say = () =&gt; &#123;</span><br><span class="line">              console.log(this);</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br><span class="line">var f = new Fun();</span><br><span class="line">f.say();//Fun的实例对象  此时的箭头函数的上下文为构造函数，构造函数的上下文为实例对象</span><br></pre></td></tr></table></figure></p>
+<p>6、执行执行上下文的创建流程<br>（1）默认是全局上下文global context， 每遇到一个函数会创建一个函数执行上下文，进入栈， 只有在栈顶时才会激活执行上下文。<br><img src="/blog/2019/12/24/call和apply以及this的指向深入/1.png" alt="image"><br>（2）闭包的执行上下文创建过程<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">f1</span></span>()&#123;</span><br><span class="line">    var n=999;</span><br><span class="line">    <span class="keyword">function</span> <span class="function"><span class="title">f2</span></span>()&#123;</span><br><span class="line">        alert(n);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">return</span> f2;</span><br><span class="line">&#125;</span><br><span class="line">var result=f1();</span><br><span class="line">result();</span><br></pre></td></tr></table></figure></p>
+<p><img src="/blog/2019/12/24/call和apply以及this的指向深入/2.png" alt="image"><br><img src="/blog/2019/12/24/call和apply以及this的指向深入/3.png" alt="image"><br>通过闭包的作用域链可以发现，innerFoo在全局中保留了一个引用，导致未被回收。<br>（3）一个执行上下文的结构如下：<br><img src="/blog/2019/12/24/call和apply以及this的指向深入/4.png" alt="image"><br>执行过程中对属性的查找是按照作用域链条进行查找，并且查找过程是不可逆的， 只能向后查找，因此全局的无法访问内部函数的变量。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">var a = 20;</span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">test</span></span>() &#123;</span><br><span class="line">  var b = a + 10;</span><br><span class="line">  <span class="keyword">function</span> <span class="function"><span class="title">innerTest</span></span>() &#123;</span><br><span class="line">    var c = 10;</span><br><span class="line">    console.log(f); // f最后没查找到， 返回为undefined。</span><br><span class="line">    <span class="built_in">return</span> a + b + c;  // 此处对a的访问，首先查找AO(innerTest),然后查找AO(<span class="built_in">test</span>), 最后查找vo(global)查找到。</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">return</span> innerTest();</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">test</span>();</span><br></pre></td></tr></table></figure></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/blog/2019/12/24/call和apply以及this的指向深入/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-js中概念总结" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
