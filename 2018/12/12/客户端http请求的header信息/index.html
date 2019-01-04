@@ -6,18 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="https://github.com/qiongqiongwoo">
-  <title>qiongqiongwoo</title>
+  <title>客户端http请求的header信息 | qiongqiongwoo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="just for fun">
-<meta property="og:type" content="website">
-<meta property="og:title" content="qiongqiongwoo">
-<meta property="og:url" content="https://github.com/qiongqiongwoo/index.html">
+  <meta name="description" content="1、HTTP请求方式GET：向Web服务器请求一个文件POST：向Web服务器发送数据让Web服务器进行处理PUT：向Web服务器发送数据并存储在Web服务器内部HEAD：检查一个对象是否存在DELETE：从Web服务器上删除一个文件CONNECT：对通道提供支持TRACE：跟踪到服务器的路径OPTIONS：查询Web服务器的性能请求说明：主要使用到“GET”和“POST”。实例：POST /te">
+<meta name="keywords" content="header, http request, htttp options">
+<meta property="og:type" content="article">
+<meta property="og:title" content="客户端http请求的header信息">
+<meta property="og:url" content="https://github.com/qiongqiongwoo/2018/12/12/客户端http请求的header信息/index.html">
 <meta property="og:site_name" content="qiongqiongwoo">
-<meta property="og:description" content="just for fun">
+<meta property="og:description" content="1、HTTP请求方式GET：向Web服务器请求一个文件POST：向Web服务器发送数据让Web服务器进行处理PUT：向Web服务器发送数据并存储在Web服务器内部HEAD：检查一个对象是否存在DELETE：从Web服务器上删除一个文件CONNECT：对通道提供支持TRACE：跟踪到服务器的路径OPTIONS：查询Web服务器的性能请求说明：主要使用到“GET”和“POST”。实例：POST /te">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-01-04T02:56:21.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="qiongqiongwoo">
-<meta name="twitter:description" content="just for fun">
+<meta name="twitter:title" content="客户端http请求的header信息">
+<meta name="twitter:description" content="1、HTTP请求方式GET：向Web服务器请求一个文件POST：向Web服务器发送数据让Web服务器进行处理PUT：向Web服务器发送数据并存储在Web服务器内部HEAD：检查一个对象是否存在DELETE：从Web服务器上删除一个文件CONNECT：对通道提供支持TRACE：跟踪到服务器的路径OPTIONS：查询Web服务器的性能请求说明：主要使用到“GET”和“POST”。实例：POST /te">
   
   
     <link rel="icon" href="/favicon.png">
@@ -125,198 +127,14 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-整理的css知识" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+            <article id="post-客户端http请求的header信息" class="article article-type-post " itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2018/12/14/整理的css知识/">整理的css知识</a>
-    </h1>
-  
-
-        
-        <a href="/blog/2018/12/14/整理的css知识/" class="archive-article-date">
-  	<time datetime="2018-12-14T05:01:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-14</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>css标准地址 <a href="https://www.w3.org/TR/CSS2/visuren.html#inline-formatting" target="_blank" rel="noopener">https://www.w3.org/TR/CSS2/visuren.html#inline-formatting</a><br>1、block、inline、inline-block<br>每个页面元素都有一个display属性，每个元素的display属性都有一个默认值，比如div的display属性为block，span的display属性为inline，inline元素不会自动换行且没有宽和高、block元素有宽和高度，且会自动换行。常见的元素分类如下：<br>（1）block元素：body form textarea h1 - h6 html table button p ul ol div<br>（2）inline元素：title span a em b strong I map 等<br>（3）inline-block元素：img input td select textarea label<br>区别方式为：是否可以设置宽、高、margin、padding值、是否会换行。<br>对inline元素这只padding-top padding-bottom margin-bottom margin-top不会对周边元素产生影响，会加大自身的范围。<br>2、嵌套规则：<br>（1）块状元素可以包含内联元素或者块元素，内连元素不可以包含块元素只包含内连元素<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;a href=<span class="string">"#"</span>&gt;&lt;span&gt;&lt;/span&gt;&lt;/a&gt;  — 正确</span><br><span class="line">&lt;div&gt;&lt;h1&gt;&lt;/h1&gt;&lt;p&gt;&lt;/p&gt;&lt;/div&gt; — 正确</span><br><span class="line">&lt;span&gt;&lt;div&gt;&lt;/div&gt;&lt;/span&gt; — 正确</span><br></pre></td></tr></table></figure></p>
-<p>（2）h1- h6、p、 dt这几个块元素只能包含内联元素或者可变元素<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;p&gt;&lt;ol&gt;&lt;li&gt;&lt;/li&gt;&lt;/ol&gt;&lt;/p&gt; -- wrong</span><br><span class="line">&lt;p&gt;&lt;div&gt;&lt;/div&gt;&lt;/p&gt;  — wrong</span><br></pre></td></tr></table></figure></p>
-<p>（3）特殊的li标签内可以出现div标签<br>（4）块级元素可以与块级元素并列、内联元素可以和内联元素并列<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;div&gt;&lt;h2&gt;&lt;/h2&gt;&lt;p&gt;&lt;/p&gt;&lt;/div&gt;  — right</span><br><span class="line">&lt;div&gt;&lt;a href=<span class="string">"#"</span>&gt;&lt;/a&gt;&lt;span&gt;&lt;/span&gt;&lt;/div&gt;  — right</span><br><span class="line">&lt;div&gt;&lt;h2&gt;&lt;/h2&gt;&lt;span&gt;&lt;/span&gt;&lt;/div&gt; -- wrong</span><br></pre></td></tr></table></figure></p>
-<p>3、inline元素改为block元素的方式<br>（1）直接将display值设置为block/inline-block<br>（2）直接将position设置为absolute或者fix<br>4、inline-block元素出现缝隙的解决方式<br>（1）两个inline-block元素之间不能出现换行、空格等<br>（2）设置margin-right值为负值<br>（3）将父元素的font-size、letter-spacing、word-spacing值<br>5、block元素内的inline-block元素出现底部空白或者两个inline-block元素无法对齐的情况<br>（1）使用vertical-align：top<br>（2）例子： <a href="https://segmentfault.com/a/1190000010934928" target="_blank" rel="noopener">https://segmentfault.com/a/1190000010934928</a><br>6、em: 相对于父级元素font-size的比例。<br>rem：相对于根元素html的font-size比例。<br>ex：所用字体中x的高度，通常取em的一半。<br>7、css的三种定位机制：普通流、浮动和绝对定位。position有relative、absolute、fix、static<br>relative：相对于元素应该出现的位置的相对位置。<br>absolute：绝对定位的盒子是相对于离他最近的一个已定位的盒子进行定位的，可能是relative，可能是absolute。默认是body。<br>浮动和绝对定位都将元素剥离了文档流。<br>8、background-origin: 取值可以为content-box、padding-box、border-box，规定背景图放置的位置。<br>9、box盒子模型<br>（1）ie设置的height和 width = margin + padding +content-width<br>（2）标准的盒子模型的 width = content-width<br>（3）css3中加了一个属性叫box-sizing 来区分上面的情况（content-box \ border-box \ padding-box）<br>10、formatting context:  它是页面中的一块渲染区域、并且有自己的一套渲染规则、他决定了元素如何定位以及与其他元素如何相互作用。常见的类别有：<br>（1）BFC (block formatting context)</p>
-<ul>
-<li>BFC是一个独立的区域，不受外部元素影响也不影响外部元素</li>
-<li>只有块级元素参加</li>
-<li>box会在垂直方向上一个接一个的放置</li>
-<li>属于同一个BFC的相邻的两个box的margin会重叠</li>
-<li>计算BFC高度时，浮动元素也参与计算</li>
-<li>每个元素的margin box的左边与包含块的border box的左边相接处，存在浮动也是如此<br>会生成BFC的方式：</li>
-<li>根元素比如body</li>
-<li>float不为none</li>
-<li>position为absolute或者fixed</li>
-<li>display为inline-block、table-cell、table-caption、flex、inline-flex</li>
-<li>overflow为hidden、scroll、auto<br>例子： <a href="https://www.jianshu.com/p/66632298e355" target="_blank" rel="noopener">https://www.jianshu.com/p/66632298e355</a><br>（2）IFC (inline formatting context)</li>
-<li>只会在一个块级元素中只包含内连级别元素时才会生成。</li>
-<li>行内级元素（inline-level element）的display为inline、inline-block、inline-table</li>
-<li>行内级元素生成行内盒（inline-level box），参与行内格式化上下文</li>
-<li>行框的宽度由其内部包含的块以及浮动元素所决定</li>
-<li>如果几个行内框无法放入一个行框内，他们可能分配在两个或者多个垂直的行框内</li>
-<li>同一个行内框如果不能放入一个行框内，也会分配到多个垂直的行框</li>
-<li>行框的高度可以容纳所包含的框，对齐标准为vertical-align（此处会引入下面的12问题）<br>（3）GFC<br>（4）FFC<br>11、line-height: 设置行间的距离，可以设置的方式<br>（1）number：以当前的字体属性值来设置行高(不同的浏览器默认值不同， 介于1 - 1.2之间)<br>（2）百分比：以当前字体属性的百分比来设置<br>（3）length：固定的值<br>12、vertical-align: 默认值为baseline，即按照基线进行对齐，此值是和line-height相关的。<br>（1）css中对基线的定义为：inline-block元素的基线是标准流中最后一个行框的基线， 除非这个行框没有行盒子或者本身overflow属性计算值不是visible，这种情况下，基线是该元素margin底边缘。<br>（2）inline元素有两个高度：和字体相关的content-area，以及实际区域virtual-area（line-height）</li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">css</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2018/12/14/整理的css知识/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-compose的执行和实现方式" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2018/12/13/compose的执行和实现方式/">compose的执行和实现方式</a>
-    </h1>
-  
-
-        
-        <a href="/blog/2018/12/13/compose的执行和实现方式/" class="archive-article-date">
-  	<time datetime="2018-12-13T07:11:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-13</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="compose：执行一系列任务的函数-tasks-step1-step2-step3…"><a href="#compose：执行一系列任务的函数-tasks-step1-step2-step3…" class="headerlink" title="compose：执行一系列任务的函数 tasks = [ step1, step2, step3… ]"></a>compose：执行一系列任务的函数 tasks = [ step1, step2, step3… ]</h2><ul>
-<li>Bulleted</li>
-<li>List</li>
-</ul>
-<ol>
-<li>执行顺序从右到左边</li>
-<li>第一个函数的参数可以是多个，后面的函数参数只能是一个</li>
-<li>函数的执行是同步的</li>
-</ol>
-<p>let init = (…args) =&gt; args.reduce((ele1, ele2) =&gt; ele1 + ele2, 0)<br>let step2 = (val) =&gt; val + 2<br>let step3 = (val) =&gt; val + 3<br>let step4 = (val) =&gt; val + 4<br>输出： 15</p>
-<h2 id="compose的实现"><a href="#compose的实现" class="headerlink" title="compose的实现"></a>compose的实现</h2><p>（1）lodash中的实现<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">var flow = function（funcs）&#123;</span><br><span class="line"><span class="code">    Var length = funcs.length</span></span><br><span class="line"><span class="code">    Var index = length</span></span><br><span class="line"></span><br><span class="line"><span class="code">    while (index--) &#123;</span></span><br><span class="line"><span class="code">        if (typeof funcs[index] !== 'function') &#123;</span></span><br><span class="line"><span class="code">            throw new TypeError('Expected a function');</span></span><br><span class="line"><span class="code">        &#125;</span></span><br><span class="line"><span class="code">    &#125;</span></span><br><span class="line"><span class="code">        Return function(…args) &#123;</span></span><br><span class="line"><span class="code">        var index = 0</span></span><br><span class="line"><span class="code">        var result = length ? funcs[index].apply(this, args) : args[0]</span></span><br><span class="line"><span class="code">        while (++index &lt; length) &#123;</span></span><br><span class="line"><span class="code">            result = funcs[index].call(this, result)</span></span><br><span class="line"><span class="code">        &#125;</span></span><br><span class="line"><span class="code">        return result</span></span><br><span class="line"><span class="code">        &#125;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>（2）promise实现compose<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">const compose = function(…funcs) &#123;</span><br><span class="line">  let init = funcs.pop()</span><br><span class="line">  return function(...arg) &#123;</span><br><span class="line"><span class="code">    return funcs.reverse().reduce(function(sequence, func) &#123;</span></span><br><span class="line"><span class="code">      return sequence.then(function(result) &#123;</span></span><br><span class="line"><span class="code">        return func.call(null, result)</span></span><br><span class="line"><span class="code">      &#125;)</span></span><br><span class="line"><span class="code">    &#125;, Promise.resolve(init.apply(null, arg)))</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">js, node, compose</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2018/12/13/compose的执行和实现方式/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-客户端http请求的header信息" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2018/12/12/客户端http请求的header信息/">客户端http请求的header信息</a>
+    <h1 class="article-title" itemprop="name">
+      客户端http请求的header信息
     </h1>
   
 
@@ -363,16 +181,79 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2018/12/12/客户端http请求的header信息/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=https://github.com/qiongqiongwoo/2018/12/12/客户端http请求的header信息/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/blog/2018/12/13/compose的执行和实现方式/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          compose的执行和实现方式
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -392,8 +273,14 @@
 
 
 
+  
+  
+  
 
   
+
+  
+
   
 
 
@@ -416,8 +303,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,

@@ -6,12 +6,12 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="https://github.com/qiongqiongwoo">
-  <title>qiongqiongwoo</title>
+  <title>Tag: header, http request, htttp options | qiongqiongwoo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="just for fun">
 <meta property="og:type" content="website">
 <meta property="og:title" content="qiongqiongwoo">
-<meta property="og:url" content="https://github.com/qiongqiongwoo/index.html">
+<meta property="og:url" content="https://github.com/qiongqiongwoo/tags/header-http-request-htttp-options/index.html">
 <meta property="og:site_name" content="qiongqiongwoo">
 <meta property="og:description" content="just for fun">
 <meta property="og:locale" content="default">
@@ -127,228 +127,34 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-整理的css知识" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2018/12/14/整理的css知识/">整理的css知识</a>
-    </h1>
-  
-
-        
-        <a href="/blog/2018/12/14/整理的css知识/" class="archive-article-date">
-  	<time datetime="2018-12-14T05:01:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-14</time>
-</a>
-        
-      </header>
     
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>css标准地址 <a href="https://www.w3.org/TR/CSS2/visuren.html#inline-formatting" target="_blank" rel="noopener">https://www.w3.org/TR/CSS2/visuren.html#inline-formatting</a><br>1、block、inline、inline-block<br>每个页面元素都有一个display属性，每个元素的display属性都有一个默认值，比如div的display属性为block，span的display属性为inline，inline元素不会自动换行且没有宽和高、block元素有宽和高度，且会自动换行。常见的元素分类如下：<br>（1）block元素：body form textarea h1 - h6 html table button p ul ol div<br>（2）inline元素：title span a em b strong I map 等<br>（3）inline-block元素：img input td select textarea label<br>区别方式为：是否可以设置宽、高、margin、padding值、是否会换行。<br>对inline元素这只padding-top padding-bottom margin-bottom margin-top不会对周边元素产生影响，会加大自身的范围。<br>2、嵌套规则：<br>（1）块状元素可以包含内联元素或者块元素，内连元素不可以包含块元素只包含内连元素<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;a href=<span class="string">"#"</span>&gt;&lt;span&gt;&lt;/span&gt;&lt;/a&gt;  — 正确</span><br><span class="line">&lt;div&gt;&lt;h1&gt;&lt;/h1&gt;&lt;p&gt;&lt;/p&gt;&lt;/div&gt; — 正确</span><br><span class="line">&lt;span&gt;&lt;div&gt;&lt;/div&gt;&lt;/span&gt; — 正确</span><br></pre></td></tr></table></figure></p>
-<p>（2）h1- h6、p、 dt这几个块元素只能包含内联元素或者可变元素<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;p&gt;&lt;ol&gt;&lt;li&gt;&lt;/li&gt;&lt;/ol&gt;&lt;/p&gt; -- wrong</span><br><span class="line">&lt;p&gt;&lt;div&gt;&lt;/div&gt;&lt;/p&gt;  — wrong</span><br></pre></td></tr></table></figure></p>
-<p>（3）特殊的li标签内可以出现div标签<br>（4）块级元素可以与块级元素并列、内联元素可以和内联元素并列<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;div&gt;&lt;h2&gt;&lt;/h2&gt;&lt;p&gt;&lt;/p&gt;&lt;/div&gt;  — right</span><br><span class="line">&lt;div&gt;&lt;a href=<span class="string">"#"</span>&gt;&lt;/a&gt;&lt;span&gt;&lt;/span&gt;&lt;/div&gt;  — right</span><br><span class="line">&lt;div&gt;&lt;h2&gt;&lt;/h2&gt;&lt;span&gt;&lt;/span&gt;&lt;/div&gt; -- wrong</span><br></pre></td></tr></table></figure></p>
-<p>3、inline元素改为block元素的方式<br>（1）直接将display值设置为block/inline-block<br>（2）直接将position设置为absolute或者fix<br>4、inline-block元素出现缝隙的解决方式<br>（1）两个inline-block元素之间不能出现换行、空格等<br>（2）设置margin-right值为负值<br>（3）将父元素的font-size、letter-spacing、word-spacing值<br>5、block元素内的inline-block元素出现底部空白或者两个inline-block元素无法对齐的情况<br>（1）使用vertical-align：top<br>（2）例子： <a href="https://segmentfault.com/a/1190000010934928" target="_blank" rel="noopener">https://segmentfault.com/a/1190000010934928</a><br>6、em: 相对于父级元素font-size的比例。<br>rem：相对于根元素html的font-size比例。<br>ex：所用字体中x的高度，通常取em的一半。<br>7、css的三种定位机制：普通流、浮动和绝对定位。position有relative、absolute、fix、static<br>relative：相对于元素应该出现的位置的相对位置。<br>absolute：绝对定位的盒子是相对于离他最近的一个已定位的盒子进行定位的，可能是relative，可能是absolute。默认是body。<br>浮动和绝对定位都将元素剥离了文档流。<br>8、background-origin: 取值可以为content-box、padding-box、border-box，规定背景图放置的位置。<br>9、box盒子模型<br>（1）ie设置的height和 width = margin + padding +content-width<br>（2）标准的盒子模型的 width = content-width<br>（3）css3中加了一个属性叫box-sizing 来区分上面的情况（content-box \ border-box \ padding-box）<br>10、formatting context:  它是页面中的一块渲染区域、并且有自己的一套渲染规则、他决定了元素如何定位以及与其他元素如何相互作用。常见的类别有：<br>（1）BFC (block formatting context)</p>
-<ul>
-<li>BFC是一个独立的区域，不受外部元素影响也不影响外部元素</li>
-<li>只有块级元素参加</li>
-<li>box会在垂直方向上一个接一个的放置</li>
-<li>属于同一个BFC的相邻的两个box的margin会重叠</li>
-<li>计算BFC高度时，浮动元素也参与计算</li>
-<li>每个元素的margin box的左边与包含块的border box的左边相接处，存在浮动也是如此<br>会生成BFC的方式：</li>
-<li>根元素比如body</li>
-<li>float不为none</li>
-<li>position为absolute或者fixed</li>
-<li>display为inline-block、table-cell、table-caption、flex、inline-flex</li>
-<li>overflow为hidden、scroll、auto<br>例子： <a href="https://www.jianshu.com/p/66632298e355" target="_blank" rel="noopener">https://www.jianshu.com/p/66632298e355</a><br>（2）IFC (inline formatting context)</li>
-<li>只会在一个块级元素中只包含内连级别元素时才会生成。</li>
-<li>行内级元素（inline-level element）的display为inline、inline-block、inline-table</li>
-<li>行内级元素生成行内盒（inline-level box），参与行内格式化上下文</li>
-<li>行框的宽度由其内部包含的块以及浮动元素所决定</li>
-<li>如果几个行内框无法放入一个行框内，他们可能分配在两个或者多个垂直的行框内</li>
-<li>同一个行内框如果不能放入一个行框内，也会分配到多个垂直的行框</li>
-<li>行框的高度可以容纳所包含的框，对齐标准为vertical-align（此处会引入下面的12问题）<br>（3）GFC<br>（4）FFC<br>11、line-height: 设置行间的距离，可以设置的方式<br>（1）number：以当前的字体属性值来设置行高(不同的浏览器默认值不同， 介于1 - 1.2之间)<br>（2）百分比：以当前字体属性的百分比来设置<br>（3）length：固定的值<br>12、vertical-align: 默认值为baseline，即按照基线进行对齐，此值是和line-height相关的。<br>（1）css中对基线的定义为：inline-block元素的基线是标准流中最后一个行框的基线， 除非这个行框没有行盒子或者本身overflow属性计算值不是visible，这种情况下，基线是该元素margin底边缘。<br>（2）inline元素有两个高度：和字体相关的content-area，以及实际区域virtual-area（line-height）</li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
+    
       
       
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">css</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2018/12/14/整理的css知识/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/blog/archives/2018" class="archive-year">2018</a>
         </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-compose的执行和实现方式" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
+        <div class="archives">
     
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2018/12/13/compose的执行和实现方式/">compose的执行和实现方式</a>
-    </h1>
-  
-
-        
-        <a href="/blog/2018/12/13/compose的执行和实现方式/" class="archive-article-date">
-  	<time datetime="2018-12-13T07:11:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-13</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="compose：执行一系列任务的函数-tasks-step1-step2-step3…"><a href="#compose：执行一系列任务的函数-tasks-step1-step2-step3…" class="headerlink" title="compose：执行一系列任务的函数 tasks = [ step1, step2, step3… ]"></a>compose：执行一系列任务的函数 tasks = [ step1, step2, step3… ]</h2><ul>
-<li>Bulleted</li>
-<li>List</li>
-</ul>
-<ol>
-<li>执行顺序从右到左边</li>
-<li>第一个函数的参数可以是多个，后面的函数参数只能是一个</li>
-<li>函数的执行是同步的</li>
-</ol>
-<p>let init = (…args) =&gt; args.reduce((ele1, ele2) =&gt; ele1 + ele2, 0)<br>let step2 = (val) =&gt; val + 2<br>let step3 = (val) =&gt; val + 3<br>let step4 = (val) =&gt; val + 4<br>输出： 15</p>
-<h2 id="compose的实现"><a href="#compose的实现" class="headerlink" title="compose的实现"></a>compose的实现</h2><p>（1）lodash中的实现<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">var flow = function（funcs）&#123;</span><br><span class="line"><span class="code">    Var length = funcs.length</span></span><br><span class="line"><span class="code">    Var index = length</span></span><br><span class="line"></span><br><span class="line"><span class="code">    while (index--) &#123;</span></span><br><span class="line"><span class="code">        if (typeof funcs[index] !== 'function') &#123;</span></span><br><span class="line"><span class="code">            throw new TypeError('Expected a function');</span></span><br><span class="line"><span class="code">        &#125;</span></span><br><span class="line"><span class="code">    &#125;</span></span><br><span class="line"><span class="code">        Return function(…args) &#123;</span></span><br><span class="line"><span class="code">        var index = 0</span></span><br><span class="line"><span class="code">        var result = length ? funcs[index].apply(this, args) : args[0]</span></span><br><span class="line"><span class="code">        while (++index &lt; length) &#123;</span></span><br><span class="line"><span class="code">            result = funcs[index].call(this, result)</span></span><br><span class="line"><span class="code">        &#125;</span></span><br><span class="line"><span class="code">        return result</span></span><br><span class="line"><span class="code">        &#125;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>（2）promise实现compose<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">const compose = function(…funcs) &#123;</span><br><span class="line">  let init = funcs.pop()</span><br><span class="line">  return function(...arg) &#123;</span><br><span class="line"><span class="code">    return funcs.reverse().reduce(function(sequence, func) &#123;</span></span><br><span class="line"><span class="code">      return sequence.then(function(result) &#123;</span></span><br><span class="line"><span class="code">        return func.call(null, result)</span></span><br><span class="line"><span class="code">      &#125;)</span></span><br><span class="line"><span class="code">    &#125;, Promise.resolve(init.apply(null, arg)))</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">js, node, compose</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2018/12/13/compose的执行和实现方式/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-客户端http请求的header信息" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2018/12/12/客户端http请求的header信息/">客户端http请求的header信息</a>
-    </h1>
-  
-
-        
-        <a href="/blog/2018/12/12/客户端http请求的header信息/" class="archive-article-date">
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/blog/2018/12/12/客户端http请求的header信息/" class="archive-article-date">
   	<time datetime="2018-12-12T07:41:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-12</time>
 </a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="1、HTTP请求方式"><a href="#1、HTTP请求方式" class="headerlink" title="1、HTTP请求方式"></a>1、HTTP请求方式</h2><p>GET：向Web服务器请求一个文件<br>POST：向Web服务器发送数据让Web服务器进行处理<br>PUT：向Web服务器发送数据并存储在Web服务器内部<br>HEAD：检查一个对象是否存在<br>DELETE：从Web服务器上删除一个文件<br>CONNECT：对通道提供支持<br>TRACE：跟踪到服务器的路径<br>OPTIONS：查询Web服务器的性能<br>请求说明：主要使用到“GET”和“POST”。<br>实例：<br>POST /test/tupian/cm HTTP/1.1<br>分成三部分：<br>（1）POST：HTTP请求方式<br>（2）/test/tupian/cm：请求Web服务器的目录地址（或者指令）<br>（3）HTTP/1.1: URI（Uniform Resource Identifier，统一资源标识符）及其版本</p>
-<h2 id="2、Host"><a href="#2、Host" class="headerlink" title="2、Host"></a>2、Host</h2><p>说明：请求的web服务器域名地址<br>实例：<br>例如web请求URL：<a href="http://zjm-forum-test10.zjm.baidu.com:8088/test/tupian/cm" target="_blank" rel="noopener">http://zjm-forum-test10.zjm.baidu.com:8088/test/tupian/cm</a><br>Host就为zjm-forum-test10.zjm.baidu.com:8088</p>
-<h2 id="3、User-Agent"><a href="#3、User-Agent" class="headerlink" title="3、User-Agent"></a>3、User-Agent</h2><p>说明：HTTP客户端运行的浏览器类型的详细信息。通过该头部信息，web服务器可以判断到当前HTTP请求的客户端浏览器类别。<br>实例：User-Agent: Mozilla/5.0 (Windows; U; Windows NT 5.1; zh-CN; rv:1.8.1.11) Gecko/20071127 Firefox/2.0.0.11</p>
-<h2 id="4、Accept"><a href="#4、Accept" class="headerlink" title="4、Accept"></a>4、Accept</h2><p>说明：指定客户端能够接收的内容类型，内容类型中的先后次序表示客户端接收的先后次序。<br>实例：<br>例如：Accept:text/xml,application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,<em>/</em>;q=0.5<br>备注：<br>在Prototyp（1.5）的Ajax代码封装中，将Accept默认设置为“text/javascript, text/html, application/xml, text/xml, <em>/</em>”。这是因为Ajax默认获取服务器返回的Json数据模式。<br>在Ajax代码中，可以使用XMLHttpRequest 对象中setRequestHeader函数方法来动态设置这些Header信息。</p>
-<h2 id="5、Accept-Language"><a href="#5、Accept-Language" class="headerlink" title="5、Accept-Language"></a>5、Accept-Language</h2><p>说明：指定HTTP客户端浏览器用来展示返回信息所优先选择的语言。<br>实例：<br>Accept-Language: zh-cn,zh;q=0.5<br>这里默认为中文。</p>
-<h2 id="6、Accept-Encoding"><a href="#6、Accept-Encoding" class="headerlink" title="6、Accept-Encoding"></a>6、Accept-Encoding</h2><p>说明：指定客户端浏览器可以支持的web服务器返回内容压缩编码类型。表示允许服务器在将输出内容发送到客户端以前进行压缩，以节约带宽。而这里设置的就是客户端浏览器所能够支持的返回压缩格式。<br>实例：Accept-Encoding: gzip,deflate<br>备注：<br>其实在百度很多产品线中，apache在给客户端返回页面数据之前，将数据以gzip格式进行压缩。<br>另外有关deflate压缩介绍：<br><a href="http://man.chinaunix.net/newsoft/ApacheMenual_CN_2.2new/mod/mod_deflate.html" target="_blank" rel="noopener">http://man.chinaunix.net/newsoft/ApacheMenual_CN_2.2new/mod/mod_deflate.html</a></p>
-<h2 id="7、Accept-Charset"><a href="#7、Accept-Charset" class="headerlink" title="7、Accept-Charset"></a>7、Accept-Charset</h2><p>说明：浏览器可以接受的字符编码集。<br>实例：Accept-Charset: gb2312,utf-8;q=0.7,*;q=0.7</p>
-<h2 id="8、Content-Type"><a href="#8、Content-Type" class="headerlink" title="8、Content-Type"></a>8、Content-Type</h2><p>说明：显示此HTTP请求提交的内容类型。一般只有post提交时才需要设置该属性。<br>实例：Content-type: application/x-www-form-urlencoded;charset:UTF-8<br>有关Content-Type属性值可以如下两种编码类型：<br>（1）“application/x-www-form-urlencoded”： 表单数据向服务器提交时所采用的编码类型，默认的缺省值就是“application/x-www-form-urlencoded”。 然而，在向服务器发送大量的文本、包含非ASCII字符的文本或二进制数据时这种编码方式效率很低。<br>（2）“multipart/form-data”： 在文件上载时，所使用的编码类型应当是“multipart/form-data”，它既可以发送文本数据，也支持二进制数据上载。<br>当提交为单单数据时，可以使用“application/x-www-form-urlencoded”；当提交的是文件时，就需要使用“multipart/form-data”编码类型。<br>在Content-Type属性当中还是指定提交内容的charset字符编码。一般不进行设置，它只是告诉web服务器post提交的数据采用的何种字符编码。<br>一般在开发过程，是由前端工程与后端UI工程师商量好使用什么字符编码格式来post提交的，然后后端ui工程师按照固定的字符编码来解析提交的数据。所以这里设置的charset没有多大作用。</p>
-<h2 id="9、Connection"><a href="#9、Connection" class="headerlink" title="9、Connection"></a>9、Connection</h2><p>说明：表示是否需要持久连接。如果web服务器端看到这里的值为“Keep-Alive”，或者看到请求使用的是HTTP 1.1（HTTP 1.1默认进行持久连接），它就可以利用持久连接的优点，当页面包含多个元素时（例如Applet，图片），显著地减少下载所需要的时间。要实现这一点， web服务器需要在返回给客户端HTTP头信息中发送一个Content-Length（返回信息正文的长度）头，最简单的实现方法是：先把内容写入ByteArrayOutputStream，然 后在正式写出内容之前计算它的大小。<br>实例：Connection: keep-alive</p>
-<h2 id="10、Keep-Alive"><a href="#10、Keep-Alive" class="headerlink" title="10、Keep-Alive"></a>10、Keep-Alive</h2><p>说明：显示此HTTP连接的Keep-Alive时间。使客户端到服务器端的连接持续有效，当出现对服务器的后继请求时，Keep-Alive功能避免了建立或者重新建立连接。<br>以前HTTP请求是一站式连接，从HTTP/1.1协议之后，就有了长连接，即在规定的Keep-Alive时间内，连接是不会断开的。<br>实例：Keep-Alive: 300</p>
-<h2 id="11、cookie"><a href="#11、cookie" class="headerlink" title="11、cookie"></a>11、cookie</h2><p>说明：HTTP请求发送时，会把保存在该请求域名下的所有cookie值一起发送给web服务器。</p>
-<h2 id="12、Referer"><a href="#12、Referer" class="headerlink" title="12、Referer"></a>12、Referer</h2><p>说明：包含一个URL，用户从该URL代表的页面出发访问当前请求的页面<br>服务器端返回HTTP头部信息<br>1、Content-Length<br>说明：表示web服务器返回消息正文的长度<br>2、Content-Type:<br>说明：返回数据的类型（例如text/html文本类型）和字符编码格式。<br>实例：Content-Type: text/html;charset=utf-8<br>3、Date<br>说明：显示当前的时间</p>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/blog/2018/12/12/客户端http请求的header信息/">客户端http请求的header信息</a>
+    </h1>
+  
 
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
+        <div class="article-info info-on-right">
+          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -360,41 +166,19 @@
 		</ul>
 	</div>
 
-      
+          
 
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2018/12/12/客户端http请求的header信息/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
+        </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
   
   
+    </div></section>
+  
+
+    
 
 
           </div>
@@ -416,10 +200,10 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
+		isHome: false,
 		isPost: false,
 		isArchive: false,
-		isTag: false,
+		isTag: true,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
