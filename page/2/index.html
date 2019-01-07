@@ -6,12 +6,12 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="https://qiongqiongwoo.github.io/blog">
-  <title>Archives: 2018 | blog</title>
+  <title>blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="普普通通小码农的日常工作学习的一些粗俗浅显的记录。">
 <meta property="og:type" content="website">
 <meta property="og:title" content="blog">
-<meta property="og:url" content="https://qiongqiongwoo.github.io/blog/archives/2018/index.html">
+<meta property="og:url" content="https://qiongqiongwoo.github.io/blog/page/2/index.html">
 <meta property="og:site_name" content="blog">
 <meta property="og:description" content="普普通通小码农的日常工作学习的一些粗俗浅显的记录。">
 <meta property="og:locale" content="default">
@@ -134,232 +134,101 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-JS中class深入" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2018/10/11/JS中class深入/">JS中class深入</a>
+    </h1>
+  
+
+        
+        <a href="/blog/2018/10/11/JS中class深入/" class="archive-article-date">
+  	<time datetime="2018-10-11T10:24:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-11</time>
+</a>
+        
+      </header>
     
-    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>1、es6中的class<br>（1）es6中定义一个class的实例<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">class Person&#123;</span><br><span class="line">    constructor(name)&#123;</span><br><span class="line">        this.name = name</span><br><span class="line">    &#125;</span><br><span class="line">  Hello2 = () =&gt; &#123;</span><br><span class="line">    //  console.log(‘hello 2 是原型方法，每个实例对象都包含一个，而不是放在__proto——中的<span class="string">')</span></span><br><span class="line"><span class="string">  &#125;</span></span><br><span class="line"><span class="string">    hello()&#123;</span></span><br><span class="line"><span class="string">        console.log('</span>my name is<span class="string">'+this.name)</span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">var xiaoming = new Person('</span>xiaoming<span class="string">')</span></span><br><span class="line"><span class="string">xiaoming.hello() // my name is xiaoming</span></span><br><span class="line"><span class="string">var lisi = new Person(‘lisi'</span>)</span><br><span class="line">lisi.hello() // my name is lisi</span><br><span class="line"></span><br><span class="line">typeof Person // <span class="keyword">function</span></span><br><span class="line">xiaoming.__proto__ === lisi.__proto__  // <span class="literal">true</span></span><br><span class="line">xiaoming.__proto__ === Person.prototype // <span class="literal">true</span></span><br><span class="line">Xiaoming.hello = Person.prototype.hello // <span class="literal">true</span></span><br></pre></td></tr></table></figure></p>
+<p>Es5中定义的类中的方法和es6中定义的类中的方法的区别：</p>
+<ul>
+<li>Es5中定义的方法是可以枚举的Object.keys(Person1.__proto) : [‘hello’], 而es6中的不可以枚举</li>
+<li>es6中的方法定义时不要带function且方法名可以用参数</li>
+<li>Es6中的class和5中的区别并不大，只是一个语法糖（便于书写的东西）</li>
+<li>在ES6里如果要使用super使用父类的同名方法，父类的方法不能设置为实例方法<br>（2）Person结构<br><img src="/blog/2018/10/11/JS中class深入/1.png" alt="image"><br>（3）es5中创建一个类的方式<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> Person(name) &#123;  // 以<span class="keyword">function</span>的形式创建类</span><br><span class="line">  this.name = name</span><br><span class="line">&#125;</span><br><span class="line">Person.prototype.describe = <span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">  console.log(<span class="string">'my name is'</span>+this.name)</span><br><span class="line">&#125;</span><br><span class="line">var jany = new Person(<span class="string">'jany'</span>)</span><br><span class="line">jany.__proto__ === Person.prototype // <span class="literal">true</span></span><br><span class="line">jany.describe()</span><br><span class="line"><span class="keyword">function</span> superMan(name,age)&#123;</span><br><span class="line">  Person.call(this,name)  // Person.apply(this, args)</span><br><span class="line">  this.age = age</span><br><span class="line">&#125;</span><br><span class="line">superMan.prototype = Object.create(Person.prototype) // Objcet.create是用创建一个新的obj，并将obj.__proto__指向当前的obj。</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>以上代码执行的过程为</p>
+<ul>
+<li>首先给Person.prototype属性所指的原型对象上添加一个方法describe</li>
+<li>在使用new关键字创建对象时，会默认给当前对象添加一个原型属性<strong>proto</strong>并指向Person.prototype</li>
+<li>在读取describe时候，jany本身并不包含该方法，于是到原型链上去查找。<br><img src="/blog/2018/10/11/JS中class深入/2.png" alt="image"><br>（4）js中object中包含两部分：普通属性和原型属性<strong>proto</strong>，从结构中可以看到<strong>proto</strong>仍然是一个对象，即原型对象。而prototype是function独有的属性，再调用new时用来生成<strong>proto</strong>。constructor是比较特殊的属性，用来指向类本身。<br><img src="/blog/2018/10/11/JS中class深入/3.png" alt="image"><br>（5）object function之间的关系图(Object和Function互为实例)<br><img src="/blog/2018/10/11/JS中class深入/4.png" alt="image"><br>（6）es6中extends的实现<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">class Foo &#123;</span><br><span class="line">  constructor(who)&#123;</span><br><span class="line">    this.me = who;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="title">identify</span></span>()&#123;</span><br><span class="line">    <span class="built_in">return</span> <span class="string">"I am "</span> + this.me;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">class Bar extends Foo &#123;</span><br><span class="line">  constructor(who)&#123;</span><br><span class="line">    // super() 指的是调用父类 （super关键字指代父类的实例即this对象）</span><br><span class="line">    // 调用的同时，会绑定 this 。</span><br><span class="line">    // 如：Foo.call(this, who)</span><br><span class="line">    super(who);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="title">speak</span></span>() &#123;</span><br><span class="line">    alert( <span class="string">"Hello, "</span> + this.identify() + <span class="string">"."</span> );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">var b1 = new Bar( <span class="string">"b1"</span> );</span><br><span class="line">b1.speak();</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>Foo和Bar的关系图如下（可以看到Bar的prototype是Foo的一个实例，在Bar的prototype中找不到的属性到Foo中去找）<br><img src="/blog/2018/10/11/JS中class深入/5.png" alt="image"><br>（7）instance of的原理：检测左侧的<strong>proto</strong>原型链上是不是存在右侧的prototype<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">L instanceof R     //  L.__proto__.__proto__….. === R.prototype</span><br></pre></td></tr></table></figure></p>
+<p>（8） es6之前没有类的概念，为了实现继承需要采用一些手段， 以下描述了类继承的一些进展<br>1、通过原型链继承  -  js原型链条的特性导致如果一个object中找不到当前属性可以按照prototype往上找，因此为了实现继承，可以将child的prototype设置为parent的一个实例。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> Parent(name) &#123;</span><br><span class="line">  this.name = name;</span><br><span class="line">&#125;</span><br><span class="line">Parent.prototype.sayName = <span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">  console.log(‘parent name’, this.name)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">function</span> Child(name) &#123;</span><br><span class="line">  this.name = name;</span><br><span class="line">&#125;</span><br><span class="line">Child.prototype = new Parent(‘zhang’);</span><br><span class="line">Child.prototype.constructor = Child;</span><br><span class="line">Child.prototype.sayName = <span class="function"><span class="title">function</span></span>() &#123;</span><br><span class="line">  console.log(‘child name’, this.name)</span><br><span class="line">&#125;</span><br><span class="line">var child = new Child(’son’);</span><br><span class="line">child.sayName();  // parent个人的一些属性对于child的多个实体来说是一份</span><br></pre></td></tr></table></figure></p>
+<p>2、为了解决上面的属性不能继承的问题，可以利用类继承的方式<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> Parent(name) &#123;</span><br><span class="line">    this.name = name;console.log(<span class="string">'set parent name'</span>, name);</span><br><span class="line">&#125;</span><br><span class="line">Parent.prototype.sayName = <span class="function"><span class="title">function</span></span>() &#123;</span><br><span class="line">    console.log(<span class="string">'parent name:'</span>, this.name);</span><br><span class="line">&#125;</span><br><span class="line">Parent.prototype.doSomthing = <span class="function"><span class="title">function</span></span>() &#123;</span><br><span class="line">    console.log(<span class="string">'parent do something!'</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">function</span> Child(name, parentName) &#123;</span><br><span class="line">    Parent.call(this, parentName);</span><br><span class="line">    this.child_name = name;</span><br><span class="line">&#125;</span><br><span class="line">var child = new Child(<span class="string">'son’);</span></span><br></pre></td></tr></table></figure></p>
+<p>child有两个属性分别为name和child_name，但是方法确继承不下来了。</p>
+<p>3、将上面属性继承和方法继承组合在一起<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> Parent(name) &#123;</span><br><span class="line">  this.parent_name = name;</span><br><span class="line">&#125;</span><br><span class="line">Parent.prototype.sayName = <span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">  console.log(<span class="string">'parent name'</span>, this.name)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">function</span> Child(chiild_name, parent_name) &#123;</span><br><span class="line">  Parent.call(this, parent_name)</span><br><span class="line">  this.child_name = chiild_name;</span><br><span class="line">&#125;</span><br><span class="line">Child.prototype = new Parent(<span class="string">'zhang'</span>);</span><br><span class="line">Child.prototype.constructor = Child;</span><br><span class="line">Child.prototype.sayName = <span class="function"><span class="title">function</span></span>() &#123;</span><br><span class="line">  console.log(<span class="string">'child name'</span>, this.name)</span><br><span class="line">&#125;</span><br><span class="line">var child = new Child(<span class="string">'son'</span>, <span class="string">'li'</span>);</span><br></pre></td></tr></table></figure></p>
+<p>此时既做到了属性继承也做到了方法继承， child的结构为：</p>
+<p>4、上述两次冗余的地方目的是为了将子类的prototype的<strong>proto</strong>指向父类，因此可以创建一个空函数， 空函数的prototype指向parent的prototype，而子类为此空函数的子类即可。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Child.prototype = new Parent(<span class="string">'zhang’); 可以升级为  child.prototype = Object.create(Parent.prototype)</span></span><br></pre></td></tr></table></figure></p>
+<p>阿拉蕾的class实现<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br></pre></td><td class="code"><pre><span class="line">// The base Class implementation.</span><br><span class="line"><span class="keyword">function</span> Class(o) &#123;</span><br><span class="line">  //这个判断用来支持 将一个已有普通类转换成 阿拉蕾的类</span><br><span class="line">  <span class="keyword">if</span> (!(this instanceof Class) &amp;&amp; isFunction(o)) &#123;</span><br><span class="line">    //原理是给这个函数增加extend，implement方法</span><br><span class="line">    <span class="built_in">return</span> classify(o)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">//用于创建一个类，第一个参数可选，可以直接创建时就指定继承的父类。</span><br><span class="line">//第二个参数也可选，用来表明需要混入的类属性。</span><br><span class="line">//有三个特殊的属性为Extends,Implements,Statics.分别代表要继承的父类，需要混入原型的东西，还有静态属性。</span><br><span class="line">Class.create = <span class="keyword">function</span>(parent, properties) &#123;</span><br><span class="line">  //创建一个类时可以不指定要继承的父类。直接传入属性对象。</span><br><span class="line">  <span class="keyword">if</span> (!isFunction(parent)) &#123;</span><br><span class="line">    properties = parent</span><br><span class="line">    parent = null</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  properties || (properties = &#123;&#125;)</span><br><span class="line">  //没有指定父类的话 就查看有没有Extends特殊属性，都没有的话就用Class作为父类</span><br><span class="line">  parent || (parent = properties.Extends || Class)</span><br><span class="line">  properties.Extends = parent</span><br><span class="line"></span><br><span class="line">  // 子类构造函数的定义</span><br><span class="line">  <span class="keyword">function</span> <span class="function"><span class="title">SubClass</span></span>() &#123;</span><br><span class="line">    // 自动帮忙调用父类的构造函数</span><br><span class="line">    parent.apply(this, arguments)</span><br><span class="line"></span><br><span class="line">    // Only call initialize <span class="keyword">in</span> self constructor.</span><br><span class="line">    //真正的构造函数放在initialize里面</span><br><span class="line">    <span class="keyword">if</span> (this.constructor === SubClass &amp;&amp; this.initialize) &#123;</span><br><span class="line">      this.initialize.apply(this, arguments)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  // Inherit class (static) properties from parent.</span><br><span class="line">  // parent为Class就没必要混入</span><br><span class="line">  <span class="keyword">if</span> (parent !== Class) &#123;</span><br><span class="line">    //将父类里面的属性都混入到子类里面这边主要是静态属性</span><br><span class="line">    mix(SubClass, parent, parent.StaticsWhiteList)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  // Add instance properties to the subclass.</span><br><span class="line">  // 调用implement将自定义的属性混入到子类原型里面。遇到特殊值会单独处理，真正的继承也是发生在这里面</span><br><span class="line">  //这边把属性也都弄到了原型上，因为这边每次create或者extend都会生成一个新的SubClass。</span><br><span class="line">  //所以倒也不会发生属性公用的问题。但是总感觉不大好</span><br><span class="line">  implement.call(SubClass, properties)</span><br><span class="line"></span><br><span class="line">  // Make subclass extendable.</span><br><span class="line">  //给生成的子类增加extend和implement方法，可以在类定义完后，再去继承，去混入其他属性。</span><br><span class="line">  <span class="built_in">return</span> classify(SubClass)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// Create a sub Class based on `Class`.</span><br><span class="line">Class.extend = <span class="keyword">function</span>(properties) &#123;</span><br><span class="line">  properties || (properties = &#123;&#125;)</span><br><span class="line">  //定义继承的对象是自己</span><br><span class="line">  properties.Extends = this</span><br><span class="line">  //调用Class.create实现继承的流程</span><br><span class="line">  <span class="built_in">return</span> Class.create(properties)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 这里定义了一些特殊的属性，阿拉蕾遍历时发现key是这里面的一个时，会调用这里面的方法处理。</span><br><span class="line">Class.Mutators = &#123;</span><br><span class="line">  //这个定义了继承的真正操作代码。</span><br><span class="line">  <span class="string">'Extends'</span>: <span class="keyword">function</span>(parent) &#123;</span><br><span class="line">    //这边的this指向子类</span><br><span class="line">    var existed = this.prototype</span><br><span class="line">    //生成一个中介原型，就是之前我们实现的objectCreat</span><br><span class="line">    var proto = createProto(parent.prototype)</span><br><span class="line">    //将子类原型有的方法混入到新的中介原型上</span><br><span class="line">    mix(proto, existed)</span><br><span class="line">    // 改变构造函数指向子类</span><br><span class="line">    proto.constructor = this</span><br><span class="line">    // 改变原型 完成继承</span><br><span class="line">    this.prototype = proto</span><br><span class="line">    //为子类增加superclass属性，这样可以调用父类原型的方法。</span><br><span class="line">    this.superclass = parent.prototype</span><br><span class="line">  &#125;,</span><br><span class="line">  //这个有点类似组合的概念，支持数组。将其他类的属性混入到子类原型上</span><br><span class="line">  <span class="string">'Implements'</span>: <span class="keyword">function</span>(items) &#123;</span><br><span class="line">    isArray(items) || (items = [items])</span><br><span class="line">    var proto = this.prototype, item</span><br><span class="line">    <span class="keyword">while</span> (item = items.shift()) &#123;</span><br><span class="line">      mix(proto, item.prototype || item)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  //传入静态属性</span><br><span class="line">  <span class="string">'Statics'</span>: <span class="keyword">function</span>(staticProperties) &#123;</span><br><span class="line">    mix(this, staticProperties)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// Shared empty constructor <span class="keyword">function</span> to aid <span class="keyword">in</span> prototype-chain creation.</span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">Ctor</span></span>() &#123;&#125;</span><br><span class="line">// 用于在类定义之后，往类里面添加方法。提供了之后修改类的可能。</span><br><span class="line">// 类似上面defjs实现的open函数。</span><br><span class="line"><span class="keyword">function</span> implement(properties) &#123;</span><br><span class="line">  var key, value</span><br><span class="line">  <span class="keyword">for</span> (key <span class="keyword">in</span> properties) &#123;</span><br><span class="line">    value = properties[key]</span><br><span class="line">    //发现属性是特殊的值时，调用对应的处理函数处理</span><br><span class="line">    <span class="keyword">if</span> (Class.Mutators.hasOwnProperty(key)) &#123;</span><br><span class="line">      Class.Mutators[key].call(this, value)</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      this.prototype[key] = value</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//给一个普通的函数 增加extend和implement方法。</span><br><span class="line"><span class="keyword">function</span> classify(cls) &#123;</span><br><span class="line">  cls.extend = Class.extend</span><br><span class="line">  cls.implement = implement</span><br><span class="line">  <span class="built_in">return</span> cls</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//用来支持 commonjs的模块规范。</span><br><span class="line">module.exports = Class</span><br><span class="line">// 使用</span><br><span class="line">// Create a new Class.</span><br><span class="line">//  var SuperPig = Class.create(&#123;</span><br><span class="line">//    Extends: Animal,</span><br><span class="line">//    Implements: Flyable,</span><br><span class="line">//    initialize: <span class="function"><span class="title">function</span></span>() &#123;</span><br><span class="line">//      SuperPig.superclass.initialize.apply(this, arguments)</span><br><span class="line">//    &#125;,</span><br><span class="line">//    Statics: &#123;</span><br><span class="line">//      COLOR: <span class="string">'red'</span></span><br><span class="line">//    &#125;</span><br><span class="line">// &#125;)</span><br><span class="line">//</span><br><span class="line"></span><br><span class="line">// 这个方法就是我们之前实现的objectCreat，用来使用一个中介者来处理原型的问题，</span><br><span class="line">// 当浏览器支持`__proto__`时可以直接使用。</span><br><span class="line">// 否则新建一个空函数再将父类的原型赋值给这个空函数，返回这个空函数的实例</span><br><span class="line">var createProto = Object.__proto__ ?</span><br><span class="line">    <span class="keyword">function</span>(proto) &#123;</span><br><span class="line">      <span class="built_in">return</span> &#123; __proto__: proto &#125;</span><br><span class="line">    &#125; :</span><br><span class="line">    <span class="keyword">function</span>(proto) &#123;</span><br><span class="line">      Ctor.prototype = proto</span><br><span class="line">      <span class="built_in">return</span> new Ctor()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">// Helpers 下面都是些辅助方法，很简单就不说了</span><br><span class="line"><span class="keyword">function</span> mix(r, s, wl) &#123;</span><br><span class="line">  // Copy <span class="string">"all"</span> properties including inherited ones.</span><br><span class="line">  <span class="keyword">for</span> (var p <span class="keyword">in</span> s) &#123;</span><br><span class="line">    //过滤掉原型链上面的属性</span><br><span class="line">    <span class="keyword">if</span> (s.hasOwnProperty(p)) &#123;</span><br><span class="line">      <span class="keyword">if</span> (wl &amp;&amp; indexOf(wl, p) === -1) <span class="built_in">continue</span></span><br><span class="line">      // 在 iPhone 1 代等设备的 Safari 中，prototype 也会被枚举出来，需排除</span><br><span class="line">      <span class="keyword">if</span> (p !== <span class="string">'prototype'</span>) &#123;</span><br><span class="line">        r[p] = s[p]</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+      
+
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/blog/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/blog/2018/12/24/call和apply以及this的指向深入/" class="archive-article-date">
-  	<time datetime="2018-12-24T07:14:37.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-24</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/blog/2018/12/24/call和apply以及this的指向深入/">call和apply以及this的指向深入</a>
-    </h1>
-  
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			
+        		<li class="article-tag-list-item">
+        			<a href="/blog/categories/JS-React//" class="article-tag-list-link color4">JS/React</a>
+        		</li>
+      		
+		</ul>
+	</div>
 
-    </header>
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/blog/2018/10/11/JS中class深入/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/blog/2018/12/23/js中概念总结/" class="archive-article-date">
-  	<time datetime="2018-12-23T10:32:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-23</time>
-</a>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/blog/2018/12/23/js中概念总结/">JS中的概念总结</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/blog/2018/12/23/BSON和JSON区别/" class="archive-article-date">
-  	<time datetime="2018-12-23T08:16:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-23</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/blog/2018/12/23/BSON和JSON区别/">BSON和JSON区别</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/blog/2018/12/21/Reactdiff以及代码实现/" class="archive-article-date">
-  	<time datetime="2018-12-21T09:39:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-21</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/blog/2018/12/21/Reactdiff以及代码实现/">React diff以及代码实现</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/blog/2018/12/14/浏览器渲染/" class="archive-article-date">
-  	<time datetime="2018-12-14T06:21:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-14</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/blog/2018/12/14/浏览器渲染/">浏览器渲染</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/blog/2018/12/14/整理的css知识/" class="archive-article-date">
-  	<time datetime="2018-12-14T05:01:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-14</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/blog/2018/12/14/整理的css知识/">整理的css知识</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/blog/2018/12/13/compose的执行和实现方式/" class="archive-article-date">
-  	<time datetime="2018-12-13T07:11:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-13</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/blog/2018/12/13/compose的执行和实现方式/">compose的执行和实现方式</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/blog/2018/12/12/客户端http请求的header信息/" class="archive-article-date">
-  	<time datetime="2018-12-12T07:41:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-12</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/blog/2018/12/12/客户端http请求的header信息/">客户端http请求的header信息</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/blog/2018/11/14/ES6中的proxy和应用/" class="archive-article-date">
-  	<time datetime="2018-11-14T10:18:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-14</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/blog/2018/11/14/ES6中的proxy和应用/">ES6中的proxy和应用</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/blog/2018/11/04/MongoDB/" class="archive-article-date">
-  	<time datetime="2018-11-04T10:08:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-04</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/blog/2018/11/04/MongoDB/">MongoDB</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
+        
+        
+    </div>
+</aside>
   
   
-    </div></section>
-  
-
-    
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/blog/archives/2018/page/2/">2</a><a class="extend next" rel="next" href="/blog/archives/2018/page/2/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/blog/">&laquo; Prev</a><a class="page-number" href="/blog/">1</a><span class="page-number current">2</span>
     </nav>
   
 
@@ -380,9 +249,9 @@
     <script>
 	var yiliaConfig = {
 		mathjax: true,
-		isHome: false,
+		isHome: true,
 		isPost: false,
-		isArchive: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
