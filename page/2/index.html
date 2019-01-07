@@ -58,7 +58,7 @@
 	        
 				<li><a href="/blog/categories/DataBase">DataBase</a></li>
 	        
-				<li><a href="/blog/categories/NLP">NLP</a></li>
+				<li><a href="/blog/categories/CPlusPlus">CPlusPlus</a></li>
 	        
 			</ul>
 		</nav>
@@ -123,7 +123,7 @@
 		        
 					<li style="width: 20%"><a href="/blog/categories/DataBase">DataBase</a></li>
 		        
-					<li style="width: 20%"><a href="/blog/categories/NLP">NLP</a></li>
+					<li style="width: 20%"><a href="/blog/categories/CPlusPlus">CPlusPlus</a></li>
 		        
 				</ul>
 			</nav>
@@ -139,6 +139,87 @@
           </div>
           <div id="js-content" class="content-ll">
             
+  
+    <article id="post-聚类方法" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2018/11/12/聚类方法/">聚类方法</a>
+    </h1>
+  
+
+        
+        <a href="/blog/2018/11/12/聚类方法/" class="archive-article-date">
+  	<time datetime="2018-11-12T07:18:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-12</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>（1）文本表示的方法<br>一般使用向量空间模型，粒度为一个词语，即将文本表示为N维空间中的一个规范化的特征矢量。<br>（2）特征选取<br>特征的选择分为两种，一种是每一类选取一部分词语作为特征词，二是整个系统作为一个整体来选择特征值。特征选择的几种方式：<br>tf-idf：文档频率和反文档频率。<br>信息增益：整个系统选择一部分特征词。它的衡量方式是有特征和无特征的情况下，整个系统的信息熵的变化。<br><img src="/blog/2018/11/12/聚类方法/1.png" alt="image"></p>
+<p>（4）相似度计算<br>两个向量之间计算距离的几种方式：</p>
+<ul>
+<li>欧氏距离<br><img src="/blog/2018/11/12/聚类方法/2.png" alt="image"></li>
+<li>曼哈顿距离<br><img src="/blog/2018/11/12/聚类方法/3.png" alt="image"></li>
+<li>余弦夹角<br><img src="/blog/2018/11/12/聚类方法/4.png" alt="image"></li>
+<li>汉明距离<br>将一个字符串转换为另一个字符串时所作的最小替换次数。</li>
+<li>信息熵<br><img src="/blog/2018/11/12/聚类方法/5.png" alt="image"><br>（5）新闻聚类中采取的方式<br>feature词表<br>fearture词表是采用tf-idf来提取的，分别训练出了每一类的特征词以及所对应的权重，以及整个系统的特征词以及权重。聚类拿的是系统的特征词表。<br>一篇文档的处理：<br>首先对文档进行分词，查看是否出现特征词，计算特征词的权重，形成一个向量。<br>tf：在当前文档中出现的次数<br>idf：从分类特征中加载的idf<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">weight = tf * <span class="built_in">log</span>(1/idf +0.01)</span><br><span class="line">Topic质心的计算方式(term1......termm)</span><br><span class="line">page1： weight11，weight12，weight1m</span><br><span class="line">page2： weight21，weight22，weight2m</span><br><span class="line">pagen： weightn1，weightn2，weightnm</span><br><span class="line">首先计算平均值：</span><br><span class="line">w1=  ( weight11+weight21+weighn1)/n</span><br><span class="line">w2= (weight12+weight22+...weightn2)/n</span><br><span class="line">wm=（weight1m+weight2m+...weightnm）/n</span><br><span class="line">用阈值过滤（weight值最大不可超过阈值）</span><br><span class="line">归一化</span><br><span class="line">w1 = w1 /(w1*w1 + w2*w2 + ... wm *wm)</span><br><span class="line">wm = wm /(w1*w1 + w2*w2 + ... wm *wm)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>（6）处理的流程<br>将每一个文档都当做一个topic；<br>选择距离最近的两个topic；<br>计算两个topic合并前后的凝聚力大小变化（凝聚力为topic下文档两两之间距离的均值（此距离用的是欧式距离）），变化过大则跳转到第二步，重新选择；<br>合并两个topic，更新新的topic的质心，并重新计算该topic和其他topic之间的距离<br>如果topic的数量少于最少的topic数目，跳出循环返回，否则跳转到第二步；</p>
+<p>（7）两个topic之间距离的计算，最大为1，最小为0<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">topic 1: X1 =  (w11, w21, ...... wm1)</span><br><span class="line">topic 2: X2 = (w12, w22, ...... wm2)</span><br><span class="line">sum = w11 *w12 + .... wm1* wm2</span><br><span class="line">num =  (w11 &amp; w12 ? 1:0)+ ..... (wm1&amp;wm2?1:0）</span><br><span class="line">avg = sum /num</span><br><span class="line">dis  = (w11 &amp; w12)?(w11*w12-avg)*(w11*w12-avg):0  + ...... (wm1 &amp; wm2)?(wm1*wm2-avg)*(wm1*wm2-avg):0</span><br><span class="line">dis = dis / num</span><br></pre></td></tr></table></figure></p>
+<p>（8）聚类的结果调整<br>同一个网站发布了大量同一个类的文章，比如某一时间段健康频道下会出现大量的关于某一疾病的说明、治疗方式等，这个可以通过url过滤掉。同一个网站不同频道发布的也算。<br>影响聚类结果调整的参数：topic之间的相似度、topic的凝聚力、特征选取的多少<br>topic的排序：按照转载量，即每个topic下的文章的数量（焦点新闻）<br>（9）KNN<br>算法接受一个未标记的数据集，然后将数据聚类成不同的组。<br>首先随机的选取K个点，作为聚类的中心。<br>对于每一篇文档计算与聚类中心的距离，将其归类为距离最小的那一组中，并更新该组的聚类中心。<br>直到中心点不再变化。</p>
+
+      
+
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			
+        		<li class="article-tag-list-item">
+        			<a href="/blog/categories/CPlusPlus//" class="article-tag-list-link color5">CPlusPlus</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/blog/2018/11/12/聚类方法/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
   
     <article id="post-MongoDB" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
