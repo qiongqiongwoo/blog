@@ -296,6 +296,64 @@
     </div>
 </aside>
   
+    <article id="post-SVM分类" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2018/11/07/SVM分类/">SVM分类</a>
+    </h1>
+  
+
+        
+        <a href="/blog/2018/11/07/SVM分类/" class="archive-article-date">
+  	<time datetime="2018-11-07T08:17:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-07</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>SVM的分类问题<br>（1）特征空间上间隔最大的线性分类器<br>（2）线性分类：找到一个超平面将数据分开<br>（3）当超平面离数据的距离越远，找到的这个超平面的置信度就越高<br>（4）因此为了找到最合适的超平面，则需要找到距离最大的位置，如下图，虚线上的点即为支持向量<br><img src="/blog/2018/11/07/SVM分类/1.png" alt="image"><br>（5）找到超平面，分类的问题就转换为f(x)的正负问题<br>（6）对于低维不可份的情况，需要映射到高维空间，使其可分，但为了防止维度变大，此处采用了核函数的性质。核函数的价值在于它虽然也是讲特征进行从低维到高维的转换，但核函数绝就绝在它事先在低维上进行计算，而将实质上的分类效果表现在了高维上，也就如上文所说的避免了直接在高维空间中的复杂计算。核函数有高斯核，多项式核函数。<br>（7）svm中存在噪音数据，如下例，outlier，用松弛变量处理<br><img src="/blog/2018/11/07/SVM分类/2.png" alt="image"><br>（8）将svm用于多分类的方法<br><img src="/blog/2018/11/07/SVM分类/3.png" alt="image"><br>假设待分类别有五类：<br>（1）可以按照下图的方式，进行分类<br><img src="/blog/2018/11/07/SVM分类/3.png" alt="image"><br>这种方法的坏处是需要训练的分类器太多。<br>（2）第一次就把类别1的样本定为正样本，其余2，3，4，5的样本合起来定为负样本，这样得到一个两类分类器，它能够指出一篇文章是还是不是第1类的；第二次我们把类别2 的样本定为正样本，把1，3，4，5的样本合起来定为负样本，得到一个分类器，如此下去，我们可以得到5个这样的两类分类器（总是和类别的数目一致）。<br>这样容易出现数据倾斜的问题，样本不均航。<br>（9）svm模型训练的方法<br><img src="/blog/2018/11/07/SVM分类/4.png" alt="image"><br>svm模型训练的前提是特征的选取以及模型的训练。<br>（10）特征选取的方法<br>特征选取后，将文本映射为向量，进而表示为高纬空间的一个点，调用分类器，判断其类别。<br>tf*idf方法：tf表示该词在文档中的词频，idf，出现的文档数据。<br>信息增益的方法：特征能够为整个系统所带来的信息量，带来的信息量越大，信息增益越大；</p>
+
+      
+
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/blog/2018/11/07/SVM分类/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+  
     <article id="post-MongoDB" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     

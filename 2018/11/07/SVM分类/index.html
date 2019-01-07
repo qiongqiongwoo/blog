@@ -6,25 +6,25 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="https://qiongqiongwoo.github.io/blog">
-  <title>聚类方法 | blog</title>
+  <title>SVM分类 | blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="（1）文本表示的方法一般使用向量空间模型，粒度为一个词语，即将文本表示为N维空间中的一个规范化的特征矢量。（2）特征选取特征的选择分为两种，一种是每一类选取一部分词语作为特征词，二是整个系统作为一个整体来选择特征值。特征选择的几种方式：tf-idf：文档频率和反文档频率。信息增益：整个系统选择一部分特征词。它的衡量方式是有特征和无特征的情况下，整个系统的信息熵的变化。 （4）相似度计算两个向量之间">
+  <meta name="description" content="SVM的分类问题（1）特征空间上间隔最大的线性分类器（2）线性分类：找到一个超平面将数据分开（3）当超平面离数据的距离越远，找到的这个超平面的置信度就越高（4）因此为了找到最合适的超平面，则需要找到距离最大的位置，如下图，虚线上的点即为支持向量（5）找到超平面，分类的问题就转换为f(x)的正负问题（6）对于低维不可份的情况，需要映射到高维空间，使其可分，但为了防止维度变大，此处采用了核函数的性质。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="聚类方法">
-<meta property="og:url" content="https://qiongqiongwoo.github.io/blog/2018/11/12/聚类方法/index.html">
+<meta property="og:title" content="SVM分类">
+<meta property="og:url" content="https://qiongqiongwoo.github.io/blog/2018/11/07/SVM分类/index.html">
 <meta property="og:site_name" content="blog">
-<meta property="og:description" content="（1）文本表示的方法一般使用向量空间模型，粒度为一个词语，即将文本表示为N维空间中的一个规范化的特征矢量。（2）特征选取特征的选择分为两种，一种是每一类选取一部分词语作为特征词，二是整个系统作为一个整体来选择特征值。特征选择的几种方式：tf-idf：文档频率和反文档频率。信息增益：整个系统选择一部分特征词。它的衡量方式是有特征和无特征的情况下，整个系统的信息熵的变化。 （4）相似度计算两个向量之间">
+<meta property="og:description" content="SVM的分类问题（1）特征空间上间隔最大的线性分类器（2）线性分类：找到一个超平面将数据分开（3）当超平面离数据的距离越远，找到的这个超平面的置信度就越高（4）因此为了找到最合适的超平面，则需要找到距离最大的位置，如下图，虚线上的点即为支持向量（5）找到超平面，分类的问题就转换为f(x)的正负问题（6）对于低维不可份的情况，需要映射到高维空间，使其可分，但为了防止维度变大，此处采用了核函数的性质。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://qiongqiongwoo.github.io/blog/2018/11/12/聚类方法/1.png">
-<meta property="og:image" content="https://qiongqiongwoo.github.io/blog/2018/11/12/聚类方法/2.png">
-<meta property="og:image" content="https://qiongqiongwoo.github.io/blog/2018/11/12/聚类方法/3.png">
-<meta property="og:image" content="https://qiongqiongwoo.github.io/blog/2018/11/12/聚类方法/4.png">
-<meta property="og:image" content="https://qiongqiongwoo.github.io/blog/2018/11/12/聚类方法/5.png">
-<meta property="og:updated_time" content="2019-01-07T04:00:07.000Z">
+<meta property="og:image" content="https://qiongqiongwoo.github.io/blog/2018/11/07/SVM分类/1.png">
+<meta property="og:image" content="https://qiongqiongwoo.github.io/blog/2018/11/07/SVM分类/2.png">
+<meta property="og:image" content="https://qiongqiongwoo.github.io/blog/2018/11/07/SVM分类/3.png">
+<meta property="og:image" content="https://qiongqiongwoo.github.io/blog/2018/11/07/SVM分类/3.png">
+<meta property="og:image" content="https://qiongqiongwoo.github.io/blog/2018/11/07/SVM分类/4.png">
+<meta property="og:updated_time" content="2019-01-07T08:25:21.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="聚类方法">
-<meta name="twitter:description" content="（1）文本表示的方法一般使用向量空间模型，粒度为一个词语，即将文本表示为N维空间中的一个规范化的特征矢量。（2）特征选取特征的选择分为两种，一种是每一类选取一部分词语作为特征词，二是整个系统作为一个整体来选择特征值。特征选择的几种方式：tf-idf：文档频率和反文档频率。信息增益：整个系统选择一部分特征词。它的衡量方式是有特征和无特征的情况下，整个系统的信息熵的变化。 （4）相似度计算两个向量之间">
-<meta name="twitter:image" content="https://qiongqiongwoo.github.io/blog/2018/11/12/聚类方法/1.png">
+<meta name="twitter:title" content="SVM分类">
+<meta name="twitter:description" content="SVM的分类问题（1）特征空间上间隔最大的线性分类器（2）线性分类：找到一个超平面将数据分开（3）当超平面离数据的距离越远，找到的这个超平面的置信度就越高（4）因此为了找到最合适的超平面，则需要找到距离最大的位置，如下图，虚线上的点即为支持向量（5）找到超平面，分类的问题就转换为f(x)的正负问题（6）对于低维不可份的情况，需要映射到高维空间，使其可分，但为了防止维度变大，此处采用了核函数的性质。">
+<meta name="twitter:image" content="https://qiongqiongwoo.github.io/blog/2018/11/07/SVM分类/1.png">
   
   
   <link rel="stylesheet" type="text/css" href="/blog/./main.25115c.css">
@@ -145,39 +145,27 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-聚类方法" class="article article-type-post " itemscope="" itemprop="blogPost">
+            <article id="post-SVM分类" class="article article-type-post " itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      聚类方法
+      SVM分类
     </h1>
   
 
         
-        <a href="/blog/2018/11/12/聚类方法/" class="archive-article-date">
-  	<time datetime="2018-11-12T07:18:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-12</time>
+        <a href="/blog/2018/11/07/SVM分类/" class="archive-article-date">
+  	<time datetime="2018-11-07T08:17:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-07</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>（1）文本表示的方法<br>一般使用向量空间模型，粒度为一个词语，即将文本表示为N维空间中的一个规范化的特征矢量。<br>（2）特征选取<br>特征的选择分为两种，一种是每一类选取一部分词语作为特征词，二是整个系统作为一个整体来选择特征值。特征选择的几种方式：<br>tf-idf：文档频率和反文档频率。<br>信息增益：整个系统选择一部分特征词。它的衡量方式是有特征和无特征的情况下，整个系统的信息熵的变化。<br><img src="/blog/2018/11/12/聚类方法/1.png" alt="image"></p>
-<p>（4）相似度计算<br>两个向量之间计算距离的几种方式：</p>
-<ul>
-<li>欧氏距离<br><img src="/blog/2018/11/12/聚类方法/2.png" alt="image"></li>
-<li>曼哈顿距离<br><img src="/blog/2018/11/12/聚类方法/3.png" alt="image"></li>
-<li>余弦夹角<br><img src="/blog/2018/11/12/聚类方法/4.png" alt="image"></li>
-<li>汉明距离<br>将一个字符串转换为另一个字符串时所作的最小替换次数。</li>
-<li>信息熵<br><img src="/blog/2018/11/12/聚类方法/5.png" alt="image"><br>（5）新闻聚类中采取的方式<br>feature词表<br>fearture词表是采用tf-idf来提取的，分别训练出了每一类的特征词以及所对应的权重，以及整个系统的特征词以及权重。聚类拿的是系统的特征词表。<br>一篇文档的处理：<br>首先对文档进行分词，查看是否出现特征词，计算特征词的权重，形成一个向量。<br>tf：在当前文档中出现的次数<br>idf：从分类特征中加载的idf<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">weight = tf * <span class="built_in">log</span>(1/idf +0.01)</span><br><span class="line">Topic质心的计算方式(term1......termm)</span><br><span class="line">page1： weight11，weight12，weight1m</span><br><span class="line">page2： weight21，weight22，weight2m</span><br><span class="line">pagen： weightn1，weightn2，weightnm</span><br><span class="line">首先计算平均值：</span><br><span class="line">w1=  ( weight11+weight21+weighn1)/n</span><br><span class="line">w2= (weight12+weight22+...weightn2)/n</span><br><span class="line">wm=（weight1m+weight2m+...weightnm）/n</span><br><span class="line">用阈值过滤（weight值最大不可超过阈值）</span><br><span class="line">归一化</span><br><span class="line">w1 = w1 /(w1*w1 + w2*w2 + ... wm *wm)</span><br><span class="line">wm = wm /(w1*w1 + w2*w2 + ... wm *wm)</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>（6）处理的流程<br>将每一个文档都当做一个topic；<br>选择距离最近的两个topic；<br>计算两个topic合并前后的凝聚力大小变化（凝聚力为topic下文档两两之间距离的均值（此距离用的是欧式距离）），变化过大则跳转到第二步，重新选择；<br>合并两个topic，更新新的topic的质心，并重新计算该topic和其他topic之间的距离<br>如果topic的数量少于最少的topic数目，跳出循环返回，否则跳转到第二步；</p>
-<p>（7）两个topic之间距离的计算，最大为1，最小为0<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">topic 1: X1 =  (w11, w21, ...... wm1)</span><br><span class="line">topic 2: X2 = (w12, w22, ...... wm2)</span><br><span class="line">sum = w11 *w12 + .... wm1* wm2</span><br><span class="line">num =  (w11 &amp; w12 ? 1:0)+ ..... (wm1&amp;wm2?1:0）</span><br><span class="line">avg = sum /num</span><br><span class="line">dis  = (w11 &amp; w12)?(w11*w12-avg)*(w11*w12-avg):0  + ...... (wm1 &amp; wm2)?(wm1*wm2-avg)*(wm1*wm2-avg):0</span><br><span class="line">dis = dis / num</span><br></pre></td></tr></table></figure></p>
-<p>（8）聚类的结果调整<br>同一个网站发布了大量同一个类的文章，比如某一时间段健康频道下会出现大量的关于某一疾病的说明、治疗方式等，这个可以通过url过滤掉。同一个网站不同频道发布的也算。<br>影响聚类结果调整的参数：topic之间的相似度、topic的凝聚力、特征选取的多少<br>topic的排序：按照转载量，即每个topic下的文章的数量（焦点新闻）<br>（9）KNN<br>算法接受一个未标记的数据集，然后将数据聚类成不同的组。<br>首先随机的选取K个点，作为聚类的中心。<br>对于每一篇文档计算与聚类中心的距离，将其归类为距离最小的那一组中，并更新该组的聚类中心。<br>直到中心点不再变化。</p>
+        <p>SVM的分类问题<br>（1）特征空间上间隔最大的线性分类器<br>（2）线性分类：找到一个超平面将数据分开<br>（3）当超平面离数据的距离越远，找到的这个超平面的置信度就越高<br>（4）因此为了找到最合适的超平面，则需要找到距离最大的位置，如下图，虚线上的点即为支持向量<br><img src="/blog/2018/11/07/SVM分类/1.png" alt="image"><br>（5）找到超平面，分类的问题就转换为f(x)的正负问题<br>（6）对于低维不可份的情况，需要映射到高维空间，使其可分，但为了防止维度变大，此处采用了核函数的性质。核函数的价值在于它虽然也是讲特征进行从低维到高维的转换，但核函数绝就绝在它事先在低维上进行计算，而将实质上的分类效果表现在了高维上，也就如上文所说的避免了直接在高维空间中的复杂计算。核函数有高斯核，多项式核函数。<br>（7）svm中存在噪音数据，如下例，outlier，用松弛变量处理<br><img src="/blog/2018/11/07/SVM分类/2.png" alt="image"><br>（8）将svm用于多分类的方法<br><img src="/blog/2018/11/07/SVM分类/3.png" alt="image"><br>假设待分类别有五类：<br>（1）可以按照下图的方式，进行分类<br><img src="/blog/2018/11/07/SVM分类/3.png" alt="image"><br>这种方法的坏处是需要训练的分类器太多。<br>（2）第一次就把类别1的样本定为正样本，其余2，3，4，5的样本合起来定为负样本，这样得到一个两类分类器，它能够指出一篇文章是还是不是第1类的；第二次我们把类别2 的样本定为正样本，把1，3，4，5的样本合起来定为负样本，得到一个分类器，如此下去，我们可以得到5个这样的两类分类器（总是和类别的数目一致）。<br>这样容易出现数据倾斜的问题，样本不均航。<br>（9）svm模型训练的方法<br><img src="/blog/2018/11/07/SVM分类/4.png" alt="image"><br>svm模型训练的前提是特征的选取以及模型的训练。<br>（10）特征选取的方法<br>特征选取后，将文本映射为向量，进而表示为高纬空间的一个点，调用分类器，判断其类别。<br>tf*idf方法：tf表示该词在文档中的词频，idf，出现的文档数据。<br>信息增益的方法：特征能够为整个系统所带来的信息量，带来的信息量越大，信息增益越大；</p>
 
       
 
@@ -186,17 +174,6 @@
       
       
       
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			
-        		<li class="article-tag-list-item">
-        			<a href="/blog/categories/CPlusPlus//" class="article-tag-list-link color5">CPlusPlus</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
 
       
 
@@ -211,18 +188,18 @@
   
 <nav id="article-nav">
   
-    <a href="/blog/2018/11/14/ES6中的proxy和应用/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/blog/2018/11/12/聚类方法/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          ES6中的proxy和应用
+          聚类方法
         
       </div>
     </a>
   
   
-    <a href="/blog/2018/11/07/SVM分类/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">SVM分类</div>
+    <a href="/blog/2018/11/04/MongoDB/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">MongoDB</div>
       <i class="icon-circle-right"></i>
     </a>
   
