@@ -55,7 +55,7 @@
 	        
 				<li><a href="/blog/categories/DataBase">DataBase</a></li>
 	        
-				<li><a href="/blog/categories/CPlusPlus">C++</a></li>
+				<li><a href="/blog/categories/%E5%90%8E%E7%AB%AF">后端</a></li>
 	        
 				<li><a href="/blog/categories/K8S">K8S</a></li>
 	        
@@ -126,7 +126,7 @@
 		        
 					<li style="width: 14.285714285714286%"><a href="/blog/categories/DataBase">DataBase</a></li>
 		        
-					<li style="width: 14.285714285714286%"><a href="/blog/categories/CPlusPlus">C++</a></li>
+					<li style="width: 14.285714285714286%"><a href="/blog/categories/%E5%90%8E%E7%AB%AF">后端</a></li>
 		        
 					<li style="width: 14.285714285714286%"><a href="/blog/categories/K8S">K8S</a></li>
 		        
@@ -146,6 +146,101 @@
           </div>
           <div id="js-content" class="content-ll">
             
+  
+    <article id="post-整理的css知识" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2018/12/14/%E6%95%B4%E7%90%86%E7%9A%84css%E7%9F%A5%E8%AF%86/">整理的css知识</a>
+    </h1>
+  
+
+        
+        <a href="/blog/2018/12/14/%E6%95%B4%E7%90%86%E7%9A%84css%E7%9F%A5%E8%AF%86/" class="archive-article-date">
+  	<time datetime="2018-12-14T05:01:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-14</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>css标准地址 <a target="_blank" rel="noopener" href="https://www.w3.org/TR/CSS2/visuren.html#inline-formatting">https://www.w3.org/TR/CSS2/visuren.html#inline-formatting</a><br>1、block、inline、inline-block<br>每个页面元素都有一个display属性，每个元素的display属性都有一个默认值，比如div的display属性为block，span的display属性为inline，inline元素不会自动换行且没有宽和高、block元素有宽和高度，且会自动换行。常见的元素分类如下：<br>（1）block元素：body form textarea h1 - h6 html table button p ul ol div<br>（2）inline元素：title span a em b strong I map 等<br>（3）inline-block元素：img input td select textarea label<br>区别方式为：是否可以设置宽、高、margin、padding值、是否会换行。<br>对inline元素这只padding-top padding-bottom margin-bottom margin-top不会对周边元素产生影响，会加大自身的范围。<br>2、嵌套规则：<br>（1）块状元素可以包含内联元素或者块元素，内连元素不可以包含块元素只包含内连元素</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;a href=<span class="string">&quot;#&quot;</span>&gt;&lt;span&gt;&lt;/span&gt;&lt;/a&gt;  — 正确</span><br><span class="line">&lt;div&gt;&lt;h1&gt;&lt;/h1&gt;&lt;p&gt;&lt;/p&gt;&lt;/div&gt; — 正确</span><br><span class="line">&lt;span&gt;&lt;div&gt;&lt;/div&gt;&lt;/span&gt; — 正确</span><br></pre></td></tr></table></figure>
+<p>（2）h1- h6、p、 dt这几个块元素只能包含内联元素或者可变元素</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;p&gt;&lt;ol&gt;&lt;li&gt;&lt;/li&gt;&lt;/ol&gt;&lt;/p&gt; -- wrong</span><br><span class="line">&lt;p&gt;&lt;div&gt;&lt;/div&gt;&lt;/p&gt;  — wrong</span><br></pre></td></tr></table></figure>
+<p>（3）特殊的li标签内可以出现div标签<br>（4）块级元素可以与块级元素并列、内联元素可以和内联元素并列</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;div&gt;&lt;h2&gt;&lt;/h2&gt;&lt;p&gt;&lt;/p&gt;&lt;/div&gt;  — right</span><br><span class="line">&lt;div&gt;&lt;a href=<span class="string">&quot;#&quot;</span>&gt;&lt;/a&gt;&lt;span&gt;&lt;/span&gt;&lt;/div&gt;  — right</span><br><span class="line">&lt;div&gt;&lt;h2&gt;&lt;/h2&gt;&lt;span&gt;&lt;/span&gt;&lt;/div&gt; -- wrong</span><br></pre></td></tr></table></figure>
+<p>3、inline元素改为block元素的方式<br>（1）直接将display值设置为block/inline-block<br>（2）直接将position设置为absolute或者fix<br>4、inline-block元素出现缝隙的解决方式<br>（1）两个inline-block元素之间不能出现换行、空格等<br>（2）设置margin-right值为负值<br>（3）将父元素的font-size、letter-spacing、word-spacing值<br>5、block元素内的inline-block元素出现底部空白或者两个inline-block元素无法对齐的情况<br>（1）使用vertical-align：top<br>（2）例子： <a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000010934928">https://segmentfault.com/a/1190000010934928</a><br>6、em: 相对于父级元素font-size的比例。<br>rem：相对于根元素html的font-size比例。<br>ex：所用字体中x的高度，通常取em的一半。<br>7、css的三种定位机制：普通流、浮动和绝对定位。position有relative、absolute、fix、static<br>relative：相对于元素应该出现的位置的相对位置。<br>absolute：绝对定位的盒子是相对于离他最近的一个已定位的盒子进行定位的，可能是relative，可能是absolute。默认是body。<br>浮动和绝对定位都将元素剥离了文档流。<br>8、background-origin: 取值可以为content-box、padding-box、border-box，规定背景图放置的位置。<br>9、box盒子模型<br>（1）ie设置的height和 width = margin + padding +content-width<br>（2）标准的盒子模型的 width = content-width<br>（3）css3中加了一个属性叫box-sizing 来区分上面的情况（content-box \ border-box \ padding-box）<br>10、formatting context:  它是页面中的一块渲染区域、并且有自己的一套渲染规则、他决定了元素如何定位以及与其他元素如何相互作用。常见的类别有：<br>（1）BFC (block formatting context)</p>
+<ul>
+<li>BFC是一个独立的区域，不受外部元素影响也不影响外部元素</li>
+<li>只有块级元素参加</li>
+<li>box会在垂直方向上一个接一个的放置</li>
+<li>属于同一个BFC的相邻的两个box的margin会重叠</li>
+<li>计算BFC高度时，浮动元素也参与计算</li>
+<li>每个元素的margin box的左边与包含块的border box的左边相接处，存在浮动也是如此<br>会生成BFC的方式：</li>
+<li>根元素比如body</li>
+<li>float不为none</li>
+<li>position为absolute或者fixed</li>
+<li>display为inline-block、table-cell、table-caption、flex、inline-flex</li>
+<li>overflow为hidden、scroll、auto<br>例子： <a target="_blank" rel="noopener" href="https://www.jianshu.com/p/66632298e355">https://www.jianshu.com/p/66632298e355</a><br>（2）IFC (inline formatting context)</li>
+<li>只会在一个块级元素中只包含内连级别元素时才会生成。</li>
+<li>行内级元素（inline-level element）的display为inline、inline-block、inline-table</li>
+<li>行内级元素生成行内盒（inline-level box），参与行内格式化上下文</li>
+<li>行框的宽度由其内部包含的块以及浮动元素所决定</li>
+<li>如果几个行内框无法放入一个行框内，他们可能分配在两个或者多个垂直的行框内</li>
+<li>同一个行内框如果不能放入一个行框内，也会分配到多个垂直的行框</li>
+<li>行框的高度可以容纳所包含的框，对齐标准为vertical-align（此处会引入下面的12问题）<br>（3）GFC<br>（4）FFC<br>11、line-height: 设置行间的距离，可以设置的方式<br>（1）number：以当前的字体属性值来设置行高(不同的浏览器默认值不同， 介于1 - 1.2之间)<br>（2）百分比：以当前字体属性的百分比来设置<br>（3）length：固定的值<br>12、vertical-align: 默认值为baseline，即按照基线进行对齐，此值是和line-height相关的。<br>（1）css中对基线的定义为：inline-block元素的基线是标准流中最后一个行框的基线， 除非这个行框没有行盒子或者本身overflow属性计算值不是visible，这种情况下，基线是该元素margin底边缘。<br>（2）inline元素有两个高度：和字体相关的content-area，以及实际区域virtual-area（line-height）</li>
+</ul>
+
+      
+
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			
+        		<li class="article-tag-list-item">
+        			<a href="/blog/categories/JS-React//" class="article-tag-list-link color4">JS/React</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/blog/2018/12/14/%E6%95%B4%E7%90%86%E7%9A%84css%E7%9F%A5%E8%AF%86/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
   
     <article id="post-compose的执行和实现方式" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
@@ -540,6 +635,116 @@
     </div>
 </aside>
   
+    <article id="post-webpack" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2018/11/07/webpack/">webpack</a>
+    </h1>
+  
+
+        
+        <a href="/blog/2018/11/07/webpack/" class="archive-article-date">
+  	<time datetime="2018-11-07T06:42:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-07</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p>webpack把项目当作一个整体，通过一个给定的的主文件，webpack将从这个文件开始找到你的项目的所有依赖文件，使用loaders处理它们，最后打包成一个或多个浏览器可识别的js文件。<br>install</p>
+<p>首先添加我们即将使用的包：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install webpack webpack-dev-server --save-dev</span><br></pre></td></tr></table></figure>
+<p>webpack是我们需要的模块打包机，webpack-dev-server用来创建本地服务器，监听你的代码修改，并自动刷新修改后的结果。这些是有关devServer的配置</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">contentBase,  // 为文件提供本地服务器</span><br><span class="line">port, // 监听端口，默认8080</span><br><span class="line">inline, // 设置为<span class="literal">true</span>,源文件发生改变自动刷新页面</span><br><span class="line">historyApiFallback  // 依赖HTML5 <span class="built_in">history</span> API,如果设置为<span class="literal">true</span>,所有的页面跳转指向index.html</span><br><span class="line">devServer:&#123;</span><br><span class="line">  contentBase: <span class="string">&#x27;./src&#x27;</span> // 本地服务器所加载的页面所在的目录</span><br><span class="line">  historyApiFallback: <span class="literal">true</span>, // 不跳转</span><br><span class="line">  inline: <span class="literal">true</span> // 实时刷新</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后我们在根目录下创建一个’webpack.config.js’，在’package.json’添加两个命令用于本地开发和生产发布</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;scripts&quot;</span>: &#123;</span><br><span class="line">  <span class="string">&quot;start&quot;</span>: <span class="string">&quot;webpack-dev-server&quot;</span>,</span><br><span class="line">  <span class="string">&quot;build&quot;</span>: <span class="string">&quot;webpack&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在使用webpack命令的时候，他将接受webpack的配置文件，除非我们使用其他的操作</p>
+<p>entry: 用来写入口文件，它将是整个依赖关系的根</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var baseConfig = &#123;</span><br><span class="line">  entry: <span class="string">&#x27;./src/index.js&#x27;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当我们需要多个入口文件的时候，可以把entry写成一个对象</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var baseConfig = &#123;</span><br><span class="line">        entry: &#123;</span><br><span class="line">            main: <span class="string">&#x27;./src/index.js&#x27;</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>我建议使用后面一种方法，因为他的规模会随你的项目增大而变得繁琐</p>
+<p>output: 即使入口文件有多个，但是只有一个输出配置</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">var path = require(<span class="string">&#x27;path&#x27;</span>)</span><br><span class="line">  var baseConfig = &#123;</span><br><span class="line">      entry: &#123;</span><br><span class="line">          main: <span class="string">&#x27;./src/index.js&#x27;</span></span><br><span class="line">      &#125;,</span><br><span class="line">      output: &#123;</span><br><span class="line">          filename: <span class="string">&#x27;main.js&#x27;</span>,</span><br><span class="line">          path: path.resolve(<span class="string">&#x27;./build&#x27;</span>)</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line">module.exports = baseConfig</span><br></pre></td></tr></table></figure>
+
+<p>如果你定义的入口文件有多个，那么我们需要使用占位符来确保输出文件的唯一性</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">output: &#123;</span><br><span class="line">      filename: <span class="string">&#x27;[name].js&#x27;</span>,</span><br><span class="line">      path: path.resolve(<span class="string">&#x27;./build&#x27;</span>)</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p>如今这么少的配置，就能够让你运行一个服务器并在本地使用命令npm start或者npm run build来打包我们的代码进行发布<br>Loader</p>
+<p>loader的作用：<br>1、实现对不同格式的文件的处理，比如说将scss转换为css，或者typescript转化为js<br>2、转换这些文件，从而使其能够被添加到依赖图中<br>loader是webpack最重要的部分之一，通过使用不同的Loader，我们能够调用外部的脚本或者工具，实现对不同格式文件的处理，loader需要在webpack.config.js里边单独用module进行配置，配置如下：</p>
+<p>test: 匹配所处理文件的扩展名的正则表达式（必须）<br>loader: loader的名称（必须）<br>include/exclude: 手动添加处理的文件，屏蔽不需要处理的文件（可选）<br>query: 为loaders提供额外的设置选项</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">ex:</span><br><span class="line">var baseConfig = &#123;</span><br><span class="line">    // ...</span><br><span class="line">    module: &#123;</span><br><span class="line">        rules: [</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="built_in">test</span>: /*匹配文件后缀名的正则*/,</span><br><span class="line">                use: [</span><br><span class="line">                    loader: /*loader名字*/,</span><br><span class="line">                    query: /*额外配置*/</span><br><span class="line">                ]</span><br><span class="line">            &#125;</span><br><span class="line">        ]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>要是loader工作，我们需要一个正则表达式来标识我们要修改的文件，然后有一个数组表示<br>我们表示我们即将使用的Loader,当然我们需要的loader需要通过npm 进行安装。例如我们需要解析less的文件，那么webpack.config.js的配置如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">var baseConfig = &#123;</span><br><span class="line">    entry: &#123;</span><br><span class="line">        main: <span class="string">&#x27;./src/index.js&#x27;</span></span><br><span class="line">    &#125;,</span><br><span class="line">    output: &#123;</span><br><span class="line">        filename: <span class="string">&#x27;[name].js&#x27;</span>,</span><br><span class="line">        path: path.resolve(<span class="string">&#x27;./build&#x27;</span>)</span><br><span class="line">    &#125;,</span><br><span class="line">    devServer: &#123;</span><br><span class="line">        contentBase: <span class="string">&#x27;./src&#x27;</span>,</span><br><span class="line">        historyApiFallBack: <span class="literal">true</span>,</span><br><span class="line">        inline: <span class="literal">true</span></span><br><span class="line">    &#125;,</span><br><span class="line">    module: &#123;</span><br><span class="line">        rules: [</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="built_in">test</span>: /\.less$/,</span><br><span class="line">                use: [</span><br><span class="line">                    &#123;loader: <span class="string">&#x27;style-loader&#x27;</span>&#125;,</span><br><span class="line">                    &#123;loader: <span class="string">&#x27;css-loader&#x27;</span>&#125;,</span><br><span class="line">                    &#123;loader: <span class="string">&#x27;less-loader&#x27;</span>&#125;</span><br><span class="line">                ],</span><br><span class="line">                exclude: /node_modules/</span><br><span class="line">            &#125;</span><br><span class="line">        ]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里介绍几个常用的loader：<br>babel-loader： 让下一代的js文件转换成现代浏览器能够支持的JS文件。<br>babel有些复杂，所以大多数都会新建一个.babelrc进行配置<br>css-loader,style-loader:两个建议配合使用，用来解析css文件，能够解释@import,url()如果需要解析less就在后面加一个less-loader<br>file-loader: 生成的文件名就是文件内容的MD5哈希值并会保留所引用资源的原始扩展名<br>url-loader: 功能类似 file-loader,但是文件大小低于指定的限制时，可以返回一个DataURL事实上，在使用less,scss,stylus这些的时候，npm会提示你差什么插件，差什么，你就安上就行了</p>
+<h2 id="Plugins"><a href="#Plugins" class="headerlink" title="Plugins"></a>Plugins</h2><p>plugins和loader很容易搞混，说都是外部引用有什么区别呢？ 事实上他们是两个完全不同的东西。这么说loaders负责的是处理源文件的如css、jsx，一次处理一个文件。而plugins并不是直接操作单个文件，它直接对整个构建过程起作用下面列举了一些我们常用的plugins和他的用法<br>ExtractTextWebpackPlugin: 它会将入口中引用css文件，都打包都独立的css文件中，而不是内嵌在js打包文件中。下面是他的应用</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">var ExtractTextPlugin = require(<span class="string">&#x27;extract-text-webpack-plugin&#x27;</span>)</span><br><span class="line">var lessRules = &#123;</span><br><span class="line">    use: [</span><br><span class="line">        &#123;loader: <span class="string">&#x27;css-loader&#x27;</span>&#125;,</span><br><span class="line">        &#123;loader: <span class="string">&#x27;less-loader&#x27;</span>&#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var baseConfig = &#123;</span><br><span class="line">    // ...</span><br><span class="line">    module: &#123;</span><br><span class="line">        rules: [</span><br><span class="line">            // ...</span><br><span class="line">            &#123;<span class="built_in">test</span>: /\.less$/, use: ExtractTextPlugin.extract(lessRules)&#125;</span><br><span class="line">        ]</span><br><span class="line">    &#125;,</span><br><span class="line">    plugins: [</span><br><span class="line">        new ExtractTextPlugin(<span class="string">&#x27;main.css&#x27;</span>)</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>HtmlWebpackPlugin:<br>作用： 依据一个简单的index.html模版，生成一个自动引用你打包后的js文件的新index.html</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">var HTMLWebpackPlugin = require(<span class="string">&#x27;html-webpack-plugin&#x27;</span>)</span><br><span class="line">var baseConfig = &#123;</span><br><span class="line">    // ...</span><br><span class="line">    plugins: [</span><br><span class="line">        new HTMLWebpackPlugin()</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>HotModuleReplacementPlugin: 它允许你在修改组件代码时，自动刷新实时预览修改后的结果注意永远不要在生产环境中使用HMR。这儿说一下一般情况分为开发环境，测试环境，生产环境。<br>用法如 new webpack.HotModuleReplacementPlugin()<br>webapck.config.js的全部内容</p>
+<p>const webpack = require(“webpack”)<br>const HtmlWebpackPlugin = require(“html-webpack-plugin”)<br>var ExtractTextPlugin = require(‘extract-text-webpack-plugin’)<br>var lessRules = {<br>    use: [<br>        {loader: ‘css-loader’},<br>        {loader: ‘less-loader’}<br>    ]<br>}<br>module.exports = {<br>    entry: {<br>            main: ‘./src/index.js’<br>        },<br>        output: {<br>            filename: ‘[name].js’,<br>            path: path.resolve(‘./build’)<br>        },<br>        devServer: {<br>            contentBase: ‘/src’,<br>            historyApiFallback: true,<br>            inline: true,<br>            hot: true<br>        },<br>        module: {<br>            rules: [<br>                {test: /.less$/, use: ExtractTextPlugin.extract(lessRules)}<br>            ]<br>        },<br>        plugins: [<br>        new ExtractTextPlugin(‘main.css’)<br>    ]<br>}<br>产品阶段的构建</p>
+<p>目前为止，在开发阶段的东西我们已经基本完成了。但是在产品阶段，还需要对资源进行别的<br>处理，例如压缩，优化，缓存，分离css和js。首先我们来定义产品环境</p>
+<p>var ENV = process.env.NODE_ENV<br>var baseConfig = {<br>    // …<br>    plugins: [<br>        new webpack.DefinePlugin({<br>            ‘process.env.NODE_ENV’: JSON.stringify(ENV)<br>        })<br>    ]<br>}<br>然后还需要修改我们的script命令</p>
+<p>“scripts”: {<br>  “start”: “NODE_ENV=development webpack-dev-server”,<br>  “build”: “NODE_ENV=production webpack”<br>}</p>
+<p>process.env.NODE_ENV 将被一个字符串替代，它运行压缩器排除那些不可到达的开发代码分支。<br>当你引入那些不会进行生产的代码，下面这个代码将非常有用。</p>
+<p>if (process.env.NODE_ENV === ‘development’) {<br>    console.warn(‘这个警告会在生产阶段消失’)<br>}<br>优化插件</p>
+<p>下面介绍几个插件用来优化代码<br>OccurenceOrderPlugin: 为组件分配ID,通过这个插件webpack可以分析和优先考虑使用最多 的模块，然后为他们分配最小的ID<br>UglifyJsPlugin: 压缩代码<br>下面是他们的使用方法<br>var baseConfig = {<br>    // …<br>    new webpack.optimize.OccurenceOrderPlugin()<br>    new webpack.optimize.UglifyJsPlugin()<br>}<br>然后在我们使用npm run build会发现代码是压缩的</p>
+
+      
+
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			
+        		<li class="article-tag-list-item">
+        			<a href="/blog/categories/JS-React//" class="article-tag-list-link color4">JS/React</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/blog/2018/11/07/webpack/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+  
     <article id="post-MongoDB" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -697,116 +902,6 @@ child有两个属性分别为name和child_name，但是方法确继承不下来�
       
         <p class="article-more-link">
           <a class="article-more-a" href="/blog/2018/10/11/JS%E4%B8%ADclass%E6%B7%B1%E5%85%A5/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-  
-    <article id="post-webpack" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/0201/11/07/webpack/">webpack</a>
-    </h1>
-  
-
-        
-        <a href="/blog/0201/11/07/webpack/" class="archive-article-date">
-  	<time datetime="0201-11-07T06:37:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>0201-11-07</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p>webpack把项目当作一个整体，通过一个给定的的主文件，webpack将从这个文件开始找到你的项目的所有依赖文件，使用loaders处理它们，最后打包成一个或多个浏览器可识别的js文件。<br>install</p>
-<p>首先添加我们即将使用的包：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install webpack webpack-dev-server --save-dev</span><br></pre></td></tr></table></figure>
-<p>webpack是我们需要的模块打包机，webpack-dev-server用来创建本地服务器，监听你的代码修改，并自动刷新修改后的结果。这些是有关devServer的配置</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">contentBase,  // 为文件提供本地服务器</span><br><span class="line">port, // 监听端口，默认8080</span><br><span class="line">inline, // 设置为<span class="literal">true</span>,源文件发生改变自动刷新页面</span><br><span class="line">historyApiFallback  // 依赖HTML5 <span class="built_in">history</span> API,如果设置为<span class="literal">true</span>,所有的页面跳转指向index.html</span><br><span class="line">devServer:&#123;</span><br><span class="line">  contentBase: <span class="string">&#x27;./src&#x27;</span> // 本地服务器所加载的页面所在的目录</span><br><span class="line">  historyApiFallback: <span class="literal">true</span>, // 不跳转</span><br><span class="line">  inline: <span class="literal">true</span> // 实时刷新</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>然后我们在根目录下创建一个’webpack.config.js’，在’package.json’添加两个命令用于本地开发和生产发布</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;scripts&quot;</span>: &#123;</span><br><span class="line">  <span class="string">&quot;start&quot;</span>: <span class="string">&quot;webpack-dev-server&quot;</span>,</span><br><span class="line">  <span class="string">&quot;build&quot;</span>: <span class="string">&quot;webpack&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>在使用webpack命令的时候，他将接受webpack的配置文件，除非我们使用其他的操作</p>
-<p>entry: 用来写入口文件，它将是整个依赖关系的根</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var baseConfig = &#123;</span><br><span class="line">  entry: <span class="string">&#x27;./src/index.js&#x27;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>当我们需要多个入口文件的时候，可以把entry写成一个对象</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var baseConfig = &#123;</span><br><span class="line">        entry: &#123;</span><br><span class="line">            main: <span class="string">&#x27;./src/index.js&#x27;</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<p>我建议使用后面一种方法，因为他的规模会随你的项目增大而变得繁琐</p>
-<p>output: 即使入口文件有多个，但是只有一个输出配置</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">var path = require(<span class="string">&#x27;path&#x27;</span>)</span><br><span class="line">  var baseConfig = &#123;</span><br><span class="line">      entry: &#123;</span><br><span class="line">          main: <span class="string">&#x27;./src/index.js&#x27;</span></span><br><span class="line">      &#125;,</span><br><span class="line">      output: &#123;</span><br><span class="line">          filename: <span class="string">&#x27;main.js&#x27;</span>,</span><br><span class="line">          path: path.resolve(<span class="string">&#x27;./build&#x27;</span>)</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line">module.exports = baseConfig</span><br></pre></td></tr></table></figure>
-
-<p>如果你定义的入口文件有多个，那么我们需要使用占位符来确保输出文件的唯一性</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">output: &#123;</span><br><span class="line">      filename: <span class="string">&#x27;[name].js&#x27;</span>,</span><br><span class="line">      path: path.resolve(<span class="string">&#x27;./build&#x27;</span>)</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-
-<p>如今这么少的配置，就能够让你运行一个服务器并在本地使用命令npm start或者npm run build来打包我们的代码进行发布<br>Loader</p>
-<p>loader的作用：<br>1、实现对不同格式的文件的处理，比如说将scss转换为css，或者typescript转化为js<br>2、转换这些文件，从而使其能够被添加到依赖图中<br>loader是webpack最重要的部分之一，通过使用不同的Loader，我们能够调用外部的脚本或者工具，实现对不同格式文件的处理，loader需要在webpack.config.js里边单独用module进行配置，配置如下：</p>
-<p>test: 匹配所处理文件的扩展名的正则表达式（必须）<br>loader: loader的名称（必须）<br>include/exclude: 手动添加处理的文件，屏蔽不需要处理的文件（可选）<br>query: 为loaders提供额外的设置选项</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">ex:</span><br><span class="line">var baseConfig = &#123;</span><br><span class="line">    // ...</span><br><span class="line">    module: &#123;</span><br><span class="line">        rules: [</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="built_in">test</span>: /*匹配文件后缀名的正则*/,</span><br><span class="line">                use: [</span><br><span class="line">                    loader: /*loader名字*/,</span><br><span class="line">                    query: /*额外配置*/</span><br><span class="line">                ]</span><br><span class="line">            &#125;</span><br><span class="line">        ]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>要是loader工作，我们需要一个正则表达式来标识我们要修改的文件，然后有一个数组表示<br>我们表示我们即将使用的Loader,当然我们需要的loader需要通过npm 进行安装。例如我们需要解析less的文件，那么webpack.config.js的配置如下：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">var baseConfig = &#123;</span><br><span class="line">    entry: &#123;</span><br><span class="line">        main: <span class="string">&#x27;./src/index.js&#x27;</span></span><br><span class="line">    &#125;,</span><br><span class="line">    output: &#123;</span><br><span class="line">        filename: <span class="string">&#x27;[name].js&#x27;</span>,</span><br><span class="line">        path: path.resolve(<span class="string">&#x27;./build&#x27;</span>)</span><br><span class="line">    &#125;,</span><br><span class="line">    devServer: &#123;</span><br><span class="line">        contentBase: <span class="string">&#x27;./src&#x27;</span>,</span><br><span class="line">        historyApiFallBack: <span class="literal">true</span>,</span><br><span class="line">        inline: <span class="literal">true</span></span><br><span class="line">    &#125;,</span><br><span class="line">    module: &#123;</span><br><span class="line">        rules: [</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="built_in">test</span>: /\.less$/,</span><br><span class="line">                use: [</span><br><span class="line">                    &#123;loader: <span class="string">&#x27;style-loader&#x27;</span>&#125;,</span><br><span class="line">                    &#123;loader: <span class="string">&#x27;css-loader&#x27;</span>&#125;,</span><br><span class="line">                    &#123;loader: <span class="string">&#x27;less-loader&#x27;</span>&#125;</span><br><span class="line">                ],</span><br><span class="line">                exclude: /node_modules/</span><br><span class="line">            &#125;</span><br><span class="line">        ]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这里介绍几个常用的loader：<br>babel-loader： 让下一代的js文件转换成现代浏览器能够支持的JS文件。<br>babel有些复杂，所以大多数都会新建一个.babelrc进行配置<br>css-loader,style-loader:两个建议配合使用，用来解析css文件，能够解释@import,url()如果需要解析less就在后面加一个less-loader<br>file-loader: 生成的文件名就是文件内容的MD5哈希值并会保留所引用资源的原始扩展名<br>url-loader: 功能类似 file-loader,但是文件大小低于指定的限制时，可以返回一个DataURL事实上，在使用less,scss,stylus这些的时候，npm会提示你差什么插件，差什么，你就安上就行了</p>
-<h2 id="Plugins"><a href="#Plugins" class="headerlink" title="Plugins"></a>Plugins</h2><p>plugins和loader很容易搞混，说都是外部引用有什么区别呢？ 事实上他们是两个完全不同的东西。这么说loaders负责的是处理源文件的如css、jsx，一次处理一个文件。而plugins并不是直接操作单个文件，它直接对整个构建过程起作用下面列举了一些我们常用的plugins和他的用法<br>ExtractTextWebpackPlugin: 它会将入口中引用css文件，都打包都独立的css文件中，而不是内嵌在js打包文件中。下面是他的应用</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">var ExtractTextPlugin = require(<span class="string">&#x27;extract-text-webpack-plugin&#x27;</span>)</span><br><span class="line">var lessRules = &#123;</span><br><span class="line">    use: [</span><br><span class="line">        &#123;loader: <span class="string">&#x27;css-loader&#x27;</span>&#125;,</span><br><span class="line">        &#123;loader: <span class="string">&#x27;less-loader&#x27;</span>&#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var baseConfig = &#123;</span><br><span class="line">    // ...</span><br><span class="line">    module: &#123;</span><br><span class="line">        rules: [</span><br><span class="line">            // ...</span><br><span class="line">            &#123;<span class="built_in">test</span>: /\.less$/, use: ExtractTextPlugin.extract(lessRules)&#125;</span><br><span class="line">        ]</span><br><span class="line">    &#125;,</span><br><span class="line">    plugins: [</span><br><span class="line">        new ExtractTextPlugin(<span class="string">&#x27;main.css&#x27;</span>)</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>HtmlWebpackPlugin:<br>作用： 依据一个简单的index.html模版，生成一个自动引用你打包后的js文件的新index.html</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">var HTMLWebpackPlugin = require(<span class="string">&#x27;html-webpack-plugin&#x27;</span>)</span><br><span class="line">var baseConfig = &#123;</span><br><span class="line">    // ...</span><br><span class="line">    plugins: [</span><br><span class="line">        new HTMLWebpackPlugin()</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>HotModuleReplacementPlugin: 它允许你在修改组件代码时，自动刷新实时预览修改后的结果注意永远不要在生产环境中使用HMR。这儿说一下一般情况分为开发环境，测试环境，生产环境。<br>用法如 new webpack.HotModuleReplacementPlugin()<br>webapck.config.js的全部内容</p>
-<p>const webpack = require(“webpack”)<br>const HtmlWebpackPlugin = require(“html-webpack-plugin”)<br>var ExtractTextPlugin = require(‘extract-text-webpack-plugin’)<br>var lessRules = {<br>    use: [<br>        {loader: ‘css-loader’},<br>        {loader: ‘less-loader’}<br>    ]<br>}<br>module.exports = {<br>    entry: {<br>            main: ‘./src/index.js’<br>        },<br>        output: {<br>            filename: ‘[name].js’,<br>            path: path.resolve(‘./build’)<br>        },<br>        devServer: {<br>            contentBase: ‘/src’,<br>            historyApiFallback: true,<br>            inline: true,<br>            hot: true<br>        },<br>        module: {<br>            rules: [<br>                {test: /.less$/, use: ExtractTextPlugin.extract(lessRules)}<br>            ]<br>        },<br>        plugins: [<br>        new ExtractTextPlugin(‘main.css’)<br>    ]<br>}<br>产品阶段的构建</p>
-<p>目前为止，在开发阶段的东西我们已经基本完成了。但是在产品阶段，还需要对资源进行别的<br>处理，例如压缩，优化，缓存，分离css和js。首先我们来定义产品环境</p>
-<p>var ENV = process.env.NODE_ENV<br>var baseConfig = {<br>    // …<br>    plugins: [<br>        new webpack.DefinePlugin({<br>            ‘process.env.NODE_ENV’: JSON.stringify(ENV)<br>        })<br>    ]<br>}<br>然后还需要修改我们的script命令</p>
-<p>“scripts”: {<br>  “start”: “NODE_ENV=development webpack-dev-server”,<br>  “build”: “NODE_ENV=production webpack”<br>}</p>
-<p>process.env.NODE_ENV 将被一个字符串替代，它运行压缩器排除那些不可到达的开发代码分支。<br>当你引入那些不会进行生产的代码，下面这个代码将非常有用。</p>
-<p>if (process.env.NODE_ENV === ‘development’) {<br>    console.warn(‘这个警告会在生产阶段消失’)<br>}<br>优化插件</p>
-<p>下面介绍几个插件用来优化代码<br>OccurenceOrderPlugin: 为组件分配ID,通过这个插件webpack可以分析和优先考虑使用最多 的模块，然后为他们分配最小的ID<br>UglifyJsPlugin: 压缩代码<br>下面是他们的使用方法<br>var baseConfig = {<br>    // …<br>    new webpack.optimize.OccurenceOrderPlugin()<br>    new webpack.optimize.UglifyJsPlugin()<br>}<br>然后在我们使用npm run build会发现代码是压缩的</p>
-
-      
-
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			
-        		<li class="article-tag-list-item">
-        			<a href="/blog/categories/JS-React//" class="article-tag-list-link color4">JS/React</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/0201/11/07/webpack/">展开全文 >></a>
         </p>
       
 
