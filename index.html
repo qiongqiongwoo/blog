@@ -147,6 +147,219 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-redis" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2020/11/04/redis/">redis</a>
+    </h1>
+  
+
+        
+        <a href="/blog/2020/11/04/redis/" class="archive-article-date">
+  	<time datetime="2020-11-04T14:08:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-11-04</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="1、redis为什么快"><a href="#1、redis为什么快" class="headerlink" title="1、redis为什么快"></a>1、redis为什么快</h3><p><img src="/blog/2020/11/04/redis/FA0854DD-745C-4BF6-887F-E24EFE220F27.png" alt="5a32edfc76f3ee6b167243ca5c57046f"><br>Redis的qps可以达到10w/s，Redis将数据存储在内存中，读写操作不会因为磁盘的IO速度限制。基于内存的数据库和基于内存的数据库的区别：</p>
+<p><img src="/blog/2020/11/04/redis/C4B4883F-AD48-449F-8C69-C5B8F7FE658C.png" alt="385707892665c62b9066ea4454d2e130"></p>
+<p>Redis是单进程单线程模型的kv数据库，由c语言编写，不比单进程多线程的基于内存的KV数据库memcached差。</p>
+<ul>
+<li>Redis 6.0（redis的当前稳定版本：6.6）之后，开始支持使用多线程，可以通过设置进行设置，但默认是关闭的；</li>
+<li>以前的版本的“单线程”(4.0之后)并非指所有的操作只有一个线程处理，而是处理用户请求的线程只有一个，像数据持久化等会有其他的线程处理;</li>
+<li>高效的数据结构（后面会单独介绍）；</li>
+<li>redis一直使用单线程的官方回答：cpu不是制约性能的原因，它受限于内存和网络；</li>
+<li>redis的网络模型是epoll；</li>
+</ul>
+<h3 id="2、redis的数据结构"><a href="#2、redis的数据结构" class="headerlink" title="2、redis的数据结构"></a>2、redis的数据结构</h3><p>redis命令不区分大小写，但redis的key值区分大小写的。</p>
+<ul>
+<li>string<br><img src="/blog/2020/11/04/redis/461FF8E5-C6E5-47E6-B9DC-2D6C2E8152F6.png" alt="df4a92860d08e455fbc63acbc283b54f"></li>
+</ul>
+<p>其中: embstr和raw都是由SDS动态字符串构成的。SDS结构ruxiatu :<br><img src="/blog/2020/11/04/redis/D464B7A2-2343-4F8B-BEE4-C029D69576CA.png" alt="c51fd1b545290ce2f9265a9528e4410a"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6389&gt; set name &quot;test&quot;</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6389&gt; get name</span><br><span class="line">&quot;test&quot;</span><br><span class="line">127.0.0.1:6389&gt; set age 11</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6389&gt; get age</span><br><span class="line">&quot;11&quot;</span><br><span class="line">127.0.0.1:6389&gt; incr age  (incr 是原子操作，如果两个client同时操作，不需要考虑锁的问题，因此常用来做统计)</span><br><span class="line">(integer) 12</span><br><span class="line">127.0.0.1:6389&gt; get age</span><br><span class="line">&quot;12&quot;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>list<br><img src="/blog/2020/11/04/redis/1CC7E93B-61C4-4EA4-B227-92AC62C2C5EA.png" alt="6607248359f8fd3111476bb79757e809"><br>ziplist为连续的字节数组，每个元素的长度不同，结构如下。<br><img src="/blog/2020/11/04/redis/3AD4319D-F809-41EB-8979-B27ABCC252DD.png" alt="172737c4984a5b1f0e26da4ff9176f7b"><br>元素的结构为：<br><img src="/blog/2020/11/04/redis/AB8A306E-3310-4BBC-8558-335C8F796C8D.png" alt="4f8c905d288dfac268dc3f062d7f79eb"><br>quicklist是将ziplist和双向链表融合。<br><img src="/blog/2020/11/04/redis/C7CD6992-FAE6-48C1-9462-C6C168439227.png" alt="e5b343b0262823b7fa8164e09d3fb8c3"></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6389&gt; lpush mylist 1</span><br><span class="line">(integer) 1</span><br><span class="line">127.0.0.1:6389&gt; lpush mylist &quot;a&quot;</span><br><span class="line">(integer) 2</span><br><span class="line">127.0.0.1:6389&gt; lrange mylist 0 -1</span><br><span class="line">1) &quot;a&quot;</span><br><span class="line">2) &quot;1&quot;</span><br><span class="line">127.0.0.1:6389&gt; rpush mylist &quot;b&quot;</span><br><span class="line">(integer) 3</span><br><span class="line">127.0.0.1:6389&gt; lrange mylist 0 -1 （这个特性用来做翻页很方便）</span><br><span class="line">1) &quot;a&quot;</span><br><span class="line">2) &quot;1&quot;</span><br><span class="line">3) “b&quot;</span><br><span class="line">#list在实现上是链表，所以lpush和rpush在效率上是一致的，这样产生的弊端是元素的定位会慢一些；</span><br><span class="line">#list可以用来做消息队列，也可以用来存储博客或者商品的评论</span><br></pre></td></tr></table></figure>
+<ul>
+<li>set<br><img src="/blog/2020/11/04/redis/821CD69E-1D94-4BA0-AC20-C1C83EE8AE5D.png" alt="ef4d0719648f37edc36d4505f4743ee2"><br>用hashtable实现时候，不关注value值。</li>
+</ul>
+<p><img src="/blog/2020/11/04/redis/36BF6D29-6856-4376-B6CD-C19A80B590A5.png" alt="864ebb861cb880ef31bc8fbe8050aafd"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6389&gt; sadd myset &quot;tooe&quot;</span><br><span class="line">(integer) 1</span><br><span class="line">127.0.0.1:6389&gt; sadd myset &quot;one&quot;</span><br><span class="line">(integer) 1</span><br><span class="line">127.0.0.1:6389&gt; SMEMBERS myset</span><br><span class="line">1) &quot;tooe&quot;</span><br><span class="line">2) &quot;one&quot;</span><br><span class="line">127.0.0.1:6389&gt; SISMEMBER myset &quot;one&quot;</span><br><span class="line">(integer) 1</span><br><span class="line">127.0.0.1:6389&gt; sadd myset2 1</span><br><span class="line">(integer) 1</span><br><span class="line">127.0.0.1:6389&gt; sadd myset2 2</span><br><span class="line">(integer) 1</span><br><span class="line">127.0.0.1:6389&gt; SUNION myset myset2</span><br><span class="line">1) &quot;2&quot;</span><br><span class="line">2) &quot;1&quot;</span><br><span class="line">3) &quot;tooe&quot;</span><br><span class="line">4) “one&quot;</span><br><span class="line"># set 可以用来保存标签等信息</span><br></pre></td></tr></table></figure>
+<ul>
+<li>zset<br><img src="/blog/2020/11/04/redis/3268036B-1B22-4987-98C1-1D8757230B4B.png" alt="d3effffa6f1106edb6363ef0bcea2e8c"><br>跳表是拿空间换时间，来优化链表的查询效率。<br><img src="/blog/2020/11/04/redis/876F26BB-A8A6-46D6-98C4-EDC3DE13A864.png" alt="88b42aaab8dba0b929df5d435332dc46"></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6389&gt; zadd myzset 1 baidu.com</span><br><span class="line">(integer) 1</span><br><span class="line">127.0.0.1:6389&gt; zadd myzset 2 360.com</span><br><span class="line">(integer) 1</span><br><span class="line">127.0.0.1:6389&gt; zadd myzset 3 yahoo.com</span><br><span class="line">(integer) 1</span><br><span class="line">127.0.0.1:6389&gt; ZRANGE myzset 0 -1 WITHSCORES</span><br><span class="line">1) &quot;baidu.com&quot;</span><br><span class="line">2) &quot;1&quot;</span><br><span class="line">3) &quot;360.com&quot;</span><br><span class="line">4) &quot;2&quot;</span><br><span class="line">5) &quot;yahoo.com&quot;</span><br><span class="line">6) “3&quot;</span><br><span class="line"># 有序集合，比如用来存url的评分</span><br></pre></td></tr></table></figure>
+<ul>
+<li>hash<br><img src="/blog/2020/11/04/redis/33BBA5B1-59AD-4448-9802-5BAA8043BCE5.png" alt="db1ad8d489cdb4f0704f920775066537"></li>
+</ul>
+<p>redis中的hash在不满足ziplist的时候使用hashtable实现的。<br><img src="/blog/2020/11/04/redis/970E50BF-B579-4FAD-9969-ADE504C48948.png" alt="def153c7a2aa16a51535c250b52ec677"><br><img src="/blog/2020/11/04/redis/B1497AF7-9D35-4BFB-91A2-A151FC1BBFE7.png" alt="9481c2d32fae59aea8659c5b498138bf"><br>这类结构容易存在扩容的问题，redis用rehash来解决；即当hashtable中的元素个数大于数组长度时，就开始搬迁到h[1]，完成后，删除旧的。rehash的过程会插入到每次的插入、删除等操作中。<br><img src="/blog/2020/11/04/redis/09521578-BDB4-4A81-92FC-B080D0B6E616.png" alt="9ee9159aa048fa76b62166621d4bf9ce"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6389&gt; HMSET user:001 username aa passwd bb age 23</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6389&gt; HGETALL user:001</span><br><span class="line">1) &quot;username&quot;</span><br><span class="line">2) &quot;aa&quot;</span><br><span class="line">3) &quot;passwd&quot;</span><br><span class="line">4) &quot;bb&quot;</span><br><span class="line">5) &quot;age&quot;</span><br><span class="line">6) &quot;23&quot;</span><br><span class="line">127.0.0.1:6389&gt; HSET user:001 age 34</span><br><span class="line">(integer) 0</span><br><span class="line">127.0.0.1:6389&gt; HGET user:001 age</span><br><span class="line">&quot;34&quot;</span><br></pre></td></tr></table></figure>
+<h3 id="3、redis集群"><a href="#3、redis集群" class="headerlink" title="3、redis集群"></a>3、redis集群</h3><h4 id="主从架构（一主二从）"><a href="#主从架构（一主二从）" class="headerlink" title="主从架构（一主二从）"></a>主从架构（一主二从）</h4><p>单机的redis的qps最高只能达到10w+，如果要提高并发，可以使用集群；一主多从的支持10w+且支持水平扩容的，读写分离架构图：<br><img src="/blog/2020/11/04/redis/5BAB97E2-2CA3-4EC7-93B9-694A0F205780.png" alt="ee32618df2141b5acdb925fca6603ff0"></p>
+<ul>
+<li>mater node一定要做数据持久化，并且冷备方案也要做；</li>
+<li>slave node 做复制的时候不会block对自己的查询操作；它会用旧的数据集来提供服务，但是复制完成，删除旧的数据集，加载新的数据集时会暂停对外服务；</li>
+<li>slave node 做复制时不会block master的正常工作；</li>
+<li>master和slave数据同步支持断点续传；</li>
+<li>slave node 用来做横向扩容，提供吞吐量；</li>
+<li>slave不会处理过期key，由master删除过期的key，然后同步del给slave；（slave也会scan过期的key进行处理）</li>
+<li>主从数据复制有全量和部分两种方式，在redis2.8之前，每次slave启动，都会做数据的全量复制；在redis2.8之后，每次slave会传runid和offset，如果master发现runid和自己的runid一致且偏移量在缓存范围内，则执行部分复制；</li>
+<li>主从会相互发送heartbeat信息，master默认是10s发送一次，slave是1秒发送一次；</li>
+<li>master向slave未同步完信息，直接down机会导致主从复制信息的丢失。</li>
+<li>masterdown机后，会先根据最后同步时间过滤掉很久未同步的slave，然后优先选优先级最高的slave，其实是offset最大的slave，最终由投票选出slave升级为master</li>
+</ul>
+<h4 id="哨兵机制（一主二从三哨兵）"><a href="#哨兵机制（一主二从三哨兵）" class="headerlink" title="哨兵机制（一主二从三哨兵）"></a>哨兵机制（一主二从三哨兵）</h4><p>单个slave挂掉不影响系统稳定性，如果master挂掉整个redis集群会down掉，解决方式是：哨兵机制sentinal；<br>哨兵是一个独立的进程，监控多个redis实例；当master挂掉后会选举出一个新的master；当一个slave挂掉后会通知客户端；<br><img src="/blog/2020/11/04/redis/5E0E7B40-5FC2-4DD3-90EA-1259116FCAF3.png" alt="17dbbcf34c621554790721217541105f"><br>单个哨兵并不可靠，通常会设置三个哨兵；这样保证一个哨兵挂掉后还能进行redis的监控和主备切换；<br>哨兵 + redis 主从的部署架构，是不会保证数据零丢失的，只能保证 redis 集群的高可用性。<br><strong>脑裂</strong>（master的假down机导致的）：<br><img src="/blog/2020/11/04/redis/31C4BCF4-8DFF-493F-A369-734D4A15F8EB.png" alt="6a72a085cd8ffb268fd6a4695a3b57fe"><br>解决方式是redis提供的两个配置，一方面组织客户端写入，一方面阻止新master的产生：<br>min-slaves-to-write：这个配置项设置了主库能进行数据同步的最少从库数量；如果master和slave断开，他会拒绝客户端的写入请求；<br>min-slaves-max-lag：这个配置项设置了主从库间进行数据复制时，从库给主库发送ACK消息的最大延迟（以秒为单位）。</p>
+<p>客户端通过sentinel来连接redis，如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">from redis.sentinel import Sentinel</span><br><span class="line"></span><br><span class="line">def get_redis_conn_instance(self):</span><br><span class="line">    conf &#x3D; &#123;</span><br><span class="line">        &#39;sentinel&#39;: [(&#39;10.153.225.21&#39;, 26379), (&#39;10.153.224.16&#39;, 26379)],</span><br><span class="line">        &#39;master_group_name&#39;: &#39;mymaster&#39;,</span><br><span class="line">        &#39;connection_conf&#39;: &#123;</span><br><span class="line">            &#39;socket_timeout&#39;: self.__conn_timeout,</span><br><span class="line">            &#39;retry_on_timeout&#39;: True,</span><br><span class="line">            &#39;socket_keepalive&#39;: True,</span><br><span class="line">            &#39;max_connections&#39;: 100,</span><br><span class="line">            &#39;db&#39;: 0,</span><br><span class="line">            &#39;encoding&#39;: &#39;UTF-8&#39;,</span><br><span class="line">            &#39;decode_responses&#39;: True,</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    sentinel &#x3D; Sentinel(conf[&#39;sentinel&#39;], **conf[&#39;connection_conf&#39;])    sentinel.discover_master(conf[&#39;master_group_name&#39;])</span><br><span class="line">    redis_conn &#x3D; sentinel.master_for(conf[&#39;master_group_name&#39;])</span><br><span class="line">    </span><br><span class="line">    try:</span><br><span class="line">        redis_conn.ping()  # 测试redis是否可达</span><br><span class="line">        self.__redis_conn &#x3D; redis_conn</span><br><span class="line">        return True</span><br><span class="line">    except redis.exceptions.ConnectionError:</span><br><span class="line">        logging.exception(&quot;can not connection redis!&quot;)</span><br><span class="line">        return False</span><br></pre></td></tr></table></figure>
+<h4 id="redis-cluster"><a href="#redis-cluster" class="headerlink" title="redis cluster"></a>redis cluster</h4><p>主从架构只是解决了qps的问题，没有解决大的数据量的问题。主从架构的限制是master内存的大小。如果需要存储1T的数据，就需要对master进行扩容。即redis cluster: redis cluster = 多 master + 多slave + 高可用</p>
+<ul>
+<li>主从架构：如果数据量很少，主要是承载高并发高性能的场景，比如缓存一般就几个G；</li>
+<li>redis cluster: 主要是针对海量数据+高并发+高可用的场景，比如海量数据；</li>
+</ul>
+<p>redis cluster采用无中心的架构，每个节点保存部分数据和整个集群状态,每个节点都和其他所有节点连接。节点之间通讯采用gossip协议。<br><img src="/blog/2020/11/04/redis/7A499761-3B95-45BC-ADA8-D8228904138B.png" alt="f2233565f2fefdea897e068e15481464"><br>redis cluster采用的虚拟槽分区算法将数据分割到不同的节点。<br><img src="/blog/2020/11/04/redis/2FF35CF4-ECA7-4069-9789-A56CDBBF289B.png" alt="ebc6f504cbefa4a9907b4cbbd95f0329"></p>
+<p>上图所示，假设有三个缓存节点分别是 1、2、3。Redis Cluster 将存放缓存数据的槽（Slot）分别放入这三个节点中：</p>
+<ul>
+<li>缓存节点1存放的是（0-5000）Slot 的数据</li>
+<li>缓存节点2存放的是（5001-10000）Slot 的数据</li>
+<li>缓存节点3存放的是（10000-16383）Slot 的数据</li>
+</ul>
+<p>Redis Client需要根据一个 Key 获取对应的 Value 的数据的流程：</p>
+<ul>
+<li>首先通过 CRC16(key)%16383 计算出Slot的值，假设计算的结果是5002。</li>
+<li>将这个数据传送给 Redis Cluster，集群接收到以后会到一个对照表中查找这个 Slot=5002 属于那个缓存节点。</li>
+<li>发现属于“缓存节点 2”，于是顺着红线的方向调用缓存节点 2 中存放的 Key-Value 的内容并且返回给 Redis Client。</li>
+</ul>
+<p>cluster中的每个节点与其他节点通信时，会带上自己的节点信息和其他的节点信息。<br>每个节点用bit的数组保存自己管理的槽信息，如下图，如果为1则表示节点保存该槽位信息。<br><img src="/blog/2020/11/04/redis/8E510CC6-6435-40A7-95C8-BF2006E15459.png" alt="0318b10f5a9ff6a6bbfcca7ce7c30b96"><br>每个节点会保存一个clusterState结构来存储群居的节点信息：<br><img src="/blog/2020/11/04/redis/92C15C7E-EF52-402D-BD6B-BD57C3AE1A60.png" alt="0e7e64f00a8c37b7b806272403ba7e73"></p>
+<ul>
+<li>在redis cluster集群中，salve节点不再提供读操作，读写都由master完成，slave节点仅仅为了提高可用性。</li>
+<li>如果cluster master下的某个master没有了slave ，其他master中有多余的slave 的话，集群会自动slave迁移，这在生产环境中，适当的添加冗余的slave 实例，可以很大程度上提高集群的高可用性。</li>
+<li>集群是去中心化的，任意一个master都可以对外提供读写操作；</li>
+<li>集群无法保证强一致性；</li>
+</ul>
+<p>redis cluster的缺点：</p>
+<ul>
+<li>redis cluster 只是用db0；</li>
+<li>对于mset、mget等mutl-key操作以及对事务的支持只能在一个slot上完场，即使同一个节点的多个slot之间也不能支持。</li>
+<li>不能将一个很大的键映射到多个slot；</li>
+<li>master-slave架构只能是单层，不能是树形状；<h4 id="redis-cluster-proxy"><a href="#redis-cluster-proxy" class="headerlink" title="redis cluster proxy"></a>redis cluster proxy</h4>redis cluster proxy 是 redis 6.0新出现的集群代理。这个是独立于redis项目的。作用：</li>
+<li>解决了跨节点mset，mget的问题。</li>
+<li>自动路由，屏蔽master、slave的详细信息；</li>
+</ul>
+<h4 id="集群中遇到的问题"><a href="#集群中遇到的问题" class="headerlink" title="集群中遇到的问题"></a>集群中遇到的问题</h4><ul>
+<li>fork进程导致高并发请求延迟: 控制redis的内存在10G以内</li>
+<li>aof阻塞问题：优化硬盘写入速度，比如用SSD</li>
+<li>主从复制延迟问题：写监控脚本，超时就报警</li>
+<li>主从复制风暴问题：master-slave不用星状结构，用树状结构；</li>
+</ul>
+<h3 id="4、redis持久化"><a href="#4、redis持久化" class="headerlink" title="4、redis持久化"></a>4、redis持久化</h3><h4 id="为什么要持久化"><a href="#为什么要持久化" class="headerlink" title="为什么要持久化"></a>为什么要持久化</h4><p>redis持久化的意义在于故障恢复。<br><img src="/blog/2020/11/04/redis/52F05B2A-BC11-4CF7-B38A-4F709B1ACDB5.png" alt="70158a15b825cf890467618368646fcd"><br>redis有两种持久化备份的机制，RDB和AOF。</p>
+<h4 id="RDB"><a href="#RDB" class="headerlink" title="RDB"></a>RDB</h4><p>RDB是每隔几分钟，生成一份完整的快照。</p>
+<p><img src="/blog/2020/11/04/redis/185F3F74-CC7A-4F9C-B560-6185A6EB35CB.png" alt="7b95db2e65d1b5818fb429dbfa9110ca"><br>RDB的优点：</p>
+<ul>
+<li>适合做冷备；</li>
+<li>性能影响小，只需要主进程fork一个子进程定时做RDB持久化即可；</li>
+<li>数据恢复快（相对于AOF），RDB直接将数据加载进内存即可；<br>缺点：</li>
+<li>故障时，丢的数据多。比如5分钟存一次，那最近五分钟的数据都会丢失；<h4 id="AOF"><a href="#AOF" class="headerlink" title="AOF"></a>AOF</h4>AOF是每条写入命令作为日志更新到AOF文件中。每隔一秒会强制将os cache中的数据刷入到磁盘；<br>AOF默认是关闭的，对应的配置在“append only mode”区，需要将appendonly改为yes;<br>appendfsync为always虽然能保证不丢数据，但性能及差；通常设置为 everysec（单机可以达到上万qps）；<br><img src="/blog/2020/11/04/redis/F683068C-7F27-4ED7-9B5C-19FEA8AFD49C.png" alt="57ebb501f8043b587e319b42a1248be3"><br>由于AOF存放的是每条写入命令，所以会不断膨胀，当达到一定的大小时，会执行rewrite操作:即基于当前的redis内存，重新构造一个更小的aof文件，然后删除旧的aof文件。rewrite相关的配置：</li>
+<li>auto-aof-rewrite-percentage: 增长百分比，比上一次增长多少内容的时候就会触发rewrite操作；</li>
+<li>auto-aof-rewrite-min-size：超过该大小才会执 rewrite操作;<br>AOF的优点：</li>
+<li>故障时数据丢的少</li>
+<li>AOF是append-only模式，数据丢的少<br>缺点：</li>
+<li>文件很大且只有一个，需要自己手动做备份；</li>
+<li>性能稍低，因为AOF会是每秒fsync一次日志文件，会对性能造成影响。</li>
+<li>数据恢复较慢，要一条条的执行命令；<h4 id="实操"><a href="#实操" class="headerlink" title="实操"></a>实操</h4>两种持久化机制都会将数据存到磁盘上，还应该定时将数据备份到别的地方，比如阿里云，boss等云服务。<br>如果同时使用RDB和AOF，在redis重启时，会优先使用AOF来重新构造数据。<br>一般来说都是用RDB做冷备，用AOF防止数据丢失；<br>企业的数据备份方案：写crontab定时调度脚本去做数据备份：</li>
+<li>小时级：每小时都copy一份rdb的备份，到一个目录中去，仅仅保留最近 48 小时的备份；</li>
+<li>日级：每天都保留一份当日的 rdb 的备份，到一个目录中去，仅仅保留最近 1 个月的备份；</li>
+<li>每天晚上将当前服务器上所有的数据备份，发送一份到远程的云服务上去；<h3 id="5、redis过期策略"><a href="#5、redis过期策略" class="headerlink" title="5、redis过期策略"></a>5、redis过期策略</h3>redis是基于内存的，内存有限制，所以会在数据达到一定的量之后将数据进行清理。</li>
+<li>volatile-lru：设置了过期时间的key使用LRU算法淘汰；</li>
+<li>allkeys-lru：所有key使用LRU算法淘汰；</li>
+<li>volatile-lfu：设置了过期时间的key使用LFU算法淘汰；</li>
+<li>allkeys-lfu：所有key使用LFU算法淘汰；</li>
+<li>volatile-random：设置了过期时间的key使用随机淘汰；</li>
+<li>allkeys-random：所有key使用随机淘汰；</li>
+<li>volatile-ttl：设置了过期时间的key根据过期时间淘汰，越早过期越早淘汰；</li>
+<li>noeviction：默认策略，当内存达到设置的最大值时，所有申请内存的操作都会报错(如set,lpush等)，只读操作如get命令可以正常执行；</li>
+</ul>
+<p>redis中的lru是近似的，即随机选取N（5）个，从中选取访问时间最早的。</p>
+<p>除了内存满的情况，redis的key过期也需要被清理。已过期未被访问的数据仍保持在内存中，消耗内存资源；</p>
+<ul>
+<li>惰性删除：当key被访问时检查该key的过期时间，若已过期则删除；</li>
+<li>定期删除：每隔一段时间，随机检查设置了过期的key并删除已过期的key；维护定时器消耗CPU资源；</li>
+<li>在RDB和AOF持久化中都不会将过期的key带入持久化文件；<h3 id="6、redis多线程"><a href="#6、redis多线程" class="headerlink" title="6、redis多线程"></a>6、redis多线程</h3><h4 id="redis单线程处理流程"><a href="#redis单线程处理流程" class="headerlink" title="redis单线程处理流程"></a>redis单线程处理流程</h4></li>
+<li>用户提交命令；</li>
+<li>主线程获取socket；</li>
+<li>主线程读取socket；</li>
+<li>主线程解析并执行用户命令；</li>
+<li>主线程回写socket；</li>
+<li>用户获取响应数据；<br>cpu处理是不耗费时间的，瓶颈在内存和网络IO：即主要耗时在主线程读取和回写socket；<h4 id="redis开始支持多线程的原因"><a href="#redis开始支持多线程的原因" class="headerlink" title="redis开始支持多线程的原因"></a>redis开始支持多线程的原因</h4></li>
+<li>redis的单线程可以达到8w-10w的qps，但有些场景下有上亿的交易量，qps要求更高；</li>
+<li>常规的做法是利用分布式的架构进行数据分区，但这种方案的缺点是管理的redis服务器太多，维护成本大；</li>
+<li>redis因为是单线程，同一时刻只有一个线程在执行，耗时的操作会导致读写并发的下降；</li>
+<li>分析redis的耗时，只要在网络IO上（cpu的耗时很低，不是瓶颈），提高网络IO，最简单的方式是多线程：即由多个IO线程来分摊redis同步IO的负荷；<br>官方建议线程数要小于内核数量，比如4核机器设置2-3个线程，一旦超过8个线程，意义就已经不大；</li>
+</ul>
+<h4 id="redis多线程的流程图"><a href="#redis多线程的流程图" class="headerlink" title="redis多线程的流程图"></a>redis多线程的流程图</h4><p><img src="/blog/2020/11/04/redis/26B800B9-F656-4A80-AC49-7F666759EF76.png" alt="3b306e852ad5b8bb6add9cbd341e0c29"></p>
+<ul>
+<li>多线程是指一个主线程和多个IO线程；</li>
+<li>IO线程只负责socket数据的读写；一个线程要么是在读，要么是在写，不会既读又写；</li>
+<li>IO线程可以发挥多核的优势；</li>
+<li>命令的执行还是由主线程执行，因此不会有并发的问题；</li>
+</ul>
+<h4 id="redis多线程模型和memcached的区别"><a href="#redis多线程模型和memcached的区别" class="headerlink" title="redis多线程模型和memcached的区别"></a>redis多线程模型和memcached的区别</h4><ul>
+<li>redis处理是在主线程中进行，解决了并发的问题；</li>
+<li>memcache是传统的master-worker模式，处理也是由worker线程处理，线程模型如下：<br><img src="/blog/2020/11/04/redis/E2278078-572A-4C7B-AFFE-5F3CB935BF3E.png" alt="3d2d31f94dda3721be5c096d4dd521bc"><h3 id="7、其他"><a href="#7、其他" class="headerlink" title="7、其他"></a>7、其他</h3>redis 6.0新引入了ACl（访问控制权限），基于此功能可以设置多个用户，并且给多个用户单独设置命令权限和数据权限；<br>redis 6.0引入了基于RESP3协议的客户端缓存。<br>redis支持lua脚本，作用是减少网络开销，可复用，原子性。</li>
+</ul>
+
+      
+
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			
+        		<li class="article-tag-list-item">
+        			<a href="/blog/categories/DataBase//" class="article-tag-list-link color4">DataBase</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/blog/2020/11/04/redis/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+  
     <article id="post-网络模型" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1135,136 +1348,6 @@ select/poll在接收到一个连接时，会通知内核（发生从用户态复
       
         <p class="article-more-link">
           <a class="article-more-a" href="/blog/2018/12/17/JS%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-  
-    <article id="post-浏览器渲染" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2018/12/14/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93/">浏览器渲染</a>
-    </h1>
-  
-
-        
-        <a href="/blog/2018/12/14/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93/" class="archive-article-date">
-  	<time datetime="2018-12-14T06:21:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-14</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>1、浏览器是多进程的比如chrome</p>
-<ul>
-<li>browser进程：与用户交互、浏览器的前进后退、各个tab页面的管理等</li>
-<li>GPU进程：3D页面绘制等</li>
-<li>浏览器渲染进程（Render进程，其内部是多线程的）每个tab对应一个，相互独立。<br><img src="/blog/2018/12/14/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93/1.png" alt="image"><br>2、如上所述Render进程是多线程的</li>
-<li>JS引擎线程—– 主线程（JS内核负责解析和运行代码，一个Render进程只有一个JS引擎线程）</li>
-<li>GUI渲染线程：负责渲染浏览器界面，当界面需要repaint或者reflow时就会执行。</li>
-<li>事件触发线程：事件被触发时，将事件添加到事件处理队列等待JS引擎被执行。</li>
-<li>定时触发线程：setTimeout、setInterval所在线程</li>
-<li>异步请求线程：XMLHttpRequest在连接后通过浏览器开一个线程请求<br>3、JS引擎和渲染引擎之间的关系</li>
-<li>JS引擎线程和GUI渲染线程是互斥的，JS引擎执行时，GUI渲染线程会被挂起。</li>
-<li>JS引擎花费时间过多时，会出现浏览器卡死的情况。</li>
-<li>JS是单线程是指解释和执行JS的线程只有一个，即主线程、JS引擎线程。<br>4、JS的运行机制如下</li>
-<li>所有的同步任务都在主线程上执行，形成一个函数执行栈</li>
-<li>主线程之外有个任务队列</li>
-<li>一旦stack为空，主线程就去读取任务队列中的异步任务进行执行</li>
-<li>主线程循环重复上面三个步骤</li>
-<li>事件触发线程注册函数，当事件触发时，被推入event loop（消息队列的形式，消息队列中每一条信息都对应着一个事件）</li>
-<li>主线程函数栈执行完后，循环从消息队列中取消息进行处理<br><img src="/blog/2018/12/14/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93/2.png" alt="image"><br>5、web worker &amp; share worker</li>
-<li>JS引擎向浏览器申请开一个子线程做一些耗时处理（此子线程不能操作dom，完全受JS引擎的控制）</li>
-<li>share worker是浏览器的多个tab共享的，web worker属于单独的一个tab<br>6、宏任务（macro-task）和微任务(micro-task)的执行</li>
-<li>宏任务： script\setTimeout\setTimeInterval\setTimeImmediate\</li>
-<li>微任务： promise、process.nextTick、mutationObserver</li>
-<li>根据html standard，在每个macro-task执行完之后，UI都会重新渲染，如果再micro-task中完成数据的处理，则当前task执行完之后就可以得到最终的UI，但如果在一个新的task中进行执行，需要两次渲染才能得到最终的UI，这也是promise要好于setTimeOut的地方。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(<span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">     console.log(<span class="string">&#x27;定时器开始啦’)</span></span><br><span class="line"><span class="string"> &#125;);</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"> new Promise(function(resolve)&#123;</span></span><br><span class="line"><span class="string">     console.log(&#x27;</span>马上执行<span class="keyword">for</span>循环啦’);</span><br><span class="line">     <span class="keyword">for</span>(var i = 0; i &lt; 10000; i++)&#123;</span><br><span class="line">         i == 99 &amp;&amp; resolve();</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;).<span class="keyword">then</span>(<span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">     console.log(<span class="string">&#x27;执行then函数啦’)</span></span><br><span class="line"><span class="string"> &#125;);</span></span><br><span class="line"><span class="string"> console.log(&#x27;</span>代码执行结束’);</span><br></pre></td></tr></table></figure>
-// 浏览器的执行结果为  马上执行for循环啦 -&gt; 代码执行结束 -&gt; 执行then函数啦 -&gt; 定时器开始啦</li>
-</ul>
-<p>1.整体script作为第一个宏任务进入主线程，这是第一轮宏任务。<br>2.遇到setTimeout，其回调函数被分发到宏任务Event Queue中，这是第二个宏任务。<br>3.继续执行，打印【马上执行for循环啦】<br>4.遇到promise.then()微任务，这是第一轮宏任务下的微任务，因为整体script是第一轮宏任务嘛<br>5.继续执行，打印【代码执行结束】<br>6.现在整体script作为第一轮宏任务，去检查这一轮下的微任务，发现有一个promise.then()，去执行它<br>（至此现在第一轮宏任务，以及这一轮宏任务下的微任务都被执行过了）<br>7.开始第二轮宏任务，发现宏任务队列里有一个setTimeout，执行它，就打印了【定时器开始啦】<br>// 注意： node中的执行结果和上面是不同的<br>7、浏览器渲染流程<br><img src="/blog/2018/12/14/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93/3.png" alt="image"><br>style Tree的结构<br><img src="/blog/2018/12/14/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93/4.png" alt="image"></p>
-<ul>
-<li>Dom树构建的过程包括符号化和构建树两个过程，符号化采用符号识别算法</li>
-<li>DomContentLoaded仅当dom加载完成不包括样式表，onload事件是dom、样式、图片、脚本全都执行完毕了</li>
-<li>从上图可以看到、Css的加载不会阻塞dom树的解析但会阻塞render树的渲染</li>
-<li>Web模式是同步的，遇到script标签，会执行完js再进行后续的解析，遇到引用外部的script，同样会等到js下载完，这样会阻塞后续的资源下载，因此出现了预解析。</li>
-<li>预解析分析引用的外部资源，同步进行下载以提高速度，但并不构建dom树。</li>
-<li>渲染树和dom树不是一一对应的，不可见的dom元素不会插入到渲染树中，display为none的元素也不会插入。<br>8、dom树的构建过程</li>
-<li>二进制字节流 — -1—&gt; 字符流 —–2—-&gt; 词语 ——-3–&gt; 多个节点 -—-4——-&gt;Dom树</li>
-<li>1是根据页面的编码格式， 2根据词法分析（基于状态机的符号识别算法）</li>
-<li>4可以利用栈（所有的标签都是闭合的），3是存储类似于</li>
-<li>在步骤3中会识别出全局的JavaScript代码，此时dom树尚未创建，因此不能访问dom。<br>9、layout(reflow)和repaint，layout就是计算元素的大小位置等信息，确定每个元素在页面上的位置</li>
-<li>Layout(reflow):表示元素的内容、结构、尺寸位置发生了变化，需要重新计算样式和渲染树</li>
-<li>repaint:元素的背景色、边框文字颜色发生变化。</li>
-<li>reflow的成本要高于repaint，应该尽量避免reflow，回流一定伴随着重绘，重绘却会单独出现<br>10、引起layout（reflow）的情况</li>
-<li>dom结构改变比如删除一个节点</li>
-<li>render树变化，比如padding变化</li>
-<li>窗口resize</li>
-<li>font字体大小发生变化</li>
-<li>获取一些属性时会引发回流，比如： offset（height/width…）、scroll（height/width…）、client（height/width…）,width，height，getComputedStyle等<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">var s = document.body.style;</span><br><span class="line">s.padding = <span class="string">&quot;2px&quot;</span>; // 回流+重绘</span><br><span class="line">s.border = <span class="string">&quot;1px solid red&quot;</span>; // 再一次 回流+重绘</span><br><span class="line">s.color = <span class="string">&quot;blue&quot;</span>; // 再一次重绘</span><br><span class="line">s.backgroundColor = <span class="string">&quot;#ccc&quot;</span>; // 再一次 重绘</span><br><span class="line">s.fontSize = <span class="string">&quot;14px&quot;</span>; // 再一次 回流+重绘</span><br><span class="line">// 添加node，再一次 回流+重绘</span><br><span class="line">document.body.appendChild(document.createTextNode(<span class="string">&#x27;abc!&#x27;</span>));</span><br></pre></td></tr></table></figure>
-11、reflow的优化方案</li>
-<li>style的改变一次性改，比如通过class改变</li>
-<li>避免循环添加dom，统一处理一次添加</li>
-<li>将复杂的元素绝对或者固定定位，脱离文档流，减少回流代价<br>12、防止浏览器卡死的方式</li>
-<li>优化循环<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> chunk(array, process, context) &#123;</span><br><span class="line">    setTimeout(<span class="keyword">function</span> <span class="function"><span class="title">inner</span></span>() &#123;</span><br><span class="line">        var item = array.shift();</span><br><span class="line">        process.call(context, item);</span><br><span class="line">        <span class="keyword">if</span> (array.length &gt; 0) &#123;</span><br><span class="line">            setTimeout(inner, 100);</span><br><span class="line">        &#125;</span><br><span class="line">   &#125;, 100);</span><br><span class="line">&#125;   //  此处递归操作直接用inner 而不是直接调用chunk的原因如下：</span><br><span class="line">Var  chunkObj = chunk</span><br><span class="line">chunObj(array, process, context) // 可以正常执行</span><br><span class="line">chunk = <span class="keyword">function</span>(array, process, context) &#123; console.log(‘fadfdasfds’)&#125;</span><br><span class="line">chunObj(array, process, context) // 不能正常执行，其内部的 chunk已经被新的定义替代</span><br></pre></td></tr></table></figure></li>
-<li>如果函数体内有不相干的、执行也没有先后的操作，则可以用chunk方式进行拆分或者直接交给浏览器去调度<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">doSomething</span></span>()&#123;</span><br><span class="line">  setTimeout（dosomething1, 0）</span><br><span class="line">  setTimeout（dosomething2, 0）</span><br><span class="line">&#125;</span><br><span class="line">* 优化递归操作</span><br><span class="line"><span class="keyword">function</span> fac(num) &#123;</span><br><span class="line">    var tmp = &#123;&#125;</span><br><span class="line">  <span class="built_in">return</span> (<span class="keyword">function</span> fn(n)&#123;</span><br><span class="line">      var res;</span><br><span class="line">      <span class="keyword">if</span> (tmp[n])&#123;</span><br><span class="line">     res= tmp[n];</span><br><span class="line">     console.log(<span class="string">&#x27;match&#x27;</span>+n)   // 此处通过暂存数据，将减少递归层次， 这种优化牺牲了空间，还有一种方式是中间的结果不暂存， 利用迭代操作进行优化。</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">if</span>(n &lt;= 1) res = 1;</span><br><span class="line">      <span class="keyword">else</span> res = fn(n-2) + fn(n-1)</span><br><span class="line">    &#125;</span><br><span class="line">    tmp[n] = res;</span><br><span class="line">    <span class="built_in">return</span> res;</span><br><span class="line">  &#125;)(num)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li>减少dom操作： 例如改变style的三个值不如通过设置一个class效率更高<br>13、外链css的下载会阻塞JS的执行<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;h2&gt;Hello&lt;/h2&gt;</span><br><span class="line">    &lt;script&gt;</span><br><span class="line">    <span class="keyword">function</span> <span class="function"><span class="title">printH2</span></span>() &#123;</span><br><span class="line">        console.log(<span class="string">&#x27;first script&#x27;</span>, document.querySelectorAll(<span class="string">&#x27;h2&#x27;</span>));</span><br><span class="line">    &#125;</span><br><span class="line">    printH2()</span><br><span class="line">    setTimeout(printH2)   //  JS脚本之前如果没有css标签，这部分的执行是不会被阻塞的</span><br><span class="line">    &lt;/script&gt;</span><br><span class="line">    &lt;link rel=<span class="string">&quot;stylesheet&quot;</span> href=<span class="string">&quot;http://cdn.bootcss.com/bootstrap/4.0.0-alpha.4/css/bootstrap.css&quot;</span>&gt;</span><br><span class="line">    &lt;h2&gt;World&lt;/h2&gt;</span><br><span class="line">    &lt;script&gt;</span><br><span class="line">    console.log(<span class="string">&#x27;second script’); //   此处的执行会受到css的下载的影响</span></span><br><span class="line"><span class="string">    &lt;/script&gt;</span></span><br><span class="line"><span class="string">&lt;/body&gt;</span></span><br><span class="line"><span class="string">&lt;/html&gt;</span></span><br></pre></td></tr></table></figure>
-14、两个js的执行并非等到完全下载完<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;body&gt;</span><br><span class="line">&lt;script src=<span class="string">&quot;1.js&quot;</span>&gt;&lt;/script&gt;  // 如果1下载5s， 2下载10s，1在5s后执行，2在10s后执行</span><br><span class="line">&lt;script src=<span class="string">&quot;2.js&quot;</span>&gt;&lt;/script&gt;  // 如果1下载10s， 2下载5s, 1在10s后执行，1执行完再执行2</span><br><span class="line">&lt;/body&gt;</span><br></pre></td></tr></table></figure>
-15：渲染过程的一个例子（一下为firefox的例子）<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;doc&gt;</span><br><span class="line">&lt;title&gt;A few quotes&lt;/title&gt;</span><br><span class="line">&lt;para class=<span class="string">&quot;emph&quot;</span>&gt;</span><br><span class="line">  Franklin said that &lt;quote&gt;<span class="string">&quot;A penny saved is a penny earned.&quot;</span>&lt;/quote&gt;</span><br><span class="line">&lt;/para&gt;</span><br><span class="line">&lt;para&gt;</span><br><span class="line">  FDR said &lt;quote&gt;<span class="string">&quot;We have nothing to fear but &lt;span class=&quot;</span>emph<span class="string">&quot;&gt;fear itself.&lt;/span&gt;&quot;</span>&lt;/quote&gt;</span><br><span class="line">&lt;/para&gt;</span><br><span class="line">&lt;/doc&gt;</span><br></pre></td></tr></table></figure>
-css 规则如下：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"> /* rule 1 */ doc &#123; display: block; text-indent: 1em; &#125;</span><br><span class="line">/* rule 2 */ title &#123; display: block; font-size: 3em; &#125;</span><br><span class="line">/* rule 3 */ para &#123; display: block; &#125;</span><br><span class="line">/* rule 4 */ [class=<span class="string">&quot;emph&quot;</span>] &#123; font-style: italic; &#125;</span><br></pre></td></tr></table></figure>
-对应的dom树、css规则树以及style context tree分别为：(此段描述的未 attachment的过程：其实就是dom树上的每个节点，找到其对应的style的过程)<br><img src="/blog/2018/12/14/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93/5.png" alt="image"></li>
-<li>css rule tree结构为（css rule tree是根据dom树构建出来的，所以4节点有两个</li>
-<li>CSS匹配HTML元素是一个相当复杂和有性能问题的事情。所以，你就会在N多地方看到很多人都告诉你，DOM树要小，CSS尽量用id和class，千万不要过渡层叠下去</li>
-<li>chrom中不存在规则树，他直接将节点的style存在了dom树的节点上</li>
-<li>接下来开始计算CSS样式（每个dom节点的）—&gt;构建Render Tree -&gt; Layout(定位坐标和大小，换行、position, overflow, z-index等）—&gt;composition -&gt; paint</li>
-</ul>
-
-      
-
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			
-        		<li class="article-tag-list-item">
-        			<a href="/blog/categories/网络//" class="article-tag-list-link color3">网络</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2018/12/14/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93/">展开全文 >></a>
         </p>
       
 

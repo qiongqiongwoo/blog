@@ -147,6 +147,136 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-浏览器渲染" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2018/12/14/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93/">浏览器渲染</a>
+    </h1>
+  
+
+        
+        <a href="/blog/2018/12/14/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93/" class="archive-article-date">
+  	<time datetime="2018-12-14T06:21:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-14</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>1、浏览器是多进程的比如chrome</p>
+<ul>
+<li>browser进程：与用户交互、浏览器的前进后退、各个tab页面的管理等</li>
+<li>GPU进程：3D页面绘制等</li>
+<li>浏览器渲染进程（Render进程，其内部是多线程的）每个tab对应一个，相互独立。<br><img src="/blog/2018/12/14/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93/1.png" alt="image"><br>2、如上所述Render进程是多线程的</li>
+<li>JS引擎线程—– 主线程（JS内核负责解析和运行代码，一个Render进程只有一个JS引擎线程）</li>
+<li>GUI渲染线程：负责渲染浏览器界面，当界面需要repaint或者reflow时就会执行。</li>
+<li>事件触发线程：事件被触发时，将事件添加到事件处理队列等待JS引擎被执行。</li>
+<li>定时触发线程：setTimeout、setInterval所在线程</li>
+<li>异步请求线程：XMLHttpRequest在连接后通过浏览器开一个线程请求<br>3、JS引擎和渲染引擎之间的关系</li>
+<li>JS引擎线程和GUI渲染线程是互斥的，JS引擎执行时，GUI渲染线程会被挂起。</li>
+<li>JS引擎花费时间过多时，会出现浏览器卡死的情况。</li>
+<li>JS是单线程是指解释和执行JS的线程只有一个，即主线程、JS引擎线程。<br>4、JS的运行机制如下</li>
+<li>所有的同步任务都在主线程上执行，形成一个函数执行栈</li>
+<li>主线程之外有个任务队列</li>
+<li>一旦stack为空，主线程就去读取任务队列中的异步任务进行执行</li>
+<li>主线程循环重复上面三个步骤</li>
+<li>事件触发线程注册函数，当事件触发时，被推入event loop（消息队列的形式，消息队列中每一条信息都对应着一个事件）</li>
+<li>主线程函数栈执行完后，循环从消息队列中取消息进行处理<br><img src="/blog/2018/12/14/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93/2.png" alt="image"><br>5、web worker &amp; share worker</li>
+<li>JS引擎向浏览器申请开一个子线程做一些耗时处理（此子线程不能操作dom，完全受JS引擎的控制）</li>
+<li>share worker是浏览器的多个tab共享的，web worker属于单独的一个tab<br>6、宏任务（macro-task）和微任务(micro-task)的执行</li>
+<li>宏任务： script\setTimeout\setTimeInterval\setTimeImmediate\</li>
+<li>微任务： promise、process.nextTick、mutationObserver</li>
+<li>根据html standard，在每个macro-task执行完之后，UI都会重新渲染，如果再micro-task中完成数据的处理，则当前task执行完之后就可以得到最终的UI，但如果在一个新的task中进行执行，需要两次渲染才能得到最终的UI，这也是promise要好于setTimeOut的地方。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(<span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">     console.log(<span class="string">&#x27;定时器开始啦’)</span></span><br><span class="line"><span class="string"> &#125;);</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"> new Promise(function(resolve)&#123;</span></span><br><span class="line"><span class="string">     console.log(&#x27;</span>马上执行<span class="keyword">for</span>循环啦’);</span><br><span class="line">     <span class="keyword">for</span>(var i = 0; i &lt; 10000; i++)&#123;</span><br><span class="line">         i == 99 &amp;&amp; resolve();</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;).<span class="keyword">then</span>(<span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">     console.log(<span class="string">&#x27;执行then函数啦’)</span></span><br><span class="line"><span class="string"> &#125;);</span></span><br><span class="line"><span class="string"> console.log(&#x27;</span>代码执行结束’);</span><br></pre></td></tr></table></figure>
+// 浏览器的执行结果为  马上执行for循环啦 -&gt; 代码执行结束 -&gt; 执行then函数啦 -&gt; 定时器开始啦</li>
+</ul>
+<p>1.整体script作为第一个宏任务进入主线程，这是第一轮宏任务。<br>2.遇到setTimeout，其回调函数被分发到宏任务Event Queue中，这是第二个宏任务。<br>3.继续执行，打印【马上执行for循环啦】<br>4.遇到promise.then()微任务，这是第一轮宏任务下的微任务，因为整体script是第一轮宏任务嘛<br>5.继续执行，打印【代码执行结束】<br>6.现在整体script作为第一轮宏任务，去检查这一轮下的微任务，发现有一个promise.then()，去执行它<br>（至此现在第一轮宏任务，以及这一轮宏任务下的微任务都被执行过了）<br>7.开始第二轮宏任务，发现宏任务队列里有一个setTimeout，执行它，就打印了【定时器开始啦】<br>// 注意： node中的执行结果和上面是不同的<br>7、浏览器渲染流程<br><img src="/blog/2018/12/14/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93/3.png" alt="image"><br>style Tree的结构<br><img src="/blog/2018/12/14/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93/4.png" alt="image"></p>
+<ul>
+<li>Dom树构建的过程包括符号化和构建树两个过程，符号化采用符号识别算法</li>
+<li>DomContentLoaded仅当dom加载完成不包括样式表，onload事件是dom、样式、图片、脚本全都执行完毕了</li>
+<li>从上图可以看到、Css的加载不会阻塞dom树的解析但会阻塞render树的渲染</li>
+<li>Web模式是同步的，遇到script标签，会执行完js再进行后续的解析，遇到引用外部的script，同样会等到js下载完，这样会阻塞后续的资源下载，因此出现了预解析。</li>
+<li>预解析分析引用的外部资源，同步进行下载以提高速度，但并不构建dom树。</li>
+<li>渲染树和dom树不是一一对应的，不可见的dom元素不会插入到渲染树中，display为none的元素也不会插入。<br>8、dom树的构建过程</li>
+<li>二进制字节流 — -1—&gt; 字符流 —–2—-&gt; 词语 ——-3–&gt; 多个节点 -—-4——-&gt;Dom树</li>
+<li>1是根据页面的编码格式， 2根据词法分析（基于状态机的符号识别算法）</li>
+<li>4可以利用栈（所有的标签都是闭合的），3是存储类似于</li>
+<li>在步骤3中会识别出全局的JavaScript代码，此时dom树尚未创建，因此不能访问dom。<br>9、layout(reflow)和repaint，layout就是计算元素的大小位置等信息，确定每个元素在页面上的位置</li>
+<li>Layout(reflow):表示元素的内容、结构、尺寸位置发生了变化，需要重新计算样式和渲染树</li>
+<li>repaint:元素的背景色、边框文字颜色发生变化。</li>
+<li>reflow的成本要高于repaint，应该尽量避免reflow，回流一定伴随着重绘，重绘却会单独出现<br>10、引起layout（reflow）的情况</li>
+<li>dom结构改变比如删除一个节点</li>
+<li>render树变化，比如padding变化</li>
+<li>窗口resize</li>
+<li>font字体大小发生变化</li>
+<li>获取一些属性时会引发回流，比如： offset（height/width…）、scroll（height/width…）、client（height/width…）,width，height，getComputedStyle等<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">var s = document.body.style;</span><br><span class="line">s.padding = <span class="string">&quot;2px&quot;</span>; // 回流+重绘</span><br><span class="line">s.border = <span class="string">&quot;1px solid red&quot;</span>; // 再一次 回流+重绘</span><br><span class="line">s.color = <span class="string">&quot;blue&quot;</span>; // 再一次重绘</span><br><span class="line">s.backgroundColor = <span class="string">&quot;#ccc&quot;</span>; // 再一次 重绘</span><br><span class="line">s.fontSize = <span class="string">&quot;14px&quot;</span>; // 再一次 回流+重绘</span><br><span class="line">// 添加node，再一次 回流+重绘</span><br><span class="line">document.body.appendChild(document.createTextNode(<span class="string">&#x27;abc!&#x27;</span>));</span><br></pre></td></tr></table></figure>
+11、reflow的优化方案</li>
+<li>style的改变一次性改，比如通过class改变</li>
+<li>避免循环添加dom，统一处理一次添加</li>
+<li>将复杂的元素绝对或者固定定位，脱离文档流，减少回流代价<br>12、防止浏览器卡死的方式</li>
+<li>优化循环<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> chunk(array, process, context) &#123;</span><br><span class="line">    setTimeout(<span class="keyword">function</span> <span class="function"><span class="title">inner</span></span>() &#123;</span><br><span class="line">        var item = array.shift();</span><br><span class="line">        process.call(context, item);</span><br><span class="line">        <span class="keyword">if</span> (array.length &gt; 0) &#123;</span><br><span class="line">            setTimeout(inner, 100);</span><br><span class="line">        &#125;</span><br><span class="line">   &#125;, 100);</span><br><span class="line">&#125;   //  此处递归操作直接用inner 而不是直接调用chunk的原因如下：</span><br><span class="line">Var  chunkObj = chunk</span><br><span class="line">chunObj(array, process, context) // 可以正常执行</span><br><span class="line">chunk = <span class="keyword">function</span>(array, process, context) &#123; console.log(‘fadfdasfds’)&#125;</span><br><span class="line">chunObj(array, process, context) // 不能正常执行，其内部的 chunk已经被新的定义替代</span><br></pre></td></tr></table></figure></li>
+<li>如果函数体内有不相干的、执行也没有先后的操作，则可以用chunk方式进行拆分或者直接交给浏览器去调度<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">doSomething</span></span>()&#123;</span><br><span class="line">  setTimeout（dosomething1, 0）</span><br><span class="line">  setTimeout（dosomething2, 0）</span><br><span class="line">&#125;</span><br><span class="line">* 优化递归操作</span><br><span class="line"><span class="keyword">function</span> fac(num) &#123;</span><br><span class="line">    var tmp = &#123;&#125;</span><br><span class="line">  <span class="built_in">return</span> (<span class="keyword">function</span> fn(n)&#123;</span><br><span class="line">      var res;</span><br><span class="line">      <span class="keyword">if</span> (tmp[n])&#123;</span><br><span class="line">     res= tmp[n];</span><br><span class="line">     console.log(<span class="string">&#x27;match&#x27;</span>+n)   // 此处通过暂存数据，将减少递归层次， 这种优化牺牲了空间，还有一种方式是中间的结果不暂存， 利用迭代操作进行优化。</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">if</span>(n &lt;= 1) res = 1;</span><br><span class="line">      <span class="keyword">else</span> res = fn(n-2) + fn(n-1)</span><br><span class="line">    &#125;</span><br><span class="line">    tmp[n] = res;</span><br><span class="line">    <span class="built_in">return</span> res;</span><br><span class="line">  &#125;)(num)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>减少dom操作： 例如改变style的三个值不如通过设置一个class效率更高<br>13、外链css的下载会阻塞JS的执行<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;h2&gt;Hello&lt;/h2&gt;</span><br><span class="line">    &lt;script&gt;</span><br><span class="line">    <span class="keyword">function</span> <span class="function"><span class="title">printH2</span></span>() &#123;</span><br><span class="line">        console.log(<span class="string">&#x27;first script&#x27;</span>, document.querySelectorAll(<span class="string">&#x27;h2&#x27;</span>));</span><br><span class="line">    &#125;</span><br><span class="line">    printH2()</span><br><span class="line">    setTimeout(printH2)   //  JS脚本之前如果没有css标签，这部分的执行是不会被阻塞的</span><br><span class="line">    &lt;/script&gt;</span><br><span class="line">    &lt;link rel=<span class="string">&quot;stylesheet&quot;</span> href=<span class="string">&quot;http://cdn.bootcss.com/bootstrap/4.0.0-alpha.4/css/bootstrap.css&quot;</span>&gt;</span><br><span class="line">    &lt;h2&gt;World&lt;/h2&gt;</span><br><span class="line">    &lt;script&gt;</span><br><span class="line">    console.log(<span class="string">&#x27;second script’); //   此处的执行会受到css的下载的影响</span></span><br><span class="line"><span class="string">    &lt;/script&gt;</span></span><br><span class="line"><span class="string">&lt;/body&gt;</span></span><br><span class="line"><span class="string">&lt;/html&gt;</span></span><br></pre></td></tr></table></figure>
+14、两个js的执行并非等到完全下载完<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;body&gt;</span><br><span class="line">&lt;script src=<span class="string">&quot;1.js&quot;</span>&gt;&lt;/script&gt;  // 如果1下载5s， 2下载10s，1在5s后执行，2在10s后执行</span><br><span class="line">&lt;script src=<span class="string">&quot;2.js&quot;</span>&gt;&lt;/script&gt;  // 如果1下载10s， 2下载5s, 1在10s后执行，1执行完再执行2</span><br><span class="line">&lt;/body&gt;</span><br></pre></td></tr></table></figure>
+15：渲染过程的一个例子（一下为firefox的例子）<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;doc&gt;</span><br><span class="line">&lt;title&gt;A few quotes&lt;/title&gt;</span><br><span class="line">&lt;para class=<span class="string">&quot;emph&quot;</span>&gt;</span><br><span class="line">  Franklin said that &lt;quote&gt;<span class="string">&quot;A penny saved is a penny earned.&quot;</span>&lt;/quote&gt;</span><br><span class="line">&lt;/para&gt;</span><br><span class="line">&lt;para&gt;</span><br><span class="line">  FDR said &lt;quote&gt;<span class="string">&quot;We have nothing to fear but &lt;span class=&quot;</span>emph<span class="string">&quot;&gt;fear itself.&lt;/span&gt;&quot;</span>&lt;/quote&gt;</span><br><span class="line">&lt;/para&gt;</span><br><span class="line">&lt;/doc&gt;</span><br></pre></td></tr></table></figure>
+css 规则如下：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"> /* rule 1 */ doc &#123; display: block; text-indent: 1em; &#125;</span><br><span class="line">/* rule 2 */ title &#123; display: block; font-size: 3em; &#125;</span><br><span class="line">/* rule 3 */ para &#123; display: block; &#125;</span><br><span class="line">/* rule 4 */ [class=<span class="string">&quot;emph&quot;</span>] &#123; font-style: italic; &#125;</span><br></pre></td></tr></table></figure>
+对应的dom树、css规则树以及style context tree分别为：(此段描述的未 attachment的过程：其实就是dom树上的每个节点，找到其对应的style的过程)<br><img src="/blog/2018/12/14/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93/5.png" alt="image"></li>
+<li>css rule tree结构为（css rule tree是根据dom树构建出来的，所以4节点有两个</li>
+<li>CSS匹配HTML元素是一个相当复杂和有性能问题的事情。所以，你就会在N多地方看到很多人都告诉你，DOM树要小，CSS尽量用id和class，千万不要过渡层叠下去</li>
+<li>chrom中不存在规则树，他直接将节点的style存在了dom树的节点上</li>
+<li>接下来开始计算CSS样式（每个dom节点的）—&gt;构建Render Tree -&gt; Layout(定位坐标和大小，换行、position, overflow, z-index等）—&gt;composition -&gt; paint</li>
+</ul>
+
+      
+
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			
+        		<li class="article-tag-list-item">
+        			<a href="/blog/categories/网络//" class="article-tag-list-link color3">网络</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/blog/2018/12/14/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+  
     <article id="post-整理的css知识" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
