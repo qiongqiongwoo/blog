@@ -6,17 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://qiongqiongwoo.github.io/blog">
-  <title>Archives: 2020/8 | blog</title>
+  <title>k8s的dns和bns | blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="普普通通小码农的日常工作学习的一些粗俗浅显的记录。">
-<meta property="og:type" content="website">
-<meta property="og:title" content="blog">
-<meta property="og:url" content="https://qiongqiongwoo.github.io/blog/archives/2020/08/index.html">
+  <meta name="description" content="1、负载均衡（load balance）的意义最大化吞吐量，最小化响应时间，且避免任何单一资源的过载； 2、LB的常用算法 RR（round robin）： 轮询，每个请求按时间顺序逐一分配到不同的后端服务器，如果后端服务器down掉，能自动剔除，在实现RR算法的时候，还需要根据其他的因素: max_fails、fail_timeout、weight等因素进行综合评估 weight RR：带权重的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="k8s的dns和bns">
+<meta property="og:url" content="https://qiongqiongwoo.github.io/blog/2020/08/01/k8s%E7%9A%84dns%E5%92%8Cbns/index.html">
 <meta property="og:site_name" content="blog">
-<meta property="og:description" content="普普通通小码农的日常工作学习的一些粗俗浅显的记录。">
+<meta property="og:description" content="1、负载均衡（load balance）的意义最大化吞吐量，最小化响应时间，且避免任何单一资源的过载； 2、LB的常用算法 RR（round robin）： 轮询，每个请求按时间顺序逐一分配到不同的后端服务器，如果后端服务器down掉，能自动剔除，在实现RR算法的时候，还需要根据其他的因素: max_fails、fail_timeout、weight等因素进行综合评估 weight RR：带权重的">
 <meta property="og:locale">
+<meta property="og:image" content="https://qiongqiongwoo.github.io/blog/2020/08/01/k8s%E7%9A%84dns%E5%92%8Cbns/95032B0E-10F4-4C00-B3AB-E8DAE1F02867.png">
+<meta property="og:image" content="https://qiongqiongwoo.github.io/blog/2020/08/01/k8s%E7%9A%84dns%E5%92%8Cbns/F21A823D-CD26-4225-BB8F-5A786D580977.png">
+<meta property="article:published_time" content="2020-08-01T12:10:17.000Z">
+<meta property="article:modified_time" content="2021-03-25T10:37:42.105Z">
 <meta property="article:author" content="Qiong Qiong Woo">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://qiongqiongwoo.github.io/blog/2020/08/01/k8s%E7%9A%84dns%E5%92%8Cbns/95032B0E-10F4-4C00-B3AB-E8DAE1F02867.png">
   
   
   <link rel="stylesheet" type="text/css" href="/blog/./main.25115c.css">
@@ -145,66 +150,125 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-k8s的dns和bns" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/blog/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/blog/2020/08/11/k8s&docker/" class="archive-article-date">
-  	<time datetime="2020-08-11T13:20:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-11</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/blog/2020/08/11/k8s&docker/">k8s&amp;docker</a>
+    <h1 class="article-title" itemprop="name">
+      k8s的dns和bns
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/blog/2020/08/01/k8s%E7%9A%84dns%E5%92%8Cbns/" class="archive-article-date">
+        
+        <a href="/blog/2020/08/01/k8s%E7%9A%84dns%E5%92%8Cbns/" class="archive-article-date">
   	<time datetime="2020-08-01T12:10:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-01</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/blog/2020/08/01/k8s%E7%9A%84dns%E5%92%8Cbns/">k8s的dns和bns</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="1、负载均衡（load-balance）的意义"><a href="#1、负载均衡（load-balance）的意义" class="headerlink" title="1、负载均衡（load balance）的意义"></a>1、负载均衡（load balance）的意义</h4><p>最大化吞吐量，最小化响应时间，且避免任何单一资源的过载；</p>
+<h4 id="2、LB的常用算法"><a href="#2、LB的常用算法" class="headerlink" title="2、LB的常用算法"></a>2、LB的常用算法</h4><ul>
+<li>RR（round robin）： 轮询，每个请求按时间顺序逐一分配到不同的后端服务器，如果后端服务器down掉，能自动剔除，在实现RR算法的时候，还需要根据其他的因素: max_fails、fail_timeout、weight等因素进行综合评估</li>
+<li>weight RR：带权重的轮询，适用于后端服务器性能不均的情况；</li>
+<li>IP_HASH：每个请求按照访问IP的hash结果分配，这样每个访客固定访问一个后端服务器，可以解决”负载集群SESSION同步”的问题。</li>
+<li>Fair：第三方插件，可以根据也没大小，后端响应时间来分配请求，比如nginx可以使用Fair插件来做负载均衡</li>
+<li>URL_HASH：按访问URL的Hash结果来分配请求，使每个URL定向到同一个后端服务器（多用于缓存服务，比如同一个urlhash到同一台服务器，能提高缓存的命中率）</li>
+</ul>
+<h4 id="3、bns基本架构为："><a href="#3、bns基本架构为：" class="headerlink" title="3、bns基本架构为："></a>3、bns基本架构为：<img src="/blog/2020/08/01/k8s%E7%9A%84dns%E5%92%8Cbns/95032B0E-10F4-4C00-B3AB-E8DAE1F02867.png" alt="49a642d90fe0a8c28cfab7de55c6a9a6"></h4><p>架构分为server端和client端，server端的服务包括：</p>
+<ul>
+<li>Uns：naming server，运行在服务端，缓存全量的服务单元数据；</li>
+<li>webfoot-agent：运行在node节点，收集node上的实例信息，并上报给server；</li>
+<li>naming-agent：客户端，提供命令行查询；</li>
+</ul>
+<h4 id="4、bns的作用"><a href="#4、bns的作用" class="headerlink" title="4、bns的作用"></a>4、bns的作用</h4><p>通过matrix部署的应用，会生成一组bns，可以通过bns进行访问（类似于k8s的dns功能）；</p>
+<h4 id="5、k8s-的dns"><a href="#5、k8s-的dns" class="headerlink" title="5、k8s 的dns"></a>5、k8s 的dns</h4><ol>
+<li><p>K8s的dns功能简单说：可以在集群的内部可以通过curl -s &lt;服务名：服务端口号&gt; 来访问服务。</p>
+</li>
+<li><p>service解决了服务发现和负载均衡的问题，有了clusterIp和nodePort类型的service的ip，为什么还需要dns?</p>
+</li>
+</ol>
+<p>Ip是后生成的，只有在服务启动后才会存在，或者采用环境变量的方式带入到容器，但环境变量也是在依赖的服务已经启动后才有的。最简单的方式是ip和dns name之间可以自由互换，只知道名字就可以知道name。</p>
+<ol start="3">
+<li>k8s的dns架构：<img src="/blog/2020/08/01/k8s%E7%9A%84dns%E5%92%8Cbns/F21A823D-CD26-4225-BB8F-5A786D580977.png" alt="dd591adfab065e6c00d7610088b0b673"></li>
+</ol>
+<p>其中，etcd用来保存dns数据， kube2sky用来监听service的变动并存储到etcd，skydns从etcd中读取dns信息并对外提供服务；</p>
+<ol start="4">
+<li>一个服务的dns地址：</li>
+</ol>
+<p>服务名.namespace.svc.cluster.local</p>
+<ol start="5">
+<li>k8s做pod探活的方式：livenessprobe和readnessProbe。</li>
+</ol>
 
-    </header>
+      
+
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			
+        		<li class="article-tag-list-item">
+        			<a href="/blog/categories/K8S//" class="article-tag-list-link color4">K8S</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+
+      
+        
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/blog/2020/08/11/k8s&docker/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          k8s&amp;docker
+        
+      </div>
+    </a>
   
   
-    </div></section>
+    <a href="/blog/2019/01/07/%E7%BD%91%E7%BB%9C%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">网络知识总结</div>
+      <i class="icon-circle-right"></i>
+    </a>
   
+</nav>
 
-    
 
-
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
           </div>
         </div>
       </div>
@@ -222,8 +286,8 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
