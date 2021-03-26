@@ -360,6 +360,79 @@
     </div>
 </aside>
   
+    <article id="post-MQ" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2020/10/18/MQ/">MQ</a>
+    </h1>
+  
+
+        
+        <a href="/blog/2020/10/18/MQ/" class="archive-article-date">
+  	<time datetime="2020-10-18T13:29:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>MQ的作用：解耦、异步、削峰<br>常见的MQ有rocketMQ（阿里参照kafka设计思想用java实现的一套mq）、RabbitMQ、redis（本身支持MQ的功能）、kafka</p>
+<h3 id="解耦"><a href="#解耦" class="headerlink" title="解耦"></a>解耦</h3><p><img src="/blog/2020/10/18/MQ/F10BDC00-F6DF-4C99-AC8C-6308ABDE29E4.png" alt="fb9e63ca16848ca251bb62b5f6328bb2"><br>比如A的信息需要同步给多个模块，一种实现是A中调用BCD甚至新加入的E的接口进行同步；如果同步的模块发生变化，A中逻辑就需要发生变化。用MQ实现为：A生产数据放入MQ，谁需要谁去消费；引入的问题是，需要保证MQ的高可用性。<br><img src="/blog/2020/10/18/MQ/BB2908B9-80EA-44BC-B09C-9BB597184C10.png" alt="a4b04a6c0a7c6cfb73bf519730ab2bc6"></p>
+<h3 id="异步"><a href="#异步" class="headerlink" title="异步"></a>异步</h3><p>对于比较耗时的操作，如下图：<br><img src="/blog/2020/10/18/MQ/7ADC88BB-F056-4DDC-AA47-5D5DB4BA788B.png" alt="493956760e57b08940146c3b3ec4bebb"><br>改为异步后，用户体验大幅度提升，但是也会引来不一致的问题，比如B模块操作完成，而C和D模块操作失败。<br><img src="/blog/2020/10/18/MQ/922A863B-CDB5-47ED-817C-CDDD418BB65D.png" alt="04486bfdfae91cac4cf9d32727f02fdb"></p>
+<h3 id="削峰"><a href="#削峰" class="headerlink" title="削峰"></a>削峰</h3><p>用户请求暴增的情况下，可以用MQ起到一个缓冲的作用 。<br><img src="/blog/2020/10/18/MQ/1C4934F7-6304-474A-9EB2-E1C151F9BAC5.png" alt="a646368c434aca132cf7c2d961e011bf"></p>
+<h3 id="redis和MQ的区别"><a href="#redis和MQ的区别" class="headerlink" title="redis和MQ的区别"></a>redis和MQ的区别</h3><p>redis多用于实时性较高的消息推送，但并不保证可靠（不保证不丢数据）。<br>MQ保证可靠，但是会有一些延迟。</p>
+
+      
+
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			
+        		<li class="article-tag-list-item">
+        			<a href="/blog/categories/DataBase//" class="article-tag-list-link color4">DataBase</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/blog/2020/10/18/MQ/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+  
     <article id="post-网络模型" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -467,6 +540,104 @@ select/poll在接收到一个连接时，会通知内核（发生从用户态复
       
         <p class="article-more-link">
           <a class="article-more-a" href="/blog/2020/10/11/%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%9E%8B/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+  
+    <article id="post-matrix、docker、k8s的对应关系" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2020/08/17/matrix%E3%80%81docker%E3%80%81k8s%E7%9A%84%E5%AF%B9%E5%BA%94%E5%85%B3%E7%B3%BB/">matrix、docker、k8s的对应关系</a>
+    </h1>
+  
+
+        
+        <a href="/blog/2020/08/17/matrix%E3%80%81docker%E3%80%81k8s%E7%9A%84%E5%AF%B9%E5%BA%94%E5%85%B3%E7%B3%BB/" class="archive-article-date">
+  	<time datetime="2020-08-17T13:03:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-17</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="1、matrix的生态"><a href="#1、matrix的生态" class="headerlink" title="1、matrix的生态"></a>1、matrix的生态</h4><ul>
+<li>Matrix: 百度最早的容器调度系统，在2012年就已经发布，对应于docker， docker是在2013年开源。</li>
+<li>solaria：索拉里，matrix上的服务托管系统，协助用户完成日常线上服务的运维工作。</li>
+<li>normandy：构建与集群操作系统matrix之上，面向离线计算框架而设计的统一资源调度系统。</li>
+<li>opera：可视化的基于matrix的容器管理平台；<h4 id="2、matrix中的概念"><a href="#2、matrix中的概念" class="headerlink" title="2、matrix中的概念"></a>2、matrix中的概念</h4></li>
+<li>instance：Matrix中最小的运行单位是实例（Instance），一个Instance提交给Matrix，至少需要包含如下要素<ul>
+<li>实例名（Instance ID）：Instance ID = offset.Service Name</li>
+<li>包（Package）：这个实例的可执行文件、配置、以及脚本等，按照特定规则（例如Archer规范）打出的压缩包（的远程源路径）。</li>
+<li>资源需求（Resource）：实例在单机运行起来需要的资源，例如CPU需要2个core（归一化），内存需要40G，硬盘空间需要400M，网卡带宽需要10MB（还有硬盘IO等等，Matrix Team正在努力实现）</li>
+<li>实例标记（Tag）：可以认为类比于传递给包的命令行参数，例如这个实例需要哪块数据等等，Tag通过K-V方式组织</li>
+</ul>
+</li>
+<li>container：一个Instance提交给Matrix，Matrix会根据资源需求选定一台服务器，建立资源容器（Container）将Instance启动在这个资源容器中。<ul>
+<li>一个Container中有且仅有一个Instance，Container的生命周期和Instance相同。</li>
+<li>单机上各个资源容器相互之间有一定的隔离性，不会相互干扰。</li>
+<li>除了提供资源隔离，Container还负责一些轻量级的虚拟化，以提高易用性，例如所有Instance都可以认为自己独占/home、/tmp目录（实际上Container作了虚拟）。</li>
+</ul>
+</li>
+<li>Service：是Matrix对OP的最小运维单位，上线/升级/回滚等都是以Service粒度完成。<ul>
+<li>一个Service不能跨Matrix集群，如果需要在多个机房（集群）部署，请分别提交不同的Service（例如BS.jx，BS.tc）</li>
+<li>Matrix概念上认为一些资源需求相同，包相同的实例组成一个Service，一个Service中各个实例按照 . 命名。</li>
+<li>Matrix可以容忍短时间一个Service内各个实例资源/包层面不同（例如一个Service升级的过程中）。</li>
+</ul>
+</li>
+<li>Application:概念上，一组相关服务的DAG图组成一个应用，例如Nova应用可以包含AS/BS/CS/PFS/UFS等Service。<ul>
+<li>一个应用可以包含不同Matrix集群的Service。</li>
+<li>当前Application的概念在Matrix中相当弱化，更多由应用自己考虑这一层的概念，后继不排除Marix会在这一层中提供一些高级功能，例如根据服务的依赖管理来自动管理应用。<h4 id="3、基于matrix的业务分层"><a href="#3、基于matrix的业务分层" class="headerlink" title="3、基于matrix的业务分层"></a>3、基于matrix的业务分层</h4><img src="/blog/2020/08/17/matrix%E3%80%81docker%E3%80%81k8s%E7%9A%84%E5%AF%B9%E5%BA%94%E5%85%B3%E7%B3%BB/01C48DCE-A207-43FE-9EB9-1E7AD3E48531.png" alt="cf0b6e84f09b98d0159209cd4796c648"><h4 id="4、matrix生态和k8s生态的层级对比关系"><a href="#4、matrix生态和k8s生态的层级对比关系" class="headerlink" title="4、matrix生态和k8s生态的层级对比关系"></a>4、matrix生态和k8s生态的层级对比关系</h4><img src="/blog/2020/08/17/matrix%E3%80%81docker%E3%80%81k8s%E7%9A%84%E5%AF%B9%E5%BA%94%E5%85%B3%E7%B3%BB/05B7C998-587A-44CB-BFC6-3AB43CFE20FC.png" alt="2e4a8905731822128c57edcdc04cf25d"><h4 id="5、和k8s的功能对比："><a href="#5、和k8s的功能对比：" class="headerlink" title="5、和k8s的功能对比："></a>5、和k8s的功能对比：</h4><img src="/blog/2020/08/17/matrix%E3%80%81docker%E3%80%81k8s%E7%9A%84%E5%AF%B9%E5%BA%94%E5%85%B3%E7%B3%BB/9F6142AC-E385-4157-B562-BA2606575246.png" alt="af694ac3a74c994e173c3c4c10c93f36"><br><img src="/blog/2020/08/17/matrix%E3%80%81docker%E3%80%81k8s%E7%9A%84%E5%AF%B9%E5%BA%94%E5%85%B3%E7%B3%BB/D21A58AC-1082-43A3-B202-5183437DFD2D.png" alt="bcd2885fbc50f0807403040acf552320"><br><img src="/blog/2020/08/17/matrix%E3%80%81docker%E3%80%81k8s%E7%9A%84%E5%AF%B9%E5%BA%94%E5%85%B3%E7%B3%BB/C1E32F2A-4813-45D7-9F5D-492FCD5EF8E4.png" alt="bec63a48bfb4ec2c1770a7e0094b329f"><br><img src="/blog/2020/08/17/matrix%E3%80%81docker%E3%80%81k8s%E7%9A%84%E5%AF%B9%E5%BA%94%E5%85%B3%E7%B3%BB/9256F795-03F8-47D3-A538-01982955588B.png" alt="3dce1dc52d76b83fe785ef7471b5a4c6"><br><img src="/blog/2020/08/17/matrix%E3%80%81docker%E3%80%81k8s%E7%9A%84%E5%AF%B9%E5%BA%94%E5%85%B3%E7%B3%BB/F2B06F13-B9F8-46B6-9DD9-0C75ED3E0EF1.png" alt="b265402826847da36d29d896e22071bc"></li>
+</ul>
+</li>
+</ul>
+
+      
+
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			
+        		<li class="article-tag-list-item">
+        			<a href="/blog/categories/K8S//" class="article-tag-list-link color4">K8S</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/blog/2020/08/17/matrix%E3%80%81docker%E3%80%81k8s%E7%9A%84%E5%AF%B9%E5%BA%94%E5%85%B3%E7%B3%BB/">展开全文 >></a>
         </p>
       
 
@@ -777,6 +948,121 @@ select/poll在接收到一个连接时，会通知内核（发生从用户态复
     </div>
 </aside>
   
+    <article id="post-odp框架" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2019/08/18/odp%E6%A1%86%E6%9E%B6/">odp框架</a>
+    </h1>
+  
+
+        
+        <a href="/blog/2019/08/18/odp%E6%A1%86%E6%9E%B6/" class="archive-article-date">
+  	<time datetime="2019-08-18T13:39:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>从使用上看，Odp框架和其他的php或者web框架项目比如django框架相比，规范比较严格，比如有严格的目录要求，类名和目录名要对应。</p>
+<h4 id="1、odp项目的主要目录结构"><a href="#1、odp项目的主要目录结构" class="headerlink" title="1、odp项目的主要目录结构"></a>1、odp项目的主要目录结构</h4><ul>
+<li>app：应用程序目录，存放置产品线业务（app）代码；</li>
+<li>conf：配置文件目录，包括app的配置、db的配置等, 比如代码中的auth.conf, bos.conf, db.conf；</li>
+<li>log：odp运行环境中产生的日志，包括webserver日志、app日志、ral日志等</li>
+<li>data：放置组件和app生成的本机数据、缓存等</li>
+<li>bin：ODP的插件的执行命令。包括php，pcheck，ptest等</li>
+<li>install：ODP组件安装信息存储目录。ocm命令读取的即为该目录中的信息;</li>
+<li>php：php安装后所在的目录。php目录中的phplib目录为公共库目录，存放ODP和产品线的公共库；</li>
+<li>template：用于存放php的页面模板；</li>
+<li>webroot：默认的web文档目录，用于存放静态文件以及每个app的index.php</li>
+<li>webserver：web服务的安装目录，支持lighttpd以及nginx；</li>
+</ul>
+<p>Php-cgi 就是解析php脚本的程序而已， 作用和HHVM一样；<br>Php-fpm是实现fastcgi协议的的进程管理器，有一个master和多个work，是一个进程管理池，用来处理web的请求；</p>
+<h4 id="2、app项目基本的目录结构如下："><a href="#2、app项目基本的目录结构如下：" class="headerlink" title="2、app项目基本的目录结构如下："></a>2、app项目基本的目录结构如下：</h4><p><img src="/blog/2019/08/18/odp%E6%A1%86%E6%9E%B6/8BDB872F-5821-4C19-A106-08DC5B87BB14.png" alt="78786394797ca1761aa5ae8004b0053b"></p>
+<p>Odp框架app目录下的业务代码需要按照业务层规范来开发，Odp框架属于mvc框架，业务层粗略的可以分为controller，action、 model，controller是很薄的一层；action主要处理参数校验以及权限验证等；model层相比其他的框架划分的更细，下又分为 Pageservice、 dataservice以及dao层；</p>
+<ul>
+<li>Action的类名：必须以大写的Action开头，继承自Ap_Action_Abstract，命名方式为驼峰， 下面只有execute方法。Action层一般会调用PS层的类，来做后续的处理。</li>
+<li>model目录下有dao和service， service下又分为pageService和dataService；</li>
+<li>一个PageService层可对应多个Action,而一个Action则只能对应一个PageService。PageService层是唯一可以和action直接交互的，具体的数据处理逻辑应该在PageService层进行处理。pageService层和dataService层进行交互；</li>
+<li>DataService层并不是和DB层直接交互，而是作为数据库操作的一个封装，并将数据库中需要处理的数据进行一个与Dao层需要的参数格式一致的一个处理，并处理dao层返回的失败或成功信息。</li>
+<li>Dao层是直接和数据库进行交互；</li>
+</ul>
+<p>综上可得数据的流向为： action -&gt; pageService-&gt; dataService-&gt; Dao-&gt; DB，然后一层层向上级返回信息，最后还是在action层中返回信息。<br><img src="/blog/2019/08/18/odp%E6%A1%86%E6%9E%B6/D0A8B29A-369F-4118-AFBB-701C6D161B8A.png" alt="27e92881c6c090280a1283bb84115b99"></p>
+<h4 id="3、ral组件"><a href="#3、ral组件" class="headerlink" title="3、ral组件"></a>3、ral组件</h4><p>服务除了访问mysql等数据库之外，还可能调用后端的服务，交互协议可能是http或者rpc，数据传输协议可能是string或者mcpack之类的；RAL组件就是ODP的资源访问层，实现了通过添加配置的方式就做到对后端服务端交互的支持;后端服务可以定义为IP或者bns group的形式；</p>
+<ul>
+<li>RAL组件的服务配置支持local和webfoot等方式</li>
+<li>方便：添加相关配置即可实现与后端服务的交互</li>
+<li>支持并发调用和异步接口、支持负载均衡、健康检查等</li>
+</ul>
+<p><img src="/blog/2019/08/18/odp%E6%A1%86%E6%9E%B6/A7BCFBEC-AB34-4076-9E3E-4EF165ECF596.png" alt="759400b29a3314af4f7b66f7f8358031"></p>
+<h4 id="4、AP框架的流程"><a href="#4、AP框架的流程" class="headerlink" title="4、AP框架的流程"></a>4、AP框架的流程</h4><p>Odp框架的底层是ap框架，一个用户请求到来，首先会经过nginx转发，然后转交到ap框架；Ap框架的处理流程还原了一个请求在整个业务系统中执行的完整流程；<br>Ap框架规定类名中必须包含路径信息，也就是以下划线分割的目录信息。Ap将依照类名中的目录信息，完成类的自动加载，而不需要通过include与require语句载入类的具体实现的文件。<br>odp框架禁止添加include和require语句，所有的类都通过ap框架来加载，load一个类的方式是：类名按照_分割成路径，然后按照路径完成加载；<br>ap目录映射规则（加载类的规则）<br>数据模型的类寻址目录是从model开始的，比如Service_Page_A的目录的地址映射路径为：<br><code>&#123;项目目录&#125;/models/service/page/Sample.php</code><br><img src="/blog/2019/08/18/odp%E6%A1%86%E6%9E%B6/99672AAE-1FF1-4D3E-9E34-325B7CEE8FF4.png" alt="fe6a18b2b09b4a49701a88104ff77a93"></p>
+<p>Ap框架首先会初始化一个ap_application的对象，然后先去读取app目录下每个app中的Bootstrap.php文件，做app初始化的工作。Bootstrap.php文件是Ap提供的一个全局配置的入口, 可以做很多全局自定义的工作。比如路由的定义，插件的定义等；<br>run方法主要包括两部分，一部分是路由功能Router，一部分是分发功能dispatch；Ap的Router模块的主要功能是从中解析出model、Controller以及Action信息。</p>
+<p>odp框架默认的路由协议Ap_Route_Static, 就是分析请求中的request_uri,在去除掉base_uri以后, 获取到真正的负载路由信息的request_uri片段,具体的策略是, 根据”/“对request_uri分段,依次得到Module,Controller,Action, 在得到Module以后,还需要根据Ap_Application::$modules来判断Module是否是合法的Module，如果不是，则认为Module并没有体现在request_uri中，而把原Module当做Controller,原Controller当做Action。”<br>ap框架默认的model和controller为index；controller中会记录所有的actions的地址，action为真正的业务入口，通过调用action的execute方法调用底层的业务逻辑。</p>
+<h4 id="4、下面以-api-project-list为例结合代码说明具体的流程；"><a href="#4、下面以-api-project-list为例结合代码说明具体的流程；" class="headerlink" title="4、下面以/api/project/list为例结合代码说明具体的流程；"></a>4、下面以/api/project/list为例结合代码说明具体的流程；</h4><p>一个请求到来后，先经过nginx的rewrite规则进行转发，转发规则如下：</p>
+<p><img src="/blog/2019/08/18/odp%E6%A1%86%E6%9E%B6/28E685C3-B4EE-4ACD-9753-AC368B17A627.png" alt="e4033c5ca25e9503a8cb81345211e087"></p>
+<p>可以看到请求转发到 /dunker-pro/index.php 文件；</p>
+<p>Index.php入口文件中这两行的意义：<br><img src="/blog/2019/08/18/odp%E6%A1%86%E6%9E%B6/3C2EB01D-94C8-4FF6-A472-42A52DA23AAB.png" alt="7be03ddf96f1d0c41633920c98b8b81d"></p>
+<p>Bd_Init::init（）方法中会new一个Ap_application的类，并返回Ap_application是ap框架的核心类；<br>第二句是调用了Ap_application的boostrap和run方法；</p>
+<p>boostrap方法主要是找到Boostrap.php文件并执行一系列的init方法；<br>duncker_pro目录的Boostrap文件内容如下：</p>
+<p><img src="/blog/2019/08/18/odp%E6%A1%86%E6%9E%B6/28EC82CE-C2AD-4B89-8BC2-B48FD9BA4237.png" alt="1d1c2789e9ebc6b2f143bd31965ad625"></p>
+<p>首先路由是使用的aip_router，自定义的路由如下：</p>
+<p><img src="/blog/2019/08/18/odp%E6%A1%86%E6%9E%B6/FDDB5C6C-BF7A-44D9-9DD7-338E7C51D60C.png" alt="de877e24235825a8e53d81b8d65135ce"></p>
+<p>规则为：干掉结尾的/, 将uri分为controller和action; action默认为index，其中如果有/替换为”_“作为真正的action；controller层只做action的转发；action中通过执行execute方法调用底层的业务逻辑，处理完成后将结果返回；</p>
+<p><img src="/blog/2019/08/18/odp%E6%A1%86%E6%9E%B6/AD4FA73B-B4CD-42A3-A3C1-69C6BB4879AC.png" alt="d66a6cde0c2678cfa63a671fe7c993fc"></p>
+<h4 id="5、ap插件"><a href="#5、ap插件" class="headerlink" title="5、ap插件"></a>5、ap插件</h4><p>AP插件会触发以下的几个hook函数：<br><img src="/blog/2019/08/18/odp%E6%A1%86%E6%9E%B6/AF81EEB3-D8F9-4275-8FB1-68CFF6543BB3.png" alt="3edb1d71a1c0031a24a5d6705f6274f7"><br>插件Init中实现了routerStartUp方法，主要功能是初始化、参数格式化和打印URI请求日志（URI、开始时间、当前内存占用）。<br><img src="/blog/2019/08/18/odp%E6%A1%86%E6%9E%B6/D5160B59-DD7F-4EB9-B235-CBDF8E8C6822.png" alt="e0d507bb19f4e1ab72cbb02af592f5ad"></p>
+<p>dispatchLoopShutdown方法，主要功能是打印日志，包括URI、耗时、内存占用；<br><img src="/blog/2019/08/18/odp%E6%A1%86%E6%9E%B6/856B4DF1-CF45-4899-AFE3-B7905422E93C.png" alt="eef06b4c4ad237f19f0881591cecaf13"></p>
+
+      
+
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			
+        		<li class="article-tag-list-item">
+        			<a href="/blog/categories/后端//" class="article-tag-list-link color3">后端</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/blog/2019/08/18/odp%E6%A1%86%E6%9E%B6/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+  
     <article id="post-网络知识总结" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -977,301 +1263,6 @@ select/poll在接收到一个连接时，会通知内核（发生从用户态复
       
         <p class="article-more-link">
           <a class="article-more-a" href="/blog/2018/12/24/call%E5%92%8Capply%E4%BB%A5%E5%8F%8Athis%E7%9A%84%E6%8C%87%E5%90%91%E6%B7%B1%E5%85%A5/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-  
-    <article id="post-js中概念总结" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2018/12/23/js%E4%B8%AD%E6%A6%82%E5%BF%B5%E6%80%BB%E7%BB%93/">JS中的概念总结</a>
-    </h1>
-  
-
-        
-        <a href="/blog/2018/12/23/js%E4%B8%AD%E6%A6%82%E5%BF%B5%E6%80%BB%E7%BB%93/" class="archive-article-date">
-  	<time datetime="2018-12-23T10:32:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-23</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>1、call、apply、bind的区别</p>
-<ul>
-<li>call apply 和bind都是用来改变this的指向的</li>
-<li>call 和 bind都是顺序传参数，apply是传数组</li>
-<li>利用call和apply会直接执行当前函数，bind不会<br>2、reduce是es5中的内容<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var arr=“qweqrq<span class="string">&quot;</span></span><br><span class="line"><span class="string">var info= arr.split(&#x27;&#x27;).reduce((a,b)=&gt;</span></span><br><span class="line"><span class="string">    (a[b]++ || (a[b]=1),a),&#123;&#125;)</span></span><br><span class="line"><span class="string">console.log(info)</span></span><br></pre></td></tr></table></figure>
-3、forEach、 map 、 reduce的区别</li>
-<li>forEach 方法是将数组中的每一个值取出做一些程序员想让他们做的事情</li>
-<li>map 方法 是将数组中的每一个值放入一个方法中做一些程序员想让他们做的事情后返回一个新的数组</li>
-<li>reduce 方法 将数组中的每一个值与前面的被返回相加的总和(初试值为数组的第一个值或者initialValue</li>
-</ul>
-<p>4、async await 以及promise<br>promise解决的是回调场景中的状态处理问题，async/await解决的是回调嵌套的问题。<br>（1）async是声明在回调环境函数<br>（2）await是运行在等待回调结果过程中<br>（3）promise是封装了回调操作的原子任务</p>
-<p>5、require import &amp; export &amp; moudle.exports<br>（1）node中用的是commonJs规范，export和require<br>（2）为了在客户端使用，因此有了amd和cmd规范，二者都是异步加载，唯一不同的是依赖的模块执行的时机不同，amd是一边加载一边执行，cmd是加载完后才执行。<br>（3）es6中的规范是export和import，但由于commonJs深入人心，因此还是有很多人使用commonJs规范。<br>（4）require可以出现在代码中，import只能在代码的最顶层</p>
-<p>6、JS异步的实现方式<br>（1）回调   =&gt; 容易出现多重嵌套的问题，代码可读性差<br>（2）事件监听（on和fire）<br>（3）发布和订阅<br>（4）promise对象<br>（5）es6中的新加的generate</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Function *gen(x) &#123;</span><br><span class="line">  var y = yield x + 2;</span><br><span class="line">  <span class="built_in">return</span> y;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>generator函数函数名和function之间加*，所有的执行片段用yield分割。函数的返回值是一个iterator，每次调用next就返回当前当前yield片段的值。<br>适合于返回值有多个状态的情况。<br>（6）es7中的await和async</p>
-<p>7、json和jsonp的区别：json是一种数据格式、jsonp是一种跨域的数据格式传输协议</p>
-<p>8、浏览器同源策略限制不允许跨域。<br>  非跨域是指： 相同的域名、相同的协议、相同的端口。实现跨域的方式：<br>（1）所有含有src属性的标签都不受同源策略限制，比如img，script，iframe，因此可以使用JSONP的方式，即客户端传递一个callback，服务端用callback包裹json数据，返回js片段，这样客户端就可以随意使用json数据，实现跨域了。比如统计点击率时经常用img标签。（jsonp的形式只支持get请求，不支持post请求。）<br>（2）基于jquery的跨域，方式见下（9）<br>  (3) 利用document.domain进行跨域，document.domain可以进行赋值，但只可以设置为当前的域名或者基础域名。<br>因此对于同一个基础域名的相同协议相同端口的跨域请求，可以通过设置document.domain来实现跨域。<br>（4）window.postMessage()<br>（5）cors：跨域资源共享是w3c的一个规范，这个主要在服务器的实现，前端发送请求没有区别。这和jsonp的区别是jsonp只支持get，cors可以支持post。</p>
-<p>9、用jquery实现跨域的方式<br>（1）直接将dataType设置为jsonp<br>/<em>当前网址是localhost:3000</em>/<br>js代码</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">$.ajax(&#123;</span><br><span class="line"><span class="built_in">type</span>:<span class="string">&quot;get&quot;</span>,</span><br><span class="line">url:<span class="string">&quot;http://localhost:3000/showAll&quot;</span>,/*url写异域的请求地址*/</span><br><span class="line">dataType:<span class="string">&quot;jsonp&quot;</span>,/*加上datatype*/</span><br><span class="line">Jsonp: ‘cb<span class="string">&#x27;, // 传递给请求处理程序或页面的，用以获得jsonp回调函数名的参数名(默认为:callback)</span></span><br><span class="line"><span class="string">jsonpCallback:”success&quot;,/*设置一个回调函数，名字随便取，和下面的函数里的名字相同就行*/</span></span><br><span class="line"><span class="string">success:function(data)&#123;</span></span><br><span class="line"><span class="string">  console.log(data)</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">&#125;);</span></span><br><span class="line"><span class="string">/*而在异域服务器上，*/</span></span><br><span class="line"><span class="string">app.js</span></span><br><span class="line"><span class="string">app.get(&#x27;</span>/showAll<span class="string">&#x27;,students.showAll);/*这和不跨域的写法相同*/</span></span><br><span class="line"><span class="string">/*在异域服务器的showAll函数里，*/</span></span><br><span class="line"><span class="string">var db = require(&quot;./database&quot;);</span></span><br><span class="line"><span class="string">exports.showAll = function(req,res)&#123;</span></span><br><span class="line"><span class="string">/**设置响应头允许ajax跨域访问**/</span></span><br><span class="line"><span class="string">res.setHeader(&quot;Access-Control-Allow-Origin&quot;,&quot;*&quot;);</span></span><br><span class="line"><span class="string">/*星号表示所有的异域请求都可以接受，*/</span></span><br><span class="line"><span class="string">res.setHeader(&quot;Access-Control-Allow-Methods&quot;,&quot;GET,POST&quot;);</span></span><br><span class="line"><span class="string">var con = db.getCon();</span></span><br><span class="line"><span class="string">con.query(&quot;select * from t_students&quot;,function(error,rows)&#123;</span></span><br><span class="line"><span class="string">if(error)&#123;</span></span><br><span class="line"><span class="string">console.log(&quot;数据库出错：&quot;+error);</span></span><br><span class="line"><span class="string">&#125;else&#123;</span></span><br><span class="line"><span class="string">/*注意这里，返回的就是jsonP的回调函数名+数据了*/</span></span><br><span class="line"><span class="string">res.send(&quot;cb(&quot;+JSON.stringify(r)+&quot;)&quot;);</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">&#125;);</span></span><br><span class="line"><span class="string">&#125;</span></span><br></pre></td></tr></table></figure>
-<p>（2）直接调用$.getJson进行跨域请求数据，其内部原理是判断是否跨域、如果非跨域，直接用ajax方式发送请求，否则用script标签的方式</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">jQuery.getJSON(url,data,success(data,status,<span class="keyword">function</span>(data)&#123;</span><br><span class="line">   Console.log(data)</span><br><span class="line">&#125;))</span><br></pre></td></tr></table></figure>
-<p>// url是可以非同源的Url，data为一起传递到服务器的数据。<br>10、xss和csrf的区别<br>（1）xss通过输入框或者textare等，往页面上注入一段js，csrf是伪装成当前登录用户发送请求，甚至更改当前用户的信息。<br>（2）csrf的一种实现方式是xss，csrf注重结果。<br>（3）xss避免的一种方式是将html标签进行过滤或者对内容进行encode，另外cookie信息不要放用户名和密码，必要时需要加md5加密，csrf的方式是前后端交互加令牌。<br>11、cookie &amp; session<br>（1）cookie不设置过期时间则保存在内存中，否则保存在硬盘中，下次打开会话，还能读取。cookie可以设置path和domain，且具有不可跨域性。<br>（2）cookie是保存在浏览器上，session是保存在服务器中，因此cookie不是很安全，别人可以分析并且伪装。<br>（3）cookie的value最大为4M，有些浏览器有限制每个站最多设置20个cookie。<br>（4）session会占用服务器资源。<br>12： ajax防止重复发送请求<br>（1）点击后disable掉button<br>（2）发送此请求时，abort掉上一个请求<br>13：xhr（ajax）和fetch的区别<br>（1）ajax为xhr，有abort状态(因为ajax是一个xmlhttpRequest，有个表示状态的readystatus，abort会将此值置为0，readystatus小于3，接收到的responseText未空)，fetch是基于promise实现的，只有resolve和reject状态，因而fetch没有abort状态。<br>（2）fetch发送请求是不带cookie的，只有通过fetch（url, {credentials: ‘inlucde’ }）来加上<br>（3）服务器返回400以及500状态是，fetch并不能reject，只有网络请求失败时会。<br>14、ajax的readystatux状态<br>（1） 0: 未初始化或者被abort到初始状态<br>（2）1：已经初始化正在send请求<br>（3）2： send已经完成<br>（4）3： 已经解析了部分返回内容，未解析完<br>（5）4： 相应内容已经解析完成<br>15、函数防抖和节流<br>（1） 防抖： 一段时间内，没有执行该函数，则一定时间后执行该函数，如果再次触发了事件，则从0开始计数，到达一定时间后再执行事件。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> debounce(fn, <span class="built_in">wait</span>) &#123;</span><br><span class="line">    var timer = null;</span><br><span class="line">    <span class="built_in">return</span> <span class="function"><span class="title">function</span></span>() &#123;</span><br><span class="line">       var context = this;</span><br><span class="line">      var args = arguments;</span><br><span class="line">      <span class="keyword">if</span>( timer != null) clearTimeout(timer)</span><br><span class="line">      timer = setTimeout(() =&gt; &#123;</span><br><span class="line">         fn.apply(context, args)</span><br><span class="line">      &#125;, <span class="built_in">wait</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">handle</span></span>() &#123;</span><br><span class="line">   Console.log(‘handle<span class="string">&#x27;)</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">window.addEventListener(’scroll’, debounce(handle, 1000))</span></span><br></pre></td></tr></table></figure>
-<p>（2）节流：持续触发事件，保证一段时间内，调用一次当前函数。( 且能保证一段时间内至少执行一次)</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> throttle(fn, <span class="built_in">wait</span>) &#123;</span><br><span class="line">    var prev = Date.now();</span><br><span class="line">    <span class="built_in">return</span> <span class="function"><span class="title">function</span></span>() &#123;</span><br><span class="line">        var now = Date.now();</span><br><span class="line">        var context = this;</span><br><span class="line">        var args = arguments;</span><br><span class="line">        If (prev - now &gt; delay) &#123;</span><br><span class="line">          fn(context, args);</span><br><span class="line">          Prev = Date.now();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">handle</span></span>() &#123;</span><br><span class="line">   console.log(<span class="string">&#x27;handle&#x27;</span>)</span><br><span class="line">&#125;</span><br><span class="line">window.addEventListener(<span class="string">&#x27;scroll&#x27;</span>, throttle(handle, 1000))</span><br></pre></td></tr></table></figure>
-<p>16、vue和react的对比<br>（1）vue和react都提倡组件化开发，都是数据驱动，都是通过props向组件传递参数，都有virtual dom<br>（2）数据绑定： vue是双向数据绑定、react是单向<br>（3）大规模协作的项目用react方便，小的项目用vue方便<br>（2）开发风格：react用的是jsx，vue推荐使用的是 js css都在一个文件<br>17、 gulp 和 webpack的区别<br>18、原型和原型链<br>（1）每个对象都有 <strong>proto</strong> 属性， 但只有函数对象才有 prototype属性<br>（2）对象的__proto__属性指向他的构造函数 person1.<strong>proto</strong> = Person.prototype<br> Person.<strong>proto</strong> = Function.prototype<br> Person.prototype.<strong>proto</strong> = Object.prototype<br>19、img的加载 - 懒加载<br>（1）用img的src进行加载或者用css中background加载<br>（2）重要的信息比如logo适合用img标签，如果图片特别大，建议用css中的background，这样不会影响整体框架在加载<br>（3）动态的设置img的src信息即可<br>20、函数闭包<br>（1）闭包的例子：oldLog还保持旧值，而getLogNumber用新的值的原因可以从类定义，每个函数方法保存是单独的一份这点来区分。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">var gLogNumber, gIncreaseNumber, gSetNumber;</span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">setupSomeGlobals</span></span>() &#123;</span><br><span class="line">  // 局部变量num最后会保存在闭包中</span><br><span class="line">  var num = 42;</span><br><span class="line">  // 将一些对于函数的引用存储为全局变量</span><br><span class="line">  gLogNumber = <span class="function"><span class="title">function</span></span>() &#123; console.log(num); &#125;</span><br><span class="line">  gIncreaseNumber = <span class="function"><span class="title">function</span></span>() &#123; num++; &#125;</span><br><span class="line">  gSetNumber = <span class="keyword">function</span>(x) &#123; num = x; &#125;</span><br><span class="line">&#125;</span><br><span class="line">setupSomeGlobals();</span><br><span class="line">gIncreaseNumber();</span><br><span class="line">gLogNumber(); // 43</span><br><span class="line">gSetNumber(5);</span><br><span class="line">gLogNumber(); // 5</span><br><span class="line">var oldLog = gLogNumber;</span><br><span class="line">setupSomeGlobals();</span><br><span class="line">gLogNumber(); // 42</span><br><span class="line">oldLog() // 5</span><br></pre></td></tr></table></figure>
-<p>（2）下例中result是闭包变量，i最后值为3，list[3]是undefined</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> buildList(list) &#123;</span><br><span class="line">    var result = [];</span><br><span class="line">    <span class="keyword">for</span> (var i = 0; i &lt; list.length; i++) &#123;</span><br><span class="line">        var item = <span class="string">&#x27;item&#x27;</span> + i;</span><br><span class="line">        result.push( <span class="function"><span class="title">function</span></span>() &#123;console.log(item + <span class="string">&#x27; &#x27;</span> + list[i])&#125; );</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">testList</span></span>() &#123;</span><br><span class="line">    var fnlist = buildList([1,2,3]);</span><br><span class="line">    // 使用j是为了防止搞混---可以使用i</span><br><span class="line">    <span class="keyword">for</span> (var j = 0; j &lt; fnlist.length; j++) &#123;</span><br><span class="line">        fnlist[j]();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"> testList() //输出 <span class="string">&quot;item2 undefined&quot;</span> 3 次</span><br></pre></td></tr></table></figure>
-<p>(3) 总结</p>
-<ul>
-<li>函数内使用了关键字function就创建了一个闭包</li>
-<li>闭包相当于一个副本，当函数退出时，所有的局部变量保存在其中</li>
-<li>闭包函数每次被调用，都会被创建一份新的局部变量存储。<br>21、JS中的this<br>（1）在普通函数中，非严格模式下，this指向window，否则指向undefined；<br>（2）作为构造函数中的this指向实例对象<br>（3）call和apply可以改变this中的指向<br>（4）箭头函数在执行前已经定死了this的指向<br>22、常见的几类前端安全性问题：</li>
-</ul>
-<ol>
-<li>老生常谈的XSS（cross site script）  处理方式： 对输入(和URL参数)进行过滤，对输出进行编码。对cookie中的关键信息设置httponly属性，防止被js读取。</li>
-<li>警惕iframe带来的风险：防止自己的网页被iframe（1）直接判断当前网页的host是否和window.top的host是否相同(2)后台配置：header(‘X-Frame-Options:Deny’); iframe别人的网页时： 需要iframe设置sandbox属性，禁止iframe脚本、ajax请求、form表单、限制origin等</li>
-<li>别被点击劫持了（clickjacking）利用iframe先响应click事件，防御策略是后台配置：header(‘X-Frame-Options:Deny’);</li>
-<li>错误的内容推断 (比如：上传的图片是用js片段文件)</li>
-<li>防火防盗防猪队友：不安全的第三方依赖包（第三方插件本身存在漏洞）</li>
-<li>用了HTTPS也可能掉坑里，比如用户直接输入域名，未指定为https方式，会被拦截者获取并模拟服务器与前端交互，处理方式是强制前端用https进行通信</li>
-<li>本地存储数据泄露：本地存储不放敏感信息，只放一些公共信息</li>
-<li>缺失静态资源完整性校验：从cdn中获取的js是被拦截处理过的，导致系统不能正常运行。处理方式有：对引用的script或者css加签名，浏览器拿到资源后，首先进行内容hash，值相同才会进行下一步处理，否则不执行。（ Subresource Integrity  | 内容安全策略中添加所有的 Content-Security-Policy: require-sri-for script;）<br>23：pwa 离线缓存<br>（1）相当于在浏览器和服务器之间加了一层service worker， 用来控制离线缓存，可以将一些不经常更改的静态文件放到缓存中，提升用户体验。并且还可以生成一个原生的操作图标。但这个强制使用https，且浏览器兼容差。<br>24:Post请求数据的格式：<br>（1）默认：application/x-www-form-urlencoded<br>（2）上传图片： multipart/form-data<br>（3）application/json;charset=utf-8<br>（4）xml<br>25: 硬件加速：将渲染的过程交给GPU进行处理，提高渲染性能。<br>26: let const var区别<br>var支持预定义 以及重复定义 其他二者不可<br>let有了块级作用域<br>const变量不可以改 不可以不赋值</li>
-</ol>
-
-      
-
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			
-        		<li class="article-tag-list-item">
-        			<a href="/blog/categories/JS-React//" class="article-tag-list-link color4">JS/React</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2018/12/23/js%E4%B8%AD%E6%A6%82%E5%BF%B5%E6%80%BB%E7%BB%93/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-  
-    <article id="post-BSON和JSON区别" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2018/12/23/BSON%E5%92%8CJSON%E5%8C%BA%E5%88%AB/">BSON和JSON区别</a>
-    </h1>
-  
-
-        
-        <a href="/blog/2018/12/23/BSON%E5%92%8CJSON%E5%8C%BA%E5%88%AB/" class="archive-article-date">
-  	<time datetime="2018-12-23T08:16:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-23</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>BSON是由10gen开发的一个数据格式，目前主要用于MongoDB中，是MongoDB的数据存储格式。BSON基于JSON格式，选择JSON进行改造的原因主要是JSON的通用性及JSON的schemaless的特性。</p>
-<p>BSON主要会实现以下三点目标：</p>
-<h2 id="1-更快的遍历速度"><a href="#1-更快的遍历速度" class="headerlink" title="1.更快的遍历速度"></a>1.更快的遍历速度</h2><p>对JSON格式来说，太大的JSON结构会导致数据遍历非常慢。在JSON中，要跳过一个文档进行数据读取，需要对此文档进行扫描才行，需要进行麻烦的数据结构匹配，比如括号的匹配，而BSON对JSON的一大改进就是，它会将JSON的每一个元素的长度存在元素的头部，这样你只需要读取到元素长度就能直接seek到指定的点上进行读取了。<br>MongoDB优化：对于MongoDB来说，由于采用了MMAP来做内存与数据文件的映射，在更新或者获取Document的某一个字段时，如果需要先读取其前面的所有字段，会导致物理内存由于读操作被加载到不必要的字段上，导致资源的不合理分配。而采用BSON只需要读到相应的位置然后跨过无用内容读取需要内容即可。</p>
-<h2 id="2-操作更简易"><a href="#2-操作更简易" class="headerlink" title="2.操作更简易"></a>2.操作更简易</h2><p>对JSON来说，数据存储是无类型的，比如你要修改基本一个值，从9到10，由于从一个字符变成了两个，所以可能其后面的所有内容都需要往后移一位才可以。而使用BSON，你可以指定这个列为数字列，那么无论数字从9长到10还是100，我们都只是在存储数字的那一位上进行修改，不会导致数据总长变大。当然，在MongoDB中，如果数字从整形增大到长整型，还是会导致数据总长变大的。<br>MongoDB优化：所以使用MongoDB的一个技巧是将长度可能变化的字段尽量命名靠后（MongoDB在update操作后会将字段按key值按字母顺序重排，所以靠后的意思是按a－z的顺序取名）。这样在更新的时候如果导致数字变长，不需要移动大量数据。一个典型的例子是如果用二进制类型存储文件时，如果文件名或者文件描述可能会变长，那么尽量将这个字段取名靠后是一个明智的选择，否则在文件名或文件描述字段变化时，会导致移动很长的二进制数据，造成不必要的浪费。</p>
-<h2 id="3-增加了额外的数据类型"><a href="#3-增加了额外的数据类型" class="headerlink" title="3.增加了额外的数据类型"></a>3.增加了额外的数据类型</h2><p>JSON是一个很方便的数据交换格式，但是其类型比较有限。BSON在其基础上增加了“byte array”数据类型。这使得二进制的存储不再需要先base64转换后再存成JSON。大大减少了计算开销和数据大小。<br>当然，在有的时候，BSON相对JSON来说也并没有空间上的优势，比如对{“field”:7}，在JSON的存储上7只使用了一个字节，而如果用BSON，那就是至少4个字节（32位）<br>MongoDB优化：在MongoDB中，如果你的字段是数字型，并且涉及到数据加减操作的，那么建议存在int型，但如果是一个固定不变的数字，并且在四位以下的话，可以考虑存成字符串类型。这样会节省空间。<br>目前在10gen的努力下，BSON已经有了针对多种语言的编码解码包。并且都是Apache 2 license下开源的。并且还在随着MongoDB进一步地发展。</p>
-
-      
-
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			
-        		<li class="article-tag-list-item">
-        			<a href="/blog/categories/DataBase//" class="article-tag-list-link color4">DataBase</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2018/12/23/BSON%E5%92%8CJSON%E5%8C%BA%E5%88%AB/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-  
-    <article id="post-Reactdiff以及代码实现" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2018/12/21/Reactdiff%E4%BB%A5%E5%8F%8A%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0/">React diff以及代码实现</a>
-    </h1>
-  
-
-        
-        <a href="/blog/2018/12/21/Reactdiff%E4%BB%A5%E5%8F%8A%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0/" class="archive-article-date">
-  	<time datetime="2018-12-21T09:39:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-21</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>因为虚拟DOM是内存数据，性能是极高的，而对实际DOM进行操作的仅仅是Diff部分，因而能达到提高性能的目的。这样就需要每次获取dom的diff。<br>react diff<br>（1）diff 流程<br><img src="/blog/2018/12/21/Reactdiff%E4%BB%A5%E5%8F%8A%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0/1.png" alt="image"><br>（2）tree diff:<br>    假设： web ui 中 dom节点跨层级移动的操作很少，可以忽略不计。<br>    优化：两棵树只比较同层节点是否相等，如果不等，直接删除，否则新建。<br>    缺点： 如果出现跨层操作，比如将A整个移动到D下，整个处理过程为：create A -&gt; create B -&gt; create C -&gt; delete A， 效率很低。<br>    指导原则： 不要使用dom节点的跨层级操作，可以用dom的显示和隐藏进行控制。<br><img src="/blog/2018/12/21/Reactdiff%E4%BB%A5%E5%8F%8A%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0/2.png" alt="image"><br>（2）component diff<br>假设：相同类的两个组件拥有相同的结构，不同类的两个组件的结构不同。<br>优化：相同类的两个组件按照virtual dom的方式继续进行比较，不同类的两个组件直接替换，不进行比较，相同类的两个组件可以通过shouldComponentUpdate来进行比较。<br>缺点： 两个component结构相似单直接导致替换，但实际开发中情况很少。<br>指导原则：定义组件的shouldComponentUpdate</p>
-<p>（3）element diff<br>假设：同一层的一组节点可以通过定个唯一的key来进行区分<br>优化：同一层的一组节点定义唯一的key，通过key进行比较和重建<br>重建方式:  遍历新的节点顺序，如果当前的节点在旧的结构中的挂载Index &lt; 当前的遍历Index值，则对当前节点进行移动，否则不移动。<br><img src="/blog/2018/12/21/Reactdiff%E4%BB%A5%E5%8F%8A%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0/3.png" alt="image"><br>缺点：如果将最后的一个节点移动到了行首，会导致整个链上的节点的移动，效率很低。<br>指导原则：不要讲最后一个节点移动到行首。<br><img src="/blog/2018/12/21/Reactdiff%E4%BB%A5%E5%8F%8A%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0/4.png" alt="image"><br>diff的差异比较过程如下：<br>首先对新集合的节点进行循环遍历，for (name in nextChildren)，通过唯一 key 可以判断新老集合中是否存在相同的节点，if (prevChild === nextChild)，如果存在相同节点，则进行移动操作，但在移动前需要将当前节点在老集合中的位置与 lastIndex 进行比较，if (child._mountIndex &lt; lastIndex)，则进行节点移动操作，否则不执行该操作。这是一种顺序优化手段，lastIndex 一直在更新，表示访问过的节点在老集合中最右的位置（即最大的位置），如果新集合中当前访问的节点比 lastIndex 大，说明当前访问节点在老集合中就比上一个节点位置靠后，则该节点不会影响其他节点的位置，因此不用添加到差异队列中，即不执行移动操作，只有当访问的节点比 lastIndex 小时，才需要进行移动操作。<br>以上图为例，可以更为清晰直观的描述 diff 的差异对比过程：</p>
-<ul>
-<li>从新集合中取得 B，判断老集合中存在相同节点 B，通过对比节点位置判断是否进行移动操作，B 在老集合中的位置 B._mountIndex = 1，此时 lastIndex = 0，不满足 child._mountIndex &lt; lastIndex 的条件，因此不对 B 进行移动操作；更新 lastIndex = Math.max(prevChild._mountIndex, lastIndex)，其中 prevChild._mountIndex 表示 B 在老集合中的位置，则 lastIndex ＝ 1，并将 B 的位置更新为新集合中的位置prevChild._mountIndex = nextIndex，此时新集合中 B._mountIndex = 0，nextIndex++ 进入下一个节点的判断。</li>
-<li>从新集合中取得 A，判断老集合中存在相同节点 A，通过对比节点位置判断是否进行移动操作，A 在老集合中的位置 A._mountIndex = 0，此时 lastIndex = 1，满足 child._mountIndex &lt; lastIndex的条件，因此对 A 进行移动操作enqueueMove(this, child._mountIndex, toIndex)，其中 toIndex 其实就是 nextIndex，表示 A 需要移动到的位置；更新 lastIndex = Math.max(prevChild._mountIndex, lastIndex)，则 lastIndex ＝ 1，并将 A 的位置更新为新集合中的位置 prevChild._mountIndex = nextIndex，此时新集合中A._mountIndex = 1，nextIndex++ 进入下一个节点的判断。</li>
-<li>从新集合中取得 D，判断老集合中存在相同节点 D，通过对比节点位置判断是否进行移动操作，D 在老集合中的位置 D._mountIndex = 3，此时 lastIndex = 1，不满足 child._mountIndex &lt; lastIndex的条件，因此不对 D 进行移动操作；更新 lastIndex = Math.max(prevChild._mountIndex, lastIndex)，则 lastIndex ＝ 3，并将 D 的位置更新为新集合中的位置 prevChild._mountIndex = nextIndex，此时新集合中D._mountIndex = 2，nextIndex++ 进入下一个节点的判断。</li>
-<li>从新集合中取得 C，判断老集合中存在相同节点 C，通过对比节点位置判断是否进行移动操作，C 在老集合中的位置 C._mountIndex = 2，此时 lastIndex = 3，满足 child._mountIndex &lt; lastIndex 的条件，因此对 C 进行移动操作 enqueueMove(this, child._mountIndex, toIndex)；更新 lastIndex = Math.max(prevChild._mountIndex, lastIndex)，则 lastIndex ＝ 3，并将 C 的位置更新为新集合中的位置 prevChild._mountIndex = nextIndex，此时新集合中 C._mountIndex = 3，nextIndex++ 进入下一个节点的判断，由于 C 已经是最后一个节点，因此 diff 到此完成。<br>以上主要分析新老集合中存在相同节点但位置不同时，对节点进行位置移动的情况，如果新集合中有新加入的节点且老集合存在需要删除的节点，那么 React diff 又是如何对比运作的呢？<br>以下图为例：</li>
-<li>从新集合中取得 B，判断老集合中存在相同节点 B，由于 B 在老集合中的位置 B._mountIndex = 1，此时lastIndex = 0，因此不对 B 进行移动操作；更新 lastIndex ＝ 1，并将 B 的位置更新为新集合中的位置B._mountIndex = 0，nextIndex++进入下一个节点的判断。</li>
-<li>从新集合中取得 E，判断老集合中不存在相同节点 E，则创建新节点 E；更新 lastIndex ＝ 1，并将 E 的位置更新为新集合中的位置，nextIndex++进入下一个节点的判断。</li>
-<li>从新集合中取得 C，判断老集合中存在相同节点 C，由于 C 在老集合中的位置C._mountIndex = 2，lastIndex = 1，此时 C._mountIndex &gt; lastIndex，因此不对 C 进行移动操作；更新 lastIndex ＝ 2，并将 C 的位置更新为新集合中的位置，nextIndex++ 进入下一个节点的判断。</li>
-<li>从新集合中取得 A，判断老集合中存在相同节点 A，由于 A 在老集合中的位置A._mountIndex = 0，lastIndex = 2，此时 A._mountIndex &lt; lastIndex，因此对 A 进行移动操作；更新 lastIndex ＝ 2，并将 A 的位置更新为新集合中的位置，nextIndex++ 进入下一个节点的判断。</li>
-<li>当完成新集合中所有节点 diff 时，最后还需要对老集合进行循环遍历，判断是否存在新集合中没有但老集合中仍存在的节点，发现存在这样的节点 D，因此删除节点 D，到此 diff 全部完成。<br>react diff代码实现解析<br>（1）component的mountComponent完成组件的第一次render，receiveComponent完成组件的更新处理。组件的setState的实现即是调用receiveComponent的处理。<br>（2）receiveComponent的处理流程: receiveComponent = function(nextElement, newState)</li>
-<li>更新当前组件的currentElement（保存组件的render类型，p还是div，还是自定义的element类型1或者自定义的element2）this._currentElement = nextElement || this._currentElement (组件的render类型对应diff原则中的不同类型的组件重新渲染原则)</li>
-<li>newState =  旧的state merge newState</li>
-<li>如果组件有自定义的shouldComponentUpdate方法，如果此方法返回为false，不再进行更新直接返回。</li>
-<li>如果组件有定义componentWillUpdate（更新前的处理方法），调用此方法，表示开始更新。</li>
-<li>重新执行组件的render方法，拿到新的element（nextRenderedElemnt）（此过程在内存中进行，而非真正的渲染）</li>
-<li>调用全局的shouldUpdateComponent(prevRenderedElement, nextRenderedElement)方法，此方法的输入为两个element，如果element类型为基础类型，直接返回false，否则递归调用子元素的此方法</li>
-<li>shouldUpdateComponent(prevRenderedElement, nextRenderedElement)返回为false的情况下（为基础节点或者两个非基础节点，但类型不同），则直接将整个dom节点进行替换，并更新到dom中。<br>（3）shouldUpdateComponent(prevRenderedElement, nextRenderedElement) 为整个diff实现的主要方法，流程如下：（判断：当前节点是进行全局替换还是进行局部比较替换）（生成新的element以及element进行比较的过程是在内存中进行，而非替换真正的dom，所以效率是极高的）</li>
-<li>判断prevElement是否为基础类型，如果是基础类型，直接返回nextElement是否为基础类型，如果是基础类型，调用prevElement的更新操作，否则执行render以及整个替换操作</li>
-<li>prevElement不是基础类型，并且nextElement也不是基础类型，并且type类型相同且key相同，执行子节点的update操作，否则直接进行整个节点的替换操作<br>（4）receiveComponent逻辑</li>
-<li>文本类型：receiveComponent = function (newTextString) { $(‘[data-reactid=“‘+this._rootNodeId+’”]’).html(newTextString); }</li>
-<li>基本类型的更新： 首先更新当前节点的props属性，然后递归调用，更新每个子节点（updateDOMChildren）（子节点或者为文本类型或者为基本类型，如果子节点为自定义类型如何处理？）属性的更新过程： 如果在新的属性中不包含的属性，删掉，如果是新添加的属性，添加，否则进行值替换。这些操作为真正的dom操作，不同类型的属性的更新和生效方式也不同，需要特别处理。</li>
-<li>自定义类型：<br>(5) updateDOMChildren的处理逻辑（全局的diffQueue队列，diff方法，以及获取到diffQueue后的patch更新操作），所以关键是diff和patch方法。diff操作对应diff原则中的element diff</li>
-<li>diff方法处理流程： diff(diffQueue, nextChildrenElements)</li>
-</ul>
-<ol>
-<li>nextChildrenElements利用key或者id处理成map形式,方便下面的diff处理（flatternChildren）</li>
-<li>调用gennerateComponentChildren生成新的nextChildren，此方法中根据新旧child的不同调用上面提到的shouldUpdateReactComponent方法做到最小粒度度更新</li>
-<li>对新旧children进行比较，标记上三种状态： move_existing(新的componet在旧的中存在，只移动)，insert_makeup(新的不存在或者新旧类型不同，需要新建并且插入)， remove_node(旧的组件在新的中不存在或者类型发生了变化，需要删除)</li>
-</ol>
-<ul>
-<li>得到diffQueue后执行patch操作流程</li>
-</ul>
-<ol>
-<li>第一遍遍历queue删除所有标记为要删除的节点</li>
-<li>第二遍处理插入和要修改的节点</li>
-</ol>
-<p>最终迷你版本的react js实现如下： (这个已经不记得转载的哪里的了)</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br><span class="line">333</span><br><span class="line">334</span><br><span class="line">335</span><br><span class="line">336</span><br><span class="line">337</span><br><span class="line">338</span><br><span class="line">339</span><br><span class="line">340</span><br><span class="line">341</span><br><span class="line">342</span><br><span class="line">343</span><br><span class="line">344</span><br><span class="line">345</span><br><span class="line">346</span><br><span class="line">347</span><br><span class="line">348</span><br><span class="line">349</span><br><span class="line">350</span><br><span class="line">351</span><br><span class="line">352</span><br><span class="line">353</span><br><span class="line">354</span><br><span class="line">355</span><br><span class="line">356</span><br><span class="line">357</span><br><span class="line">358</span><br><span class="line">359</span><br><span class="line">360</span><br><span class="line">361</span><br><span class="line">362</span><br><span class="line">363</span><br><span class="line">364</span><br><span class="line">365</span><br><span class="line">366</span><br><span class="line">367</span><br><span class="line">368</span><br><span class="line">369</span><br><span class="line">370</span><br><span class="line">371</span><br><span class="line">372</span><br><span class="line">373</span><br><span class="line">374</span><br><span class="line">375</span><br><span class="line">376</span><br><span class="line">377</span><br><span class="line">378</span><br><span class="line">379</span><br><span class="line">380</span><br><span class="line">381</span><br><span class="line">382</span><br><span class="line">383</span><br><span class="line">384</span><br><span class="line">385</span><br><span class="line">386</span><br><span class="line">387</span><br><span class="line">388</span><br><span class="line">389</span><br><span class="line">390</span><br><span class="line">391</span><br><span class="line">392</span><br><span class="line">393</span><br><span class="line">394</span><br><span class="line">395</span><br><span class="line">396</span><br><span class="line">397</span><br><span class="line">398</span><br><span class="line">399</span><br><span class="line">400</span><br><span class="line">401</span><br><span class="line">402</span><br><span class="line">403</span><br><span class="line">404</span><br><span class="line">405</span><br><span class="line">406</span><br><span class="line">407</span><br><span class="line">408</span><br><span class="line">409</span><br><span class="line">410</span><br><span class="line">411</span><br><span class="line">412</span><br><span class="line">413</span><br><span class="line">414</span><br><span class="line">415</span><br><span class="line">416</span><br><span class="line">417</span><br><span class="line">418</span><br><span class="line">419</span><br><span class="line">420</span><br><span class="line">421</span><br><span class="line">422</span><br><span class="line">423</span><br><span class="line">424</span><br><span class="line">425</span><br><span class="line">426</span><br><span class="line">427</span><br><span class="line">428</span><br><span class="line">429</span><br><span class="line">430</span><br><span class="line">431</span><br><span class="line">432</span><br><span class="line">433</span><br><span class="line">434</span><br><span class="line">435</span><br><span class="line">436</span><br><span class="line">437</span><br><span class="line">438</span><br><span class="line">439</span><br><span class="line">440</span><br><span class="line">441</span><br><span class="line">442</span><br><span class="line">443</span><br><span class="line">444</span><br><span class="line">445</span><br><span class="line">446</span><br><span class="line">447</span><br><span class="line">448</span><br><span class="line">449</span><br><span class="line">450</span><br><span class="line">451</span><br><span class="line">452</span><br><span class="line">453</span><br><span class="line">454</span><br><span class="line">455</span><br><span class="line">456</span><br><span class="line">457</span><br><span class="line">458</span><br><span class="line">459</span><br><span class="line">460</span><br><span class="line">461</span><br><span class="line">462</span><br><span class="line">463</span><br><span class="line">464</span><br><span class="line">465</span><br><span class="line">466</span><br><span class="line">467</span><br><span class="line">468</span><br><span class="line">469</span><br><span class="line">470</span><br><span class="line">471</span><br><span class="line">472</span><br><span class="line">473</span><br><span class="line">474</span><br><span class="line">475</span><br><span class="line">476</span><br><span class="line">477</span><br><span class="line">478</span><br><span class="line">479</span><br><span class="line">480</span><br><span class="line">481</span><br><span class="line">482</span><br><span class="line">483</span><br><span class="line">484</span><br><span class="line">485</span><br><span class="line">486</span><br><span class="line">487</span><br><span class="line">488</span><br><span class="line">489</span><br><span class="line">490</span><br><span class="line">491</span><br><span class="line">492</span><br><span class="line">493</span><br><span class="line">494</span><br><span class="line">495</span><br><span class="line">496</span><br><span class="line">497</span><br><span class="line">498</span><br><span class="line">499</span><br><span class="line">500</span><br><span class="line">501</span><br><span class="line">502</span><br><span class="line">503</span><br><span class="line">504</span><br><span class="line">505</span><br><span class="line">506</span><br><span class="line">507</span><br><span class="line">508</span><br><span class="line">509</span><br><span class="line">510</span><br><span class="line">511</span><br><span class="line">512</span><br><span class="line">513</span><br><span class="line">514</span><br><span class="line">515</span><br><span class="line">516</span><br><span class="line">517</span><br><span class="line">518</span><br><span class="line">519</span><br><span class="line">520</span><br><span class="line">521</span><br><span class="line">522</span><br><span class="line">523</span><br><span class="line">524</span><br><span class="line">525</span><br><span class="line">526</span><br><span class="line">527</span><br><span class="line">528</span><br><span class="line">529</span><br><span class="line">530</span><br><span class="line">531</span><br><span class="line">532</span><br><span class="line">533</span><br><span class="line">534</span><br><span class="line">535</span><br><span class="line">536</span><br><span class="line">537</span><br><span class="line">538</span><br><span class="line">539</span><br><span class="line">540</span><br><span class="line">541</span><br><span class="line">542</span><br><span class="line">543</span><br><span class="line">544</span><br><span class="line">545</span><br><span class="line">546</span><br><span class="line">547</span><br><span class="line">548</span><br><span class="line">549</span><br><span class="line">550</span><br><span class="line">551</span><br><span class="line">552</span><br><span class="line">553</span><br><span class="line">554</span><br><span class="line">555</span><br><span class="line">556</span><br><span class="line">557</span><br><span class="line">558</span><br><span class="line">559</span><br><span class="line">560</span><br><span class="line">561</span><br><span class="line">562</span><br><span class="line">563</span><br><span class="line">564</span><br><span class="line">565</span><br><span class="line">566</span><br><span class="line">567</span><br><span class="line">568</span><br><span class="line">569</span><br><span class="line">570</span><br><span class="line">571</span><br><span class="line">572</span><br></pre></td><td class="code"><pre><span class="line">//component类，用来表示文本在渲染，更新，删除时应该做些什么事情</span><br><span class="line"><span class="keyword">function</span> ReactDOMTextComponent(text) &#123;</span><br><span class="line">    //存下当前的字符串</span><br><span class="line">    this._currentElement = <span class="string">&#x27;&#x27;</span> + text;</span><br><span class="line">    //用来标识当前component</span><br><span class="line">    this._rootNodeID = null;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//component渲染时生成的dom结构</span><br><span class="line">ReactDOMTextComponent.prototype.mountComponent = <span class="keyword">function</span>(rootID) &#123;</span><br><span class="line">    this._rootNodeID = rootID;</span><br><span class="line">    <span class="built_in">return</span> <span class="string">&#x27;&lt;span data-reactid=&quot;&#x27;</span> + rootID + <span class="string">&#x27;&quot;&gt;&#x27;</span> + this._currentElement + <span class="string">&#x27;&lt;/span&gt;&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ReactDOMTextComponent.prototype.receiveComponent = <span class="keyword">function</span>(nextText) &#123;</span><br><span class="line">    var nextStringText = <span class="string">&#x27;&#x27;</span> + nextText;</span><br><span class="line">    //跟以前保存的字符串比较</span><br><span class="line">    <span class="keyword">if</span> (nextStringText !== this._currentElement) &#123;</span><br><span class="line">        this._currentElement = nextStringText;</span><br><span class="line">        //替换整个节点</span><br><span class="line">        $(<span class="string">&#x27;[data-reactid=&quot;&#x27;</span> + this._rootNodeID + <span class="string">&#x27;&quot;]&#x27;</span>).html(this._currentElement);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//component类，用来表示文本在渲染，更新，删除时应该做些什么事情</span><br><span class="line"><span class="keyword">function</span> ReactDOMComponent(element) &#123;</span><br><span class="line">    //存下当前的element对象引用</span><br><span class="line">    this._currentElement = element;</span><br><span class="line">    this._rootNodeID = null;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//component渲染时生成的dom结构</span><br><span class="line">ReactDOMComponent.prototype.mountComponent = <span class="keyword">function</span>(rootID) &#123;</span><br><span class="line"></span><br><span class="line">    //赋值标识</span><br><span class="line">    this._rootNodeID = rootID;</span><br><span class="line">    var props = this._currentElement.props;</span><br><span class="line">    var tagOpen = <span class="string">&#x27;&lt;&#x27;</span> + this._currentElement.type;</span><br><span class="line">    var tagClose = <span class="string">&#x27;&lt;/&#x27;</span> + this._currentElement.type + <span class="string">&#x27;&gt;&#x27;</span>;</span><br><span class="line"></span><br><span class="line">    //加上reactid标识</span><br><span class="line">    tagOpen += <span class="string">&#x27; data-reactid=&#x27;</span> + this._rootNodeID;</span><br><span class="line"></span><br><span class="line">    //拼凑出属性</span><br><span class="line">    <span class="keyword">for</span> (var propKey <span class="keyword">in</span> props) &#123;</span><br><span class="line"></span><br><span class="line">        //这里要做一下事件的监听，就是从属性props里面解析拿出on开头的事件属性的对应事件监听</span><br><span class="line">        <span class="keyword">if</span> (/^on[A-Za-z]/.<span class="built_in">test</span>(propKey)) &#123;</span><br><span class="line">            var eventType = propKey.replace(<span class="string">&#x27;on&#x27;</span>, <span class="string">&#x27;&#x27;</span>);</span><br><span class="line">            //针对当前的节点添加事件代理,以_rootNodeID为命名空间</span><br><span class="line">            $(document).delegate(<span class="string">&#x27;[data-reactid=&quot;&#x27;</span> + this._rootNodeID + <span class="string">&#x27;&quot;]&#x27;</span>, eventType + <span class="string">&#x27;.&#x27;</span> + this._rootNodeID, props[propKey]);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        //对于children属性以及事件监听的属性不需要进行字符串拼接</span><br><span class="line">        //事件会代理到全局。这边不能拼到dom上不然会产生原生的事件监听</span><br><span class="line">        <span class="keyword">if</span> (props[propKey] &amp;&amp; propKey != <span class="string">&#x27;children&#x27;</span> &amp;&amp; !/^on[A-Za-z]/.<span class="built_in">test</span>(propKey)) &#123;</span><br><span class="line">            tagOpen += <span class="string">&#x27; &#x27;</span> + propKey + <span class="string">&#x27;=&#x27;</span> + props[propKey];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    //获取子节点渲染出的内容</span><br><span class="line">    var content = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">    var children = props.children || [];</span><br><span class="line"></span><br><span class="line">    var childrenInstances = []; //用于保存所有的子节点的componet实例，以后会用到</span><br><span class="line">    var that = this;</span><br><span class="line">    $.each(children, <span class="keyword">function</span>(key, child) &#123;</span><br><span class="line">        //这里再次调用了instantiateReactComponent实例化子节点component类，拼接好返回</span><br><span class="line">        var childComponentInstance = instantiateReactComponent(child);</span><br><span class="line">        childComponentInstance._mountIndex = key;</span><br><span class="line"></span><br><span class="line">        childrenInstances.push(childComponentInstance);</span><br><span class="line">        //子节点的rootId是父节点的rootId加上新的key也就是顺序的值拼成的新值</span><br><span class="line">        var curRootId = that._rootNodeID + <span class="string">&#x27;.&#x27;</span> + key;</span><br><span class="line">        //得到子节点的渲染内容</span><br><span class="line">        var childMarkup = childComponentInstance.mountComponent(curRootId);</span><br><span class="line">        //拼接在一起</span><br><span class="line">        content += <span class="string">&#x27; &#x27;</span> + childMarkup;</span><br><span class="line"></span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">    //留给以后更新时用的这边先不用管</span><br><span class="line">    this._renderedChildren = childrenInstances;</span><br><span class="line"></span><br><span class="line">    //拼出整个html内容</span><br><span class="line">    <span class="built_in">return</span> tagOpen + <span class="string">&#x27;&gt;&#x27;</span> + content + tagClose;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ReactDOMComponent.prototype.receiveComponent = <span class="keyword">function</span>(nextElement) &#123;</span><br><span class="line">    var lastProps = this._currentElement.props;</span><br><span class="line">    var nextProps = nextElement.props;</span><br><span class="line"></span><br><span class="line">    this._currentElement = nextElement;</span><br><span class="line">    //需要单独的更新属性</span><br><span class="line">    this._updateDOMProperties(lastProps, nextProps);</span><br><span class="line">    //再更新子节点</span><br><span class="line">    this._updateDOMChildren(nextElement.props.children);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ReactDOMComponent.prototype._updateDOMProperties = <span class="keyword">function</span>(lastProps, nextProps) &#123;</span><br><span class="line">    var propKey;</span><br><span class="line">    //遍历，当一个老的属性不在新的属性集合里时，需要删除掉。</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (propKey <span class="keyword">in</span> lastProps) &#123;</span><br><span class="line">        //新的属性里有，或者propKey是在原型上的直接跳过。这样剩下的都是不在新属性集合里的。需要删除</span><br><span class="line">        <span class="keyword">if</span> (nextProps.hasOwnProperty(propKey) || !lastProps.hasOwnProperty(propKey)) &#123;</span><br><span class="line">            <span class="built_in">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        //对于那种特殊的，比如这里的事件监听的属性我们需要去掉监听</span><br><span class="line">        <span class="keyword">if</span> (/^on[A-Za-z]/.<span class="built_in">test</span>(propKey)) &#123;</span><br><span class="line">            var eventType = propKey.replace(<span class="string">&#x27;on&#x27;</span>, <span class="string">&#x27;&#x27;</span>);</span><br><span class="line">            //针对当前的节点取消事件代理</span><br><span class="line">            $(document).undelegate(<span class="string">&#x27;[data-reactid=&quot;&#x27;</span> + this._rootNodeID + <span class="string">&#x27;&quot;]&#x27;</span>, eventType, lastProps[propKey]);</span><br><span class="line">            <span class="built_in">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        //从dom上删除不需要的属性</span><br><span class="line">        $(<span class="string">&#x27;[data-reactid=&quot;&#x27;</span> + this._rootNodeID + <span class="string">&#x27;&quot;]&#x27;</span>).removeAttr(propKey)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //对于新的属性，需要写到dom节点上</span><br><span class="line">    <span class="keyword">for</span> (propKey <span class="keyword">in</span> nextProps) &#123;</span><br><span class="line">        //对于事件监听的属性我们需要特殊处理</span><br><span class="line">        <span class="keyword">if</span> (/^on[A-Za-z]/.<span class="built_in">test</span>(propKey)) &#123;</span><br><span class="line">            var eventType = propKey.replace(<span class="string">&#x27;on&#x27;</span>, <span class="string">&#x27;&#x27;</span>);</span><br><span class="line">            //以前如果已经有，说明有了监听，需要先去掉</span><br><span class="line">            lastProps[propKey] &amp;&amp; $(document).undelegate(<span class="string">&#x27;[data-reactid=&quot;&#x27;</span> + this._rootNodeID + <span class="string">&#x27;&quot;]&#x27;</span>, eventType, lastProps[propKey]);</span><br><span class="line">            //针对当前的节点添加事件代理,以_rootNodeID为命名空间</span><br><span class="line">            $(document).delegate(<span class="string">&#x27;[data-reactid=&quot;&#x27;</span> + this._rootNodeID + <span class="string">&#x27;&quot;]&#x27;</span>, eventType + <span class="string">&#x27;.&#x27;</span> + this._rootNodeID, nextProps[propKey]);</span><br><span class="line">            <span class="built_in">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (propKey == <span class="string">&#x27;children&#x27;</span>) <span class="built_in">continue</span>;</span><br><span class="line"></span><br><span class="line">        //添加新的属性，或者是更新老的同名属性</span><br><span class="line">        $(<span class="string">&#x27;[data-reactid=&quot;&#x27;</span> + this._rootNodeID + <span class="string">&#x27;&quot;]&#x27;</span>).prop(propKey, nextProps[propKey])</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//全局的更新深度标识</span><br><span class="line">var updateDepth = 0;</span><br><span class="line">//全局的更新队列，所有的差异都存在这里</span><br><span class="line">var diffQueue = [];</span><br><span class="line"></span><br><span class="line">ReactDOMComponent.prototype._updateDOMChildren = <span class="keyword">function</span>(nextChildrenElements) &#123;</span><br><span class="line">    updateDepth++</span><br><span class="line">    //_diff用来递归找出差别,组装差异对象,添加到更新队列diffQueue。</span><br><span class="line">    this._diff(diffQueue, nextChildrenElements);</span><br><span class="line">    updateDepth--</span><br><span class="line">    <span class="keyword">if</span> (updateDepth == 0) &#123;</span><br><span class="line">        //在需要的时候调用patch，执行具体的dom操作</span><br><span class="line">        this._patch(diffQueue);</span><br><span class="line">        diffQueue = [];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//差异更新的几种类型</span><br><span class="line">var UPATE_TYPES = &#123;</span><br><span class="line">    MOVE_EXISTING: 1,</span><br><span class="line">    REMOVE_NODE: 2,</span><br><span class="line">    INSERT_MARKUP: 3</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//普通的children是一个数组，此方法把它转换成一个map,key就是element的key,如果是text节点或者element创建时并没有传入key,就直接用在数组里的index标识</span><br><span class="line"><span class="keyword">function</span> flattenChildren(componentChildren) &#123;</span><br><span class="line">    var child;</span><br><span class="line">    var name;</span><br><span class="line">    var childrenMap = &#123;&#125;;</span><br><span class="line">    <span class="keyword">for</span> (var i = 0; i &lt; componentChildren.length; i++) &#123;</span><br><span class="line">        child = componentChildren[i];</span><br><span class="line">        name = child &amp;&amp; child._currentelement &amp;&amp; child._currentelement.key ? child._currentelement.key : i.toString(36);</span><br><span class="line">        childrenMap[name] = child;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">return</span> childrenMap;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//主要用来生成子节点elements的component集合</span><br><span class="line">//这边注意，有个判断逻辑，如果发现是更新，就会继续使用以前的componentInstance,调用对应的receiveComponent。</span><br><span class="line">//如果是新的节点，就会重新生成一个新的componentInstance，</span><br><span class="line"><span class="keyword">function</span> generateComponentChildren(prevChildren, nextChildrenElements) &#123;</span><br><span class="line">    var nextChildren = &#123;&#125;;</span><br><span class="line">    nextChildrenElements = nextChildrenElements || [];</span><br><span class="line">    $.each(nextChildrenElements, <span class="keyword">function</span>(index, element) &#123;</span><br><span class="line">        var name = element.key ? element.key : index;</span><br><span class="line">        var prevChild = prevChildren &amp;&amp; prevChildren[name];</span><br><span class="line">        var prevElement = prevChild &amp;&amp; prevChild._currentElement;</span><br><span class="line">        var nextElement = element;</span><br><span class="line"></span><br><span class="line">        //调用_shouldUpdateReactComponent判断是否是更新</span><br><span class="line">        <span class="keyword">if</span> (_shouldUpdateReactComponent(prevElement, nextElement)) &#123;</span><br><span class="line">            //更新的话直接递归调用子节点的receiveComponent就好了</span><br><span class="line">            prevChild.receiveComponent(nextElement);</span><br><span class="line">            //然后继续使用老的component</span><br><span class="line">            nextChildren[name] = prevChild;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            //对于没有老的，那就重新新增一个，重新生成一个component</span><br><span class="line">            var nextChildInstance = instantiateReactComponent(nextElement, null);</span><br><span class="line">            //使用新的component</span><br><span class="line">            nextChildren[name] = nextChildInstance;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">    <span class="built_in">return</span> nextChildren;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//_diff用来递归找出差别,组装差异对象,添加到更新队列diffQueue。</span><br><span class="line">ReactDOMComponent.prototype._diff = <span class="keyword">function</span>(diffQueue, nextChildrenElements) &#123;</span><br><span class="line">    var self = this;</span><br><span class="line">    //拿到之前的子节点的 component类型对象的集合,这个是在刚开始渲染时赋值的，记不得的可以翻上面</span><br><span class="line">    //_renderedChildren 本来是数组，我们搞成map</span><br><span class="line">    var prevChildren = flattenChildren(self._renderedChildren);</span><br><span class="line">    //生成新的子节点的component对象集合，这里注意，会复用老的component对象</span><br><span class="line">    var nextChildren = generateComponentChildren(prevChildren, nextChildrenElements);</span><br><span class="line">    //重新赋值_renderedChildren，使用最新的。</span><br><span class="line">    self._renderedChildren = []</span><br><span class="line">    $.each(nextChildren, <span class="keyword">function</span>(key, instance) &#123;</span><br><span class="line">        self._renderedChildren.push(instance);</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">    /**注意新增代码**/</span><br><span class="line">    var lastIndex = 0; //代表访问的最后一次的老的集合的位置</span><br><span class="line"></span><br><span class="line">    var nextIndex = 0; //代表到达的新的节点的index</span><br><span class="line">    //通过对比两个集合的差异，组装差异节点添加到队列中</span><br><span class="line">    <span class="keyword">for</span> (name <span class="keyword">in</span> nextChildren) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!nextChildren.hasOwnProperty(name)) &#123;</span><br><span class="line">            <span class="built_in">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        var prevChild = prevChildren &amp;&amp; prevChildren[name];</span><br><span class="line">        var nextChild = nextChildren[name];</span><br><span class="line">        //相同的话，说明是使用的同一个component,所以我们需要做移动的操作</span><br><span class="line">        <span class="keyword">if</span> (prevChild === nextChild) &#123;</span><br><span class="line">            //添加差异对象，类型：MOVE_EXISTING</span><br><span class="line">            /**注意新增代码**/</span><br><span class="line">            prevChild._mountIndex &lt; lastIndex &amp;&amp; diffQueue.push(&#123;</span><br><span class="line">                    parentId: self._rootNodeID,</span><br><span class="line">                    parentNode: $(<span class="string">&#x27;[data-reactid=&#x27;</span> + self._rootNodeID + <span class="string">&#x27;]&#x27;</span>),</span><br><span class="line">                    <span class="built_in">type</span>: UPATE_TYPES.MOVE_EXISTING,</span><br><span class="line">                    fromIndex: prevChild._mountIndex,</span><br><span class="line">                    toIndex: nextIndex</span><br><span class="line">                &#125;)</span><br><span class="line">                /**注意新增代码**/</span><br><span class="line">            lastIndex = Math.max(prevChild._mountIndex, lastIndex);</span><br><span class="line"></span><br><span class="line">        &#125; <span class="keyword">else</span> &#123; //如果不相同，说明是新增加的节点</span><br><span class="line">            //但是如果老的还存在，就是element不同，但是component一样。我们需要把它对应的老的element删除。</span><br><span class="line">            <span class="keyword">if</span> (prevChild) &#123;</span><br><span class="line">                //添加差异对象，类型：REMOVE_NODE</span><br><span class="line">                diffQueue.push(&#123;</span><br><span class="line">                    parentId: self._rootNodeID,</span><br><span class="line">                    parentNode: $(<span class="string">&#x27;[data-reactid=&#x27;</span> + self._rootNodeID + <span class="string">&#x27;]&#x27;</span>),</span><br><span class="line">                    <span class="built_in">type</span>: UPATE_TYPES.REMOVE_NODE,</span><br><span class="line">                    fromIndex: prevChild._mountIndex,</span><br><span class="line">                    toIndex: null</span><br><span class="line">                &#125;)</span><br><span class="line"></span><br><span class="line">                //如果以前已经渲染过了，记得先去掉以前所有的事件监听，通过命名空间全部清空</span><br><span class="line">                <span class="keyword">if</span> (prevChild._rootNodeID) &#123;</span><br><span class="line">                    $(document).undelegate(<span class="string">&#x27;.&#x27;</span> + prevChild._rootNodeID);</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                /**注意新增代码**/</span><br><span class="line">                lastIndex = Math.max(prevChild._mountIndex, lastIndex);</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">            //新增加的节点，也组装差异对象放到队列里</span><br><span class="line">            //添加差异对象，类型：INSERT_MARKUP</span><br><span class="line">            diffQueue.push(&#123;</span><br><span class="line">                parentId: self._rootNodeID,</span><br><span class="line">                parentNode: $(<span class="string">&#x27;[data-reactid=&#x27;</span> + self._rootNodeID + <span class="string">&#x27;]&#x27;</span>),</span><br><span class="line">                <span class="built_in">type</span>: UPATE_TYPES.INSERT_MARKUP,</span><br><span class="line">                fromIndex: null,</span><br><span class="line">                toIndex: nextIndex,</span><br><span class="line">                markup: nextChild.mountComponent(self._rootNodeID + <span class="string">&#x27;.&#x27;</span> + name) //新增的节点，多一个此属性，表示新节点的dom内容</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;</span><br><span class="line">        //更新mount的index</span><br><span class="line">        nextChild._mountIndex = nextIndex;</span><br><span class="line">        nextIndex++;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    //对于老的节点里有，新的节点里没有的那些，也全都删除掉</span><br><span class="line">    <span class="keyword">for</span> (name <span class="keyword">in</span> prevChildren) &#123;</span><br><span class="line">        <span class="keyword">if</span> (prevChildren.hasOwnProperty(name) &amp;&amp; !(nextChildren &amp;&amp; nextChildren.hasOwnProperty(name))) &#123;</span><br><span class="line">            //添加差异对象，类型：REMOVE_NODE</span><br><span class="line">            diffQueue.push(&#123;</span><br><span class="line">                    parentId: self._rootNodeID,</span><br><span class="line">                    parentNode: $(<span class="string">&#x27;[data-reactid=&#x27;</span> + self._rootNodeID + <span class="string">&#x27;]&#x27;</span>),</span><br><span class="line">                    <span class="built_in">type</span>: UPATE_TYPES.REMOVE_NODE,</span><br><span class="line">                    fromIndex: prevChildren[name]._mountIndex,</span><br><span class="line">                    toIndex: null</span><br><span class="line">                &#125;)</span><br><span class="line">                //如果以前已经渲染过了，记得先去掉以前所有的事件监听</span><br><span class="line">            <span class="keyword">if</span> (prevChildren[name]._rootNodeID) &#123;</span><br><span class="line">                $(document).undelegate(<span class="string">&#x27;.&#x27;</span> + prevChildren[name]._rootNodeID);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//用于将childNode插入到指定位置</span><br><span class="line"><span class="keyword">function</span> insertChildAt(parentNode, childNode, index) &#123;</span><br><span class="line">    var beforeChild = parentNode.children().get(index);</span><br><span class="line">    beforeChild ? childNode.insertBefore(beforeChild) : childNode.appendTo(parentNode);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ReactDOMComponent.prototype._patch = <span class="keyword">function</span>(updates) &#123;</span><br><span class="line">    var update;</span><br><span class="line">    var initialChildren = &#123;&#125;;</span><br><span class="line">    var deleteChildren = [];</span><br><span class="line">    <span class="keyword">for</span> (var i = 0; i &lt; updates.length; i++) &#123;</span><br><span class="line">        update = updates[i];</span><br><span class="line">        <span class="keyword">if</span> (update.type === UPATE_TYPES.MOVE_EXISTING || update.type === UPATE_TYPES.REMOVE_NODE) &#123;</span><br><span class="line">            var updatedIndex = update.fromIndex;</span><br><span class="line">            var updatedChild = $(update.parentNode.children().get(updatedIndex));</span><br><span class="line">            var parentID = update.parentID;</span><br><span class="line"></span><br><span class="line">            //所有需要更新的节点都保存下来，方便后面使用</span><br><span class="line">            initialChildren[parentID] = initialChildren[parentID] || [];</span><br><span class="line">            //使用parentID作为简易命名空间</span><br><span class="line">            initialChildren[parentID][updatedIndex] = updatedChild;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">            //所有需要修改的节点先删除,对于move的，后面再重新插入到正确的位置即可</span><br><span class="line">            deleteChildren.push(updatedChild)</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //删除所有需要先删除的</span><br><span class="line">    $.each(deleteChildren, <span class="keyword">function</span>(index, child) &#123;</span><br><span class="line">        $(child).remove();</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    //再遍历一次，这次处理新增的节点，还有修改的节点这里也要重新插入</span><br><span class="line">    <span class="keyword">for</span> (var k = 0; k &lt; updates.length; k++) &#123;</span><br><span class="line">        update = updates[k];</span><br><span class="line">        switch (update.type) &#123;</span><br><span class="line">            <span class="keyword">case</span> UPATE_TYPES.INSERT_MARKUP:</span><br><span class="line">                insertChildAt(update.parentNode, $(update.markup), update.toIndex);</span><br><span class="line">                <span class="built_in">break</span>;</span><br><span class="line">            <span class="keyword">case</span> UPATE_TYPES.MOVE_EXISTING:</span><br><span class="line">                insertChildAt(update.parentNode, initialChildren[update.parentID][update.fromIndex], update.toIndex);</span><br><span class="line">                <span class="built_in">break</span>;</span><br><span class="line">            <span class="keyword">case</span> UPATE_TYPES.REMOVE_NODE:</span><br><span class="line">                // 什么都不需要做，因为上面已经帮忙删除掉了</span><br><span class="line">                <span class="built_in">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> ReactCompositeComponent(element) &#123;</span><br><span class="line">    //存放元素element对象</span><br><span class="line">    this._currentElement = element;</span><br><span class="line">    //存放唯一标识</span><br><span class="line">    this._rootNodeID = null;</span><br><span class="line">    //存放对应的ReactClass的实例</span><br><span class="line">    this._instance = null;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//用于返回当前自定义元素渲染时应该返回的内容</span><br><span class="line">ReactCompositeComponent.prototype.mountComponent = <span class="keyword">function</span>(rootID) &#123;</span><br><span class="line">    this._rootNodeID = rootID;</span><br><span class="line">    //拿到当前元素对应的属性值</span><br><span class="line">    var publicProps = this._currentElement.props;</span><br><span class="line">    //拿到对应的ReactClass</span><br><span class="line">    var ReactClass = this._currentElement.type;</span><br><span class="line">    // Initialize the public class</span><br><span class="line">    var inst = new ReactClass(publicProps);</span><br><span class="line">    this._instance = inst;</span><br><span class="line">    //保留对当前comonent的引用，下面更新会用到</span><br><span class="line">    inst._reactInternalInstance = this;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (inst.componentWillMount) &#123;</span><br><span class="line">        inst.componentWillMount();</span><br><span class="line">        //这里在原始的reactjs其实还有一层处理，就是  componentWillMount调用setstate，不会触发rerender而是自动提前合并，这里为了保持简单，就略去了</span><br><span class="line">    &#125;</span><br><span class="line">    //调用ReactClass的实例的render方法,返回一个element或者一个文本节点</span><br><span class="line">    var renderedElement = this._instance.render();</span><br><span class="line">    //得到renderedElement对应的component类实例</span><br><span class="line">    var renderedComponentInstance = instantiateReactComponent(renderedElement);</span><br><span class="line">    this._renderedComponent = renderedComponentInstance; //存起来留作后用</span><br><span class="line"></span><br><span class="line">    //拿到渲染之后的字符串内容，将当前的_rootNodeID传给render出的节点</span><br><span class="line">    var renderedMarkup = renderedComponentInstance.mountComponent(this._rootNodeID);</span><br><span class="line"></span><br><span class="line">    //之前我们在React.render方法最后触发了mountReady事件，所以这里可以监听，在渲染完成后会触发。</span><br><span class="line">    $(document).on(<span class="string">&#x27;mountReady&#x27;</span>, <span class="function"><span class="title">function</span></span>() &#123;</span><br><span class="line">        //调用inst.componentDidMount</span><br><span class="line">        inst.componentDidMount &amp;&amp; inst.componentDidMount();</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">return</span> renderedMarkup;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ReactCompositeComponent.prototype.receiveComponent = <span class="keyword">function</span>(nextElement, newState) &#123;</span><br><span class="line"></span><br><span class="line">    //如果接受了新的，就使用最新的element</span><br><span class="line">    this._currentElement = nextElement || this._currentElement</span><br><span class="line"></span><br><span class="line">    var inst = this._instance;</span><br><span class="line">    //合并state</span><br><span class="line">    var nextState = $.extend(inst.state, newState);</span><br><span class="line">    var nextProps = this._currentElement.props;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    //改写state</span><br><span class="line">    inst.state = nextState;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    //如果inst有shouldComponentUpdate并且返回<span class="literal">false</span>。说明组件本身判断不要更新，就直接返回。</span><br><span class="line">    <span class="keyword">if</span> (inst.shouldComponentUpdate &amp;&amp; (inst.shouldComponentUpdate(nextProps, nextState) === <span class="literal">false</span>)) <span class="built_in">return</span>;</span><br><span class="line"></span><br><span class="line">    //生命周期管理，如果有componentWillUpdate，就调用，表示开始要更新了。</span><br><span class="line">    <span class="keyword">if</span> (inst.componentWillUpdate) inst.componentWillUpdate(nextProps, nextState);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    var prevComponentInstance = this._renderedComponent;</span><br><span class="line">    var prevRenderedElement = prevComponentInstance._currentElement;</span><br><span class="line">    //重新执行render拿到对应的新element;</span><br><span class="line">    var nextRenderedElement = this._instance.render();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    //判断是需要更新还是直接就重新渲染</span><br><span class="line">    //注意这里的_shouldUpdateReactComponent跟上面的不同哦 这个是全局的方法</span><br><span class="line">    <span class="keyword">if</span> (_shouldUpdateReactComponent(prevRenderedElement, nextRenderedElement)) &#123;</span><br><span class="line">        //如果需要更新，就继续调用子节点的receiveComponent的方法，传入新的element更新子节点。</span><br><span class="line">        prevComponentInstance.receiveComponent(nextRenderedElement);</span><br><span class="line">        //调用componentDidUpdate表示更新完成了</span><br><span class="line">        inst.componentDidUpdate &amp;&amp; inst.componentDidUpdate();</span><br><span class="line"></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        //如果发现完全是不同的两种element，那就干脆重新渲染了</span><br><span class="line">        var thisID = this._rootNodeID;</span><br><span class="line">        //重新new一个对应的component，</span><br><span class="line">        this._renderedComponent = this._instantiateReactComponent(nextRenderedElement);</span><br><span class="line">        //重新生成对应的元素内容</span><br><span class="line">        var nextMarkup = _renderedComponent.mountComponent(thisID);</span><br><span class="line">        //替换整个节点</span><br><span class="line">        $(<span class="string">&#x27;[data-reactid=&quot;&#x27;</span> + this._rootNodeID + <span class="string">&#x27;&quot;]&#x27;</span>).replaceWith(nextMarkup);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//用来判定两个element需不需要更新</span><br><span class="line">//这里的key是我们createElement的时候可以选择性的传入的。用来标识这个element，当发现key不同时，我们就可以直接重新渲染，不需要去更新了。</span><br><span class="line">var _shouldUpdateReactComponent = <span class="keyword">function</span>(prevElement, nextElement) &#123;</span><br><span class="line">    <span class="keyword">if</span> (prevElement != null &amp;&amp; nextElement != null) &#123;</span><br><span class="line">        var prevType = typeof prevElement;</span><br><span class="line">        var nextType = typeof nextElement;</span><br><span class="line">        <span class="keyword">if</span> (prevType === <span class="string">&#x27;string&#x27;</span> || prevType === <span class="string">&#x27;number&#x27;</span>) &#123;</span><br><span class="line">            <span class="built_in">return</span> nextType === <span class="string">&#x27;string&#x27;</span> || nextType === <span class="string">&#x27;number&#x27;</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="built_in">return</span> nextType === <span class="string">&#x27;object&#x27;</span> &amp;&amp; prevElement.type === nextElement.type &amp;&amp; prevElement.key === nextElement.key;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> instantiateReactComponent(node) &#123;</span><br><span class="line">    //文本节点的情况</span><br><span class="line">    <span class="keyword">if</span> (typeof node === <span class="string">&#x27;string&#x27;</span> || typeof node === <span class="string">&#x27;number&#x27;</span>) &#123;</span><br><span class="line">        <span class="built_in">return</span> new ReactDOMTextComponent(node);</span><br><span class="line">    &#125;</span><br><span class="line">    //浏览器默认节点的情况</span><br><span class="line">    <span class="keyword">if</span> (typeof node === <span class="string">&#x27;object&#x27;</span> &amp;&amp; typeof node.type === <span class="string">&#x27;string&#x27;</span>) &#123;</span><br><span class="line">        //注意这里，使用了一种新的component</span><br><span class="line">        <span class="built_in">return</span> new ReactDOMComponent(node);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    //自定义的元素节点</span><br><span class="line">    <span class="keyword">if</span> (typeof node === <span class="string">&#x27;object&#x27;</span> &amp;&amp; typeof node.type === <span class="string">&#x27;function&#x27;</span>) &#123;</span><br><span class="line">        //注意这里，使用新的component,专门针对自定义元素</span><br><span class="line">        <span class="built_in">return</span> new ReactCompositeComponent(node);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//ReactElement就是虚拟dom的概念，具有一个<span class="built_in">type</span>属性代表当前的节点类型，还有节点的属性props</span><br><span class="line">//比如对于div这样的节点<span class="built_in">type</span>就是div，props就是那些propibutes</span><br><span class="line">//另外这里的key,可以用来标识这个element，用于优化以后的更新，这里可以先不管，知道有这么个东西就好了</span><br><span class="line"><span class="keyword">function</span> ReactElement(<span class="built_in">type</span>,key,props)&#123;</span><br><span class="line">  this.type = <span class="built_in">type</span>;</span><br><span class="line">  this.key = key;</span><br><span class="line">  this.props = props;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//定义ReactClass类,所有自定义的超级父类</span><br><span class="line">var ReactClass = <span class="function"><span class="title">function</span></span>() &#123;&#125;</span><br><span class="line">    //留给子类去继承覆盖</span><br><span class="line">ReactClass.prototype.render = <span class="function"><span class="title">function</span></span>() &#123;&#125;</span><br><span class="line"></span><br><span class="line">//setState</span><br><span class="line">ReactClass.prototype.setState = <span class="keyword">function</span>(newState) &#123;</span><br><span class="line"></span><br><span class="line">    //还记得我们在ReactCompositeComponent里面mount的时候 做了赋值</span><br><span class="line">    //所以这里可以拿到 对应的ReactCompositeComponent的实例_reactInternalInstance</span><br><span class="line">    this._reactInternalInstance.receiveComponent(null, newState);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">React = &#123;</span><br><span class="line">    nextReactRootIndex: 0,</span><br><span class="line">    createClass: <span class="keyword">function</span>(spec) &#123;</span><br><span class="line">        //生成一个子类</span><br><span class="line">        var Constructor = <span class="keyword">function</span>(props) &#123;</span><br><span class="line">                this.props = props;</span><br><span class="line">                this.state = this.getInitialState ? this.getInitialState() : null;</span><br><span class="line">            &#125;</span><br><span class="line">            //原型继承，继承超级父类</span><br><span class="line">        Constructor.prototype = new ReactClass();</span><br><span class="line">        Constructor.prototype.constructor = Constructor;</span><br><span class="line">        //混入spec到原型</span><br><span class="line">        $.extend(Constructor.prototype, spec);</span><br><span class="line">        <span class="built_in">return</span> Constructor;</span><br><span class="line"></span><br><span class="line">    &#125;,</span><br><span class="line">    createElement: <span class="keyword">function</span>(<span class="built_in">type</span>, config, children) &#123;</span><br><span class="line">        var props = &#123;&#125;,propName;</span><br><span class="line">        config = config || &#123;&#125;</span><br><span class="line">        //看有没有key，用来标识element的类型，方便以后高效的更新，这里可以先不管</span><br><span class="line">        var key = config.key || null;</span><br><span class="line"></span><br><span class="line">        //复制config里的内容到props</span><br><span class="line">        <span class="keyword">for</span> (propName <span class="keyword">in</span> config) &#123;</span><br><span class="line">            <span class="keyword">if</span> (config.hasOwnProperty(propName) &amp;&amp; propName !== <span class="string">&#x27;key&#x27;</span>) &#123;</span><br><span class="line">                props[propName] = config[propName];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        //处理children,全部挂载到props的children属性上</span><br><span class="line">        //支持两种写法，如果只有一个参数，直接赋值给children，否则做合并处理</span><br><span class="line">        var childrenLength = arguments.length - 2;</span><br><span class="line">        <span class="keyword">if</span> (childrenLength === 1) &#123;</span><br><span class="line">            props.children = $.isArray(children) ? children : [children] ;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (childrenLength &gt; 1) &#123;</span><br><span class="line">            var childArray = Array(childrenLength);</span><br><span class="line">            <span class="keyword">for</span> (var i = 0; i &lt; childrenLength; i++) &#123;</span><br><span class="line">                childArray[i] = arguments[i + 2];</span><br><span class="line">            &#125;</span><br><span class="line">            props.children = childArray;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">return</span> new ReactElement(<span class="built_in">type</span>, key,props);</span><br><span class="line">    &#125;,</span><br><span class="line">    render: <span class="keyword">function</span>(element, container) &#123;</span><br><span class="line">        var componentInstance = instantiateReactComponent(element);</span><br><span class="line">        var markup = componentInstance.mountComponent(React.nextReactRootIndex++);</span><br><span class="line">        $(container).html(markup);</span><br><span class="line">        //触发完成mount的事件</span><br><span class="line">        $(document).trigger(<span class="string">&#x27;mountReady&#x27;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;meta http-equiv=<span class="string">&quot;content-type&quot;</span> content=<span class="string">&quot;text/html;charset=utf-8&quot;</span>&gt;</span><br><span class="line">&lt;script src=<span class="string">&quot;http://apps.bdimg.com/libs/jquery/2.1.4/jquery.js&quot;</span>&gt;&lt;/script&gt;</span><br><span class="line">&lt;script src=<span class="string">&quot;./react-little.js&quot;</span>&gt;&lt;/script&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&lt;style <span class="built_in">type</span>=<span class="string">&quot;text/css&quot;</span>&gt;</span><br><span class="line">  <span class="comment">#container&#123;</span></span><br><span class="line">    width: 500px;</span><br><span class="line">    background-color: <span class="comment">#fafafa;</span></span><br><span class="line">    min-height: 200px;</span><br><span class="line">    margin: 100px auto;</span><br><span class="line">    text-align: center;</span><br><span class="line">    padding: 20px;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">#container p&#123;</span></span><br><span class="line">    display: inline-block;</span><br><span class="line">    border: 1px solid <span class="comment">#999;</span></span><br><span class="line">    padding: 5px 5px;</span><br><span class="line">    cursor: pointer;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">#container input&#123;</span></span><br><span class="line">    width: 200px;</span><br><span class="line">    border: 1px solid <span class="comment">#999;</span></span><br><span class="line">    padding: 6px;</span><br><span class="line">    vertical-align: 1px;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&lt;/style&gt;</span><br><span class="line"></span><br><span class="line">&lt;/head&gt;</span><br><span class="line"></span><br><span class="line">&lt;body&gt;</span><br><span class="line"></span><br><span class="line">&lt;div id=<span class="string">&quot;container&quot;</span>&gt;&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">&lt;script <span class="built_in">type</span>=<span class="string">&quot;text/javascript&quot;</span>&gt;</span><br><span class="line"></span><br><span class="line">var TodoList = React.createClass(&#123;</span><br><span class="line">  getInitialState: <span class="function"><span class="title">function</span></span>() &#123;</span><br><span class="line">    <span class="built_in">return</span> &#123;items: []&#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">  add:<span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">    var nextItems = this.state.items.concat([this.state.text]);</span><br><span class="line">    this.setState(&#123;items: nextItems, text: <span class="string">&#x27;&#x27;</span>&#125;);</span><br><span class="line">  &#125;,</span><br><span class="line">  onChange: <span class="keyword">function</span>(e) &#123;</span><br><span class="line">    this.setState(&#123;text: e.target.value&#125;);</span><br><span class="line">  &#125;,</span><br><span class="line">  render: <span class="function"><span class="title">function</span></span>() &#123;</span><br><span class="line">    var createItem = <span class="keyword">function</span>(itemText) &#123;</span><br><span class="line">      <span class="built_in">return</span> React.createElement(<span class="string">&quot;div&quot;</span>, null, itemText);</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    var lists = this.state.items.map(createItem);</span><br><span class="line">    var input = React.createElement(<span class="string">&quot;input&quot;</span>, &#123;onkeyup: this.onChange.bind(this),value: this.state.text&#125;);</span><br><span class="line">    var button = React.createElement(<span class="string">&quot;p&quot;</span>, &#123;onclick: this.add.bind(this)&#125;, <span class="string">&#x27;Add#&#x27;</span> + (this.state.items.length + 1))</span><br><span class="line">    var children = [input,button].concat(lists)</span><br><span class="line"></span><br><span class="line">    <span class="built_in">return</span> React.createElement(<span class="string">&quot;div&quot;</span>, null,children);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">React.render(React.createElement(TodoList), document.getElementById(<span class="string">&quot;container&quot;</span>));</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
-
-      
-
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			
-        		<li class="article-tag-list-item">
-        			<a href="/blog/categories/JS-React//" class="article-tag-list-link color4">JS/React</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2018/12/21/Reactdiff%E4%BB%A5%E5%8F%8A%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0/">展开全文 >></a>
         </p>
       
 
