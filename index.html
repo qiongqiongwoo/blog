@@ -847,6 +847,137 @@ select/poll在接收到一个连接时，会通知内核（发生从用户态复
     </div>
 </aside>
   
+    <article id="post-hadoop" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2020/08/04/hadoop/">Hadoop</a>
+    </h1>
+  
+
+        
+        <a href="/blog/2020/08/04/hadoop/" class="archive-article-date">
+  	<time datetime="2020-08-04T10:10:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-04</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="hadoop"><a href="#hadoop" class="headerlink" title="hadoop"></a>hadoop</h4><p>组成：</p>
+<ul>
+<li>hadoop common：各种工具配置；</li>
+<li>hadoop HDFS：分布式文件系统；</li>
+<li>hadoop MapReduce：分布式海量数据处理的软件框架集群；</li>
+<li>hadoop Yarn：作业调度和集群资源调度；</li>
+<li>mapreduce: 分布式计算系统；<br>生态：</li>
+<li>支持结构化数据存储的数据库HBASE；</li>
+<li>分布式协调服务框架zookeeper；</li>
+<li>基于内存的数据处理框架Spark；</li>
+<li>数据仓库软件Hive；</li>
+<li>可扩展的机器学习和挖掘框架Mahout;</li>
+</ul>
+<p><img src="/blog/2020/08/04/hadoop/A7FCBADC-682F-4475-9CBF-7E76D58FA87A.png" alt="20567b3ea38c7aa789a8541edcc5fc3b"></p>
+<h4 id="HDFS架构"><a href="#HDFS架构" class="headerlink" title="HDFS架构"></a>HDFS架构</h4><p><img src="/blog/2020/08/04/hadoop/F96D99EE-1D59-445E-9273-544F8D3CA754.png" alt="fdde795e5d06eb9f93d954f2aa083560"></p>
+<ul>
+<li>client：客户端，提供一些命令来访问hdfs;</li>
+<li>nameNode: 就是master，是一个管理者，管理整个文件系统的元数据以及每一个文件所对应的数据块信息；</li>
+<li>dataNode: slave，存储实际的数据库，执行数据的读/写操作；</li>
+<li>secondaryNameNode：保存了一份和nameNode中一致的镜像文件和编辑日志，当NameNode发生故障时，可以从中恢复数据。<h4 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">hadoop dfs –ls &#x2F;user&#x2F;  # 查看指定目录</span><br><span class="line"></span><br><span class="line">hadoop dfs –cat &#x2F;user&#x2F;input.txt # 显示文件</span><br><span class="line">hadoop dfs –put test.txt &#x2F;user&#x2F; # 存储文件</span><br><span class="line">hadoop dfs –get &#x2F;user&#x2F;input.txt . # 拉取文件到本地</span><br><span class="line">hadoop dfs –rmr &#x2F;user&#x2F;input.txt # 删除文件</span><br><span class="line">hadoop dfs –mkdir &#x2F;user&#x2F;aa # 创建目录</span><br><span class="line">hadoop dfs –touchz &#x2F;user&#x2F;bb # 创建文件</span><br><span class="line">hadoop dfs –mv &#x2F;user&#x2F;bb &#x2F;user&#x2F;cc # 创建文件</span><br><span class="line">hadoop job -list # 列出job</span><br><span class="line">hadoop job -kill job-id #删除一个job</span><br></pre></td></tr></table></figure>
+<h4 id="文件存储"><a href="#文件存储" class="headerlink" title="文件存储"></a>文件存储</h4></li>
+</ul>
+<p>block: 是hdfs中的最小存储单位，它是物理划分；<br>hdfs中的block默认是保存三份(dfs.replication设置)；blocksize默认是128mb。（可以通过参数dfs.block.size来设置）<br>设置为128MB的原因：读取hdfs文件的时间=block寻址时间+读取block的时间，如果分块太小，会导致block寻址时间过大，因此不能设置太小。</p>
+<h4 id="MapReduce"><a href="#MapReduce" class="headerlink" title="MapReduce"></a>MapReduce</h4><p>Hadoop任务的核心思想是MapReduce，shuffle是MapReduce的核心。shuffle的主要工作是从Map结束到Reduce开始之间的过程。shuffle阶段又可以分为Map端的shuffle和Reduce端的shuffle。<br><img src="/blog/2020/08/04/hadoop/1DF573B9-E982-4656-921A-80F222EAEE81.png" alt="f670231269b9996bf9c076d0549492af"><br><strong>map和reduce的数量：</strong><br>totalSize: mapreduce job输入文件的总大小；<br>numSplits: map的个数；（设置的希望切成多少份）<br>goalSize: totalSize/numSplits；<br>minSize: split的最小值；<br>finalSplitSize=max(minSize,min(goalSize,blockSize))，最终的分片数；<br>map的设置mapred.map.tasks参数只是一个引导值，最终的map数量为: default_num = total_size / split_size;<br>reducer的数量完全依赖于mapred.reduce.tasks这个设置；</p>
+<p>词频统计的例子：</p>
+<ul>
+<li><p>split阶段：逻辑划分阶段，目的是将输入划分给map；<br>finalSplitSize=max(minSize,min(goalSize,blockSize))</p>
+</li>
+<li><p>map阶段：分工的阶段</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#!&#x2F;usr&#x2F;bin&#x2F;env python</span><br><span class="line">&quot;&quot;&quot; mapper.py &quot;&quot;&quot;</span><br><span class="line">import sys</span><br><span class="line">for line in sys.stdin:</span><br><span class="line">    line &#x3D; line.strip()</span><br><span class="line">    words &#x3D; line.split()</span><br><span class="line">    for word in words:</span><br><span class="line">        print &#39;%s\t%s&#39; % (word, 1)</span><br></pre></td></tr></table></figure></li>
+<li><p>shuffle: 从map输出到reduce输入的中间过程为shuffle的阶段；它是将map输出的无规则的数据搭乱成有规则的数据，以便reduce端接收；分为map shuffle和reduce shuffle。<br><img src="/blog/2020/08/04/hadoop/82FB9C5E-9B36-4AA7-95AA-E2589B7A361C.png" alt="30b34db80670938be0d0277f2172a5c2"><br>map阶段的shuffle特点：</p>
+<ol>
+<li>map产生的kv结果是先放到缓冲区的，缓冲区满了再写io生成spill文件</li>
+<li>map任务完成前利用多路归并算法合并spill文件</li>
+<li><strong>partition的作用是将数据排序归类分区，分区由用户定义的partition函数控制，默认是按照hash</strong>；</li>
+<li>combiner可有可无，<strong>目的是在map端做一次合并，减少传输的数据量，提升速度</strong>。<br><img src="/blog/2020/08/04/hadoop/BC53CCE6-8B0C-4BE7-A5A0-D5DA827B1C54.png" alt="2a5927be741bce96fb735938197adbd2"><br>reduce端的shuffle会进行数据的copy和再次sort合并，然后发给不同的reducer进行处理；<br><img src="/blog/2020/08/04/hadoop/5598E445-0609-4906-BBB0-78C6EE658E91.png" alt="c6369a9316047bc669ea52e8b1b66b42"></li>
+</ol>
+</li>
+<li><p>reduce阶段: 汇总阶段</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">#!&#x2F;usr&#x2F;bin&#x2F;env python</span><br><span class="line">from operator import itemgetter</span><br><span class="line">import sys</span><br><span class="line"></span><br><span class="line">current_word &#x3D; None</span><br><span class="line">current_count &#x3D; 0</span><br><span class="line">word &#x3D; None</span><br><span class="line"></span><br><span class="line">for line in sys.stdin:</span><br><span class="line">    line &#x3D; line.strip()</span><br><span class="line">    word, count &#x3D; line.split(&#39;\t&#39;, 1)</span><br><span class="line">    try:</span><br><span class="line">        count &#x3D; int(count)</span><br><span class="line">    except ValueError:</span><br><span class="line">        continue</span><br><span class="line"></span><br><span class="line">    if current_word &#x3D;&#x3D; word:</span><br><span class="line">        current_count +&#x3D; count</span><br><span class="line">    else:</span><br><span class="line">        if current_word:</span><br><span class="line">            print &#39;%s\t%s&#39; % (current_word, current_count)</span><br><span class="line">        current_count &#x3D; count</span><br><span class="line">        current_word &#x3D; word</span><br><span class="line">if current_word &#x3D;&#x3D; word:</span><br><span class="line">    print &#39;%s\t%s&#39; % (current_word, current_count)</span><br></pre></td></tr></table></figure>
+<p>hadoop任务提交：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">hadoop streaming </span><br><span class="line">    -input 输入文件 \</span><br><span class="line">    -output 输出文件 \</span><br><span class="line">    -mapper &quot;python mapper.py&quot; \</span><br><span class="line">    -reducer &quot;python reducer.py&quot; \</span><br><span class="line">    -file reducer.py #打包文件到提交的作业中 \</span><br><span class="line">    -file mapper.py \</span><br><span class="line">    -D mapred.job.name&#x3D;任务名 \</span><br><span class="line">    -D mapred.job.map.capacity&#x3D;最多同时运行的map任务数 \</span><br><span class="line">    -D mapred.map.tasks&#x3D;map任务个数 \</span><br><span class="line">    -D mapred.reduce.tasks&#x3D;reduce任务个数 \</span><br><span class="line">    -D mapred.map.over.capacity.allowed&#x3D;false \</span><br><span class="line">    -D mapred.job.priority&#x3D;NORMAL \</span><br><span class="line">    -D abaci.job.base.environment&#x3D;default</span><br></pre></td></tr></table></figure>
+<h4 id="数据倾斜"><a href="#数据倾斜" class="headerlink" title="数据倾斜"></a>数据倾斜</h4><p>数据经过map后，由于key的数据量分布不均，相同的key打到同一个reducer，导致reducer的压力过大；<br><img src="/blog/2020/08/04/hadoop/FAE0F2B3-A8E9-4C45-9040-5B9CE9CAD6A3.png" alt="74ae4df677d20a0093267bc14155db8d"><br>处理方式：</p>
+</li>
+<li><p>加combiner，在mapper阶段提前进行聚合操作，减少reduce端的压力；</p>
+</li>
+<li><p>加两级reduce，第一级对key随机加值，第二级在去掉随机数对全局进行聚合。</p>
+<h4 id="mapreduce优化"><a href="#mapreduce优化" class="headerlink" title="mapreduce优化"></a>mapreduce优化</h4></li>
+<li><p>数据输入：需要合并小文件。小文件是指小于block size的文件，小文件会导致namenode中的map过大，另外每个小文件会独占一个分片，导致任务的装载耗时；</p>
+</li>
+<li><p>通过设置，减少spill次数，增大一次merge的文件数目，从而减少merge的次数；</p>
+</li>
+<li><p>不影响业务的前提下，进行combiner处理；</p>
+</li>
+<li><p>合理设置map和reduce数，设置二者共存；</p>
+</li>
+</ul>
+<h4 id="spark-amp-mapreduce"><a href="#spark-amp-mapreduce" class="headerlink" title="spark &amp; mapreduce"></a>spark &amp; mapreduce</h4><p><strong>磁盘IO&amp;延迟</strong></p>
+<ul>
+<li>mapreduce必须依赖于磁盘以及大量的网络开销，磁盘的IO开销大，延迟也高；</li>
+<li>spark是基于内存的计算框架，中间结果直接放内存，可以更快的进行迭代计算；迭代运算效率spark : mapreduce = 110:0.9</li>
+<li><em>表达能力</em>*<br>spark不仅仅是map reduce，还可以支持RDD等；</li>
+</ul>
+
+      
+
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			
+        		<li class="article-tag-list-item">
+        			<a href="/blog/categories/DataBase//" class="article-tag-list-link color4">DataBase</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/blog/2020/08/04/hadoop/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+  
     <article id="post-k8s的dns和bns" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1021,137 +1152,6 @@ select/poll在接收到一个连接时，会通知内核（发生从用户态复
       
         <p class="article-more-link">
           <a class="article-more-a" href="/blog/2019/11/17/%E6%96%87%E6%9C%AC%E8%A1%A8%E7%A4%BA%E5%92%8C%E8%AF%8D%E5%90%91%E9%87%8F/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-  
-    <article id="post-hadoop" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2019/10/04/hadoop/">Hadoop</a>
-    </h1>
-  
-
-        
-        <a href="/blog/2019/10/04/hadoop/" class="archive-article-date">
-  	<time datetime="2019-10-04T10:10:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-04</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="hadoop"><a href="#hadoop" class="headerlink" title="hadoop"></a>hadoop</h4><p>组成：</p>
-<ul>
-<li>hadoop common：各种工具配置；</li>
-<li>hadoop HDFS：分布式文件系统；</li>
-<li>hadoop MapReduce：分布式海量数据处理的软件框架集群；</li>
-<li>hadoop Yarn：作业调度和集群资源调度；</li>
-<li>mapreduce: 分布式计算系统；<br>生态：</li>
-<li>支持结构化数据存储的数据库HBASE；</li>
-<li>分布式协调服务框架zookeeper；</li>
-<li>基于内存的数据处理框架Spark；</li>
-<li>数据仓库软件Hive；</li>
-<li>可扩展的机器学习和挖掘框架Mahout;</li>
-</ul>
-<p><img src="/blog/2019/10/04/hadoop/A7FCBADC-682F-4475-9CBF-7E76D58FA87A.png" alt="20567b3ea38c7aa789a8541edcc5fc3b"></p>
-<h4 id="HDFS架构"><a href="#HDFS架构" class="headerlink" title="HDFS架构"></a>HDFS架构</h4><p><img src="/blog/2019/10/04/hadoop/F96D99EE-1D59-445E-9273-544F8D3CA754.png" alt="fdde795e5d06eb9f93d954f2aa083560"></p>
-<ul>
-<li>client：客户端，提供一些命令来访问hdfs;</li>
-<li>nameNode: 就是master，是一个管理者，管理整个文件系统的元数据以及每一个文件所对应的数据块信息；</li>
-<li>dataNode: slave，存储实际的数据库，执行数据的读/写操作；</li>
-<li>secondaryNameNode：保存了一份和nameNode中一致的镜像文件和编辑日志，当NameNode发生故障时，可以从中恢复数据。<h4 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">hadoop dfs –ls &#x2F;user&#x2F;  # 查看指定目录</span><br><span class="line"></span><br><span class="line">hadoop dfs –cat &#x2F;user&#x2F;input.txt # 显示文件</span><br><span class="line">hadoop dfs –put test.txt &#x2F;user&#x2F; # 存储文件</span><br><span class="line">hadoop dfs –get &#x2F;user&#x2F;input.txt . # 拉取文件到本地</span><br><span class="line">hadoop dfs –rmr &#x2F;user&#x2F;input.txt # 删除文件</span><br><span class="line">hadoop dfs –mkdir &#x2F;user&#x2F;aa # 创建目录</span><br><span class="line">hadoop dfs –touchz &#x2F;user&#x2F;bb # 创建文件</span><br><span class="line">hadoop dfs –mv &#x2F;user&#x2F;bb &#x2F;user&#x2F;cc # 创建文件</span><br><span class="line">hadoop job -list # 列出job</span><br><span class="line">hadoop job -kill job-id #删除一个job</span><br></pre></td></tr></table></figure>
-<h4 id="文件存储"><a href="#文件存储" class="headerlink" title="文件存储"></a>文件存储</h4></li>
-</ul>
-<p>block: 是hdfs中的最小存储单位，它是物理划分；<br>hdfs中的block默认是保存三份(dfs.replication设置)；blocksize默认是128mb。（可以通过参数dfs.block.size来设置）<br>设置为128MB的原因：读取hdfs文件的时间=block寻址时间+读取block的时间，如果分块太小，会导致block寻址时间过大，因此不能设置太小。</p>
-<h4 id="MapReduce"><a href="#MapReduce" class="headerlink" title="MapReduce"></a>MapReduce</h4><p>Hadoop任务的核心思想是MapReduce，shuffle是MapReduce的核心。shuffle的主要工作是从Map结束到Reduce开始之间的过程。shuffle阶段又可以分为Map端的shuffle和Reduce端的shuffle。<br><img src="/blog/2019/10/04/hadoop/1DF573B9-E982-4656-921A-80F222EAEE81.png" alt="f670231269b9996bf9c076d0549492af"><br><strong>map和reduce的数量：</strong><br>totalSize: mapreduce job输入文件的总大小；<br>numSplits: map的个数；（设置的希望切成多少份）<br>goalSize: totalSize/numSplits；<br>minSize: split的最小值；<br>finalSplitSize=max(minSize,min(goalSize,blockSize))，最终的分片数；<br>map的设置mapred.map.tasks参数只是一个引导值，最终的map数量为: default_num = total_size / split_size;<br>reducer的数量完全依赖于mapred.reduce.tasks这个设置；</p>
-<p>词频统计的例子：</p>
-<ul>
-<li><p>split阶段：逻辑划分阶段，目的是将输入划分给map；<br>finalSplitSize=max(minSize,min(goalSize,blockSize))</p>
-</li>
-<li><p>map阶段：分工的阶段</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#!&#x2F;usr&#x2F;bin&#x2F;env python</span><br><span class="line">&quot;&quot;&quot; mapper.py &quot;&quot;&quot;</span><br><span class="line">import sys</span><br><span class="line">for line in sys.stdin:</span><br><span class="line">    line &#x3D; line.strip()</span><br><span class="line">    words &#x3D; line.split()</span><br><span class="line">    for word in words:</span><br><span class="line">        print &#39;%s\t%s&#39; % (word, 1)</span><br></pre></td></tr></table></figure></li>
-<li><p>shuffle: 从map输出到reduce输入的中间过程为shuffle的阶段；它是将map输出的无规则的数据搭乱成有规则的数据，以便reduce端接收；分为map shuffle和reduce shuffle。<br><img src="/blog/2019/10/04/hadoop/82FB9C5E-9B36-4AA7-95AA-E2589B7A361C.png" alt="30b34db80670938be0d0277f2172a5c2"><br>map阶段的shuffle特点：</p>
-<ol>
-<li>map产生的kv结果是先放到缓冲区的，缓冲区满了再写io生成spill文件</li>
-<li>map任务完成前利用多路归并算法合并spill文件</li>
-<li><strong>partition的作用是将数据排序归类分区，分区由用户定义的partition函数控制，默认是按照hash</strong>；</li>
-<li>combiner可有可无，<strong>目的是在map端做一次合并，减少传输的数据量，提升速度</strong>。<br><img src="/blog/2019/10/04/hadoop/BC53CCE6-8B0C-4BE7-A5A0-D5DA827B1C54.png" alt="2a5927be741bce96fb735938197adbd2"><br>reduce端的shuffle会进行数据的copy和再次sort合并，然后发给不同的reducer进行处理；<br><img src="/blog/2019/10/04/hadoop/5598E445-0609-4906-BBB0-78C6EE658E91.png" alt="c6369a9316047bc669ea52e8b1b66b42"></li>
-</ol>
-</li>
-<li><p>reduce阶段: 汇总阶段</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">#!&#x2F;usr&#x2F;bin&#x2F;env python</span><br><span class="line">from operator import itemgetter</span><br><span class="line">import sys</span><br><span class="line"></span><br><span class="line">current_word &#x3D; None</span><br><span class="line">current_count &#x3D; 0</span><br><span class="line">word &#x3D; None</span><br><span class="line"></span><br><span class="line">for line in sys.stdin:</span><br><span class="line">    line &#x3D; line.strip()</span><br><span class="line">    word, count &#x3D; line.split(&#39;\t&#39;, 1)</span><br><span class="line">    try:</span><br><span class="line">        count &#x3D; int(count)</span><br><span class="line">    except ValueError:</span><br><span class="line">        continue</span><br><span class="line"></span><br><span class="line">    if current_word &#x3D;&#x3D; word:</span><br><span class="line">        current_count +&#x3D; count</span><br><span class="line">    else:</span><br><span class="line">        if current_word:</span><br><span class="line">            print &#39;%s\t%s&#39; % (current_word, current_count)</span><br><span class="line">        current_count &#x3D; count</span><br><span class="line">        current_word &#x3D; word</span><br><span class="line">if current_word &#x3D;&#x3D; word:</span><br><span class="line">    print &#39;%s\t%s&#39; % (current_word, current_count)</span><br></pre></td></tr></table></figure>
-<p>hadoop任务提交：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">hadoop streaming </span><br><span class="line">    -input 输入文件 \</span><br><span class="line">    -output 输出文件 \</span><br><span class="line">    -mapper &quot;python mapper.py&quot; \</span><br><span class="line">    -reducer &quot;python reducer.py&quot; \</span><br><span class="line">    -file reducer.py #打包文件到提交的作业中 \</span><br><span class="line">    -file mapper.py \</span><br><span class="line">    -D mapred.job.name&#x3D;任务名 \</span><br><span class="line">    -D mapred.job.map.capacity&#x3D;最多同时运行的map任务数 \</span><br><span class="line">    -D mapred.map.tasks&#x3D;map任务个数 \</span><br><span class="line">    -D mapred.reduce.tasks&#x3D;reduce任务个数 \</span><br><span class="line">    -D mapred.map.over.capacity.allowed&#x3D;false \</span><br><span class="line">    -D mapred.job.priority&#x3D;NORMAL \</span><br><span class="line">    -D abaci.job.base.environment&#x3D;default</span><br></pre></td></tr></table></figure>
-<h4 id="数据倾斜"><a href="#数据倾斜" class="headerlink" title="数据倾斜"></a>数据倾斜</h4><p>数据经过map后，由于key的数据量分布不均，相同的key打到同一个reducer，导致reducer的压力过大；<br><img src="/blog/2019/10/04/hadoop/FAE0F2B3-A8E9-4C45-9040-5B9CE9CAD6A3.png" alt="74ae4df677d20a0093267bc14155db8d"><br>处理方式：</p>
-</li>
-<li><p>加combiner，在mapper阶段提前进行聚合操作，减少reduce端的压力；</p>
-</li>
-<li><p>加两级reduce，第一级对key随机加值，第二级在去掉随机数对全局进行聚合。</p>
-<h4 id="mapreduce优化"><a href="#mapreduce优化" class="headerlink" title="mapreduce优化"></a>mapreduce优化</h4></li>
-<li><p>数据输入：需要合并小文件。小文件是指小于block size的文件，小文件会导致namenode中的map过大，另外每个小文件会独占一个分片，导致任务的装载耗时；</p>
-</li>
-<li><p>通过设置，减少spill次数，增大一次merge的文件数目，从而减少merge的次数；</p>
-</li>
-<li><p>不影响业务的前提下，进行combiner处理；</p>
-</li>
-<li><p>合理设置map和reduce数，设置二者共存；</p>
-</li>
-</ul>
-<h4 id="spark-amp-mapreduce"><a href="#spark-amp-mapreduce" class="headerlink" title="spark &amp; mapreduce"></a>spark &amp; mapreduce</h4><p><strong>磁盘IO&amp;延迟</strong></p>
-<ul>
-<li>mapreduce必须依赖于磁盘以及大量的网络开销，磁盘的IO开销大，延迟也高；</li>
-<li>spark是基于内存的计算框架，中间结果直接放内存，可以更快的进行迭代计算；迭代运算效率spark : mapreduce = 110:0.9</li>
-<li><em>表达能力</em>*<br>spark不仅仅是map reduce，还可以支持RDD等；</li>
-</ul>
-
-      
-
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			
-        		<li class="article-tag-list-item">
-        			<a href="/blog/categories/DataBase//" class="article-tag-list-link color4">DataBase</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2019/10/04/hadoop/">展开全文 >></a>
         </p>
       
 
