@@ -147,6 +147,168 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-ES6中的proxy和应用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2018/11/14/ES6%E4%B8%AD%E7%9A%84proxy%E5%92%8C%E5%BA%94%E7%94%A8/">ES6中的proxy和应用</a>
+    </h1>
+  
+
+        
+        <a href="/blog/2018/11/14/ES6%E4%B8%AD%E7%9A%84proxy%E5%92%8C%E5%BA%94%E7%94%A8/" class="archive-article-date">
+  	<time datetime="2018-11-14T10:18:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-14</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>1、ES6 中的Proxy的使用</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">var p = new Proxy(target, handler) // target为被包裹的对象，handler为处理方式</span><br><span class="line">handler能代理的方法有： get、<span class="built_in">set</span>、has、construct</span><br><span class="line">var target = &#123;</span><br><span class="line">   a : ‘111’, ‘b’: ‘fasdf<span class="string">&#x27;</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">Var newObj = Proxy(target, &#123;</span></span><br><span class="line"><span class="string">    Set: function(target, key, value) &#123;</span></span><br><span class="line"><span class="string">        console.log(key, ‘被设置。。。’)</span></span><br><span class="line"><span class="string">        target[key] = value</span></span><br><span class="line"><span class="string">    &#125;，</span></span><br><span class="line"><span class="string">    get: function(target, key) &#123;</span></span><br><span class="line"><span class="string">        console.log(key, ‘被读取。。。’)</span></span><br><span class="line"><span class="string">        return target[key]</span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string">&#125;)</span></span><br><span class="line"><span class="string">newObj.name = ‘fasdfdf’</span></span><br><span class="line"><span class="string">console.log(nameObj.name)</span></span><br></pre></td></tr></table></figure>
+<p>2、Proxy的应用<br>（1）添加虚拟属性</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">var person = &#123;</span><br><span class="line">  fisrsName: <span class="string">&#x27;张&#x27;</span>,</span><br><span class="line">  lastName: <span class="string">&#x27;小白&#x27;</span></span><br><span class="line">&#125;;</span><br><span class="line">var proxyedPerson = new Proxy(person, &#123;</span><br><span class="line">  get: <span class="keyword">function</span> (target, key) &#123;</span><br><span class="line">    <span class="keyword">if</span>(key === <span class="string">&#x27;fullName&#x27;</span>)&#123;</span><br><span class="line">      <span class="built_in">return</span> [target.fisrsName, target.lastName].join(<span class="string">&#x27; &#x27;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">return</span> target[key];</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="built_in">set</span>: <span class="keyword">function</span> (target, key, value) &#123;</span><br><span class="line">    <span class="keyword">if</span>(key === <span class="string">&#x27;fullName&#x27;</span>)&#123;</span><br><span class="line">      var fullNameInfo = value.split(<span class="string">&#x27; &#x27;</span>);</span><br><span class="line">      target.fisrsName = fullNameInfo[0];</span><br><span class="line">      target.lastName = fullNameInfo[1];</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      target[key] = value;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line">console.log(<span class="string">&#x27;姓:%s, 名:%s, 全名: %s&#x27;</span>, proxyedPerson.fisrsName, proxyedPerson.lastName, proxyedPerson.fullName);</span><br><span class="line">// 姓:张, 名:小白, 全名: 张 小白</span><br><span class="line">proxyedPerson.fullName = <span class="string">&#x27;李 小露&#x27;</span>;</span><br><span class="line">console.log(<span class="string">&#x27;姓:%s, 名:%s, 全名: %s&#x27;</span>, proxyedPerson.fisrsName, proxyedPerson.lastName, proxyedPerson.fullName);</span><br><span class="line">// 姓:李, 名:小露, 全名: 李 小露</span><br></pre></td></tr></table></figure>
+<p>（2）用来做私有变量隐藏</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">var api = &#123;</span><br><span class="line">  _secret: <span class="string">&#x27;xxxx&#x27;</span>,</span><br><span class="line">  _otherSec: <span class="string">&#x27;bbb&#x27;</span>,</span><br><span class="line">  ver: <span class="string">&#x27;v0.0.1&#x27;</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">api = new Proxy(api, &#123;</span><br><span class="line">  get: <span class="keyword">function</span>(target, key) &#123;</span><br><span class="line">    // 以 _ 下划线开头的都认为是 私有的</span><br><span class="line">    <span class="keyword">if</span> (key.startsWith(<span class="string">&#x27;_&#x27;</span>)) &#123;</span><br><span class="line">      console.log(<span class="string">&#x27;私有变量不能被访问&#x27;</span>);</span><br><span class="line">      <span class="built_in">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">return</span> target[key];</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="built_in">set</span>: <span class="keyword">function</span>(target, key, value) &#123;</span><br><span class="line">    <span class="keyword">if</span> (key.startsWith(<span class="string">&#x27;_&#x27;</span>)) &#123;</span><br><span class="line">      console.log(<span class="string">&#x27;私有变量不能被修改&#x27;</span>);</span><br><span class="line">      <span class="built_in">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    target[key] = value;</span><br><span class="line">  &#125;,</span><br><span class="line">  has: <span class="keyword">function</span>(target, key) &#123;</span><br><span class="line">    <span class="built_in">return</span> key.startsWith(<span class="string">&#x27;_&#x27;</span>) ? <span class="literal">false</span> : (key <span class="keyword">in</span> target);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line">api._secret; // 私有变量不能被访问</span><br><span class="line">console.log(api.ver); // v0.0.1</span><br><span class="line">api._otherSec = 3; // 私有变量不能被修改</span><br><span class="line">console.log(<span class="string">&#x27;_secret&#x27;</span> <span class="keyword">in</span> api); // <span class="literal">true</span></span><br><span class="line">console.log(<span class="string">&#x27;ver&#x27;</span> <span class="keyword">in</span> api); // <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+<p>（3）在代理中实现属性赋值的校验</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">Animal</span></span>() &#123;</span><br><span class="line">  <span class="built_in">return</span> createValidator(this, animalValidator);</span><br><span class="line">&#125;</span><br><span class="line">var animalValidator = &#123;</span><br><span class="line">  name: <span class="keyword">function</span>(name) &#123;</span><br><span class="line">    // 动物的名字必须是字符串类型的</span><br><span class="line">    <span class="built_in">return</span> typeof name === <span class="string">&#x27;string&#x27;</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">function</span> createValidator(target, validator) &#123;</span><br><span class="line">  <span class="built_in">return</span> new Proxy(target, &#123;</span><br><span class="line">    <span class="built_in">set</span>: <span class="keyword">function</span>(target, key, value) &#123;</span><br><span class="line">      <span class="keyword">if</span> (validator[key]) &#123;</span><br><span class="line">        // 符合验证条件</span><br><span class="line">        <span class="keyword">if</span> (validator[key](value)) &#123;</span><br><span class="line">          target[key] = value;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          throw Error(`Cannot <span class="built_in">set</span> <span class="variable">$&#123;key&#125;</span> to <span class="variable">$&#123;value&#125;</span>. Invalid.`);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        target[key] = value</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br><span class="line">var dog = new Animal();</span><br><span class="line">dog.name = <span class="string">&#x27;dog&#x27;</span>;</span><br><span class="line">console.log(dog.name);</span><br><span class="line">dog.name = 123; // Uncaught Error: Cannot <span class="built_in">set</span> name to 123. Invalid.</span><br></pre></td></tr></table></figure>
+<p>3、用ES5实现Proxy</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="built_in">clone</span>(myObj)&#123;</span><br><span class="line">    <span class="keyword">if</span>(typeof(myObj) != <span class="string">&#x27;object&#x27;</span> || myObj == null) <span class="built_in">return</span> myObj;</span><br><span class="line">    var newObj = new Object();</span><br><span class="line">    <span class="keyword">for</span>(var i <span class="keyword">in</span> myObj)&#123;</span><br><span class="line">      newObj[i] = <span class="built_in">clone</span>(myObj[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">return</span> newObj;</span><br><span class="line">&#125;</span><br><span class="line">/*代理实现类*/</span><br><span class="line"><span class="keyword">function</span> ProxyCopy(target,handle)&#123;</span><br><span class="line">  var targetCopy = <span class="built_in">clone</span>(target);</span><br><span class="line">  Object.keys(targetCopy).forEach(<span class="keyword">function</span>(key)&#123;</span><br><span class="line">    Object.defineProperty(targetCopy, key, &#123;</span><br><span class="line">      get: <span class="function"><span class="title">function</span></span>() &#123;</span><br><span class="line">        <span class="built_in">return</span> handle.get &amp;&amp; handle.get(target,key);</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="built_in">set</span>: <span class="keyword">function</span>(newVal) &#123;</span><br><span class="line">        handle.set &amp;&amp; handle.set();</span><br><span class="line">        target[key] = newVal;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;)</span><br><span class="line">  <span class="built_in">return</span> targetCopy;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var person = &#123;name:<span class="string">&#x27;&#x27;</span>&#125;;</span><br><span class="line">var personCopy = new ProxyCopy(person,&#123;</span><br><span class="line">  get(target,key)&#123;</span><br><span class="line">    console.log(<span class="string">&#x27;get方法被拦截。。。&#x27;</span>);</span><br><span class="line">    <span class="built_in">return</span> target[key];</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="built_in">set</span>(target,key,value)&#123;</span><br><span class="line">    console.log(<span class="string">&#x27;set方法被拦截。。。&#x27;</span>)</span><br><span class="line">    // <span class="built_in">return</span> <span class="literal">true</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line">person.name = <span class="string">&#x27;arvin&#x27;</span>;  // 未有拦截日志打出</span><br><span class="line">personCopy.name = <span class="string">&#x27;arvin&#x27;</span>;  // <span class="built_in">set</span>方法被拦截。。。</span><br><span class="line">console.log(person.name);   // 未有拦截日志打出</span><br><span class="line">console.log(personCopy.name);   // get方法被拦截。。。</span><br><span class="line">// 这个的缺点是不能检测新添加的属性</span><br></pre></td></tr></table></figure>
+<p>4、以上es5中的实现利用了Object.defineProperty作用</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Object.defineProperty(obj, prop, descriptor) // 返回 obj</span><br><span class="line">Descriptor是一个obj属性有：</span><br><span class="line">value： 属性值</span><br><span class="line">writable：是否可以重写</span><br><span class="line">enumerable: 是否可以被枚举</span><br><span class="line">configurable: 目标属性是否可以被删除或者再次修改</span><br><span class="line">除此之外，还有<span class="built_in">set</span>和get属性，当给一个属性定义getter和setter时，这个属性称之为访问描述符， js会忽略他本身的value以及writable属性，取而代之的访问<span class="built_in">set</span>和get函数。</span><br><span class="line">Object.defineProperty(obj, key, &#123;</span><br><span class="line">  <span class="built_in">set</span>: <span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">    console.log(’<span class="built_in">set</span>….<span class="string">&#x27;)</span></span><br><span class="line"><span class="string">  &#125;,</span></span><br><span class="line"><span class="string">  get: function()&#123;</span></span><br><span class="line"><span class="string">    console.log(‘get...&#x27;</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>5、proxy在vue中的作用（实现双向绑定，即监听值的变化）</p>
+
+      
+
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			
+        		<li class="article-tag-list-item">
+        			<a href="/blog/categories/JS-React//" class="article-tag-list-link color4">JS/React</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/blog/2018/11/14/ES6%E4%B8%AD%E7%9A%84proxy%E5%92%8C%E5%BA%94%E7%94%A8/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+  
+    <article id="post-聚类方法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2018/11/12/%E8%81%9A%E7%B1%BB%E6%96%B9%E6%B3%95/">聚类方法</a>
+    </h1>
+  
+
+        
+        <a href="/blog/2018/11/12/%E8%81%9A%E7%B1%BB%E6%96%B9%E6%B3%95/" class="archive-article-date">
+  	<time datetime="2018-11-12T07:18:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-12</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>（1）文本表示的方法<br>一般使用向量空间模型，粒度为一个词语，即将文本表示为N维空间中的一个规范化的特征矢量。<br>（2）特征选取<br>特征的选择分为两种，一种是每一类选取一部分词语作为特征词，二是整个系统作为一个整体来选择特征值。特征选择的几种方式：<br>tf-idf：文档频率和反文档频率。<br>信息增益：整个系统选择一部分特征词。它的衡量方式是有特征和无特征的情况下，整个系统的信息熵的变化。<br><img src="/blog/2018/11/12/%E8%81%9A%E7%B1%BB%E6%96%B9%E6%B3%95/1.png" alt="image"></p>
+<p>（4）相似度计算<br>两个向量之间计算距离的几种方式：</p>
+<ul>
+<li>欧氏距离<br><img src="/blog/2018/11/12/%E8%81%9A%E7%B1%BB%E6%96%B9%E6%B3%95/2.png" alt="image"></li>
+<li>曼哈顿距离<br><img src="/blog/2018/11/12/%E8%81%9A%E7%B1%BB%E6%96%B9%E6%B3%95/3.png" alt="image"></li>
+<li>余弦夹角<br><img src="/blog/2018/11/12/%E8%81%9A%E7%B1%BB%E6%96%B9%E6%B3%95/4.png" alt="image"></li>
+<li>汉明距离<br>将一个字符串转换为另一个字符串时所作的最小替换次数。</li>
+<li>信息熵<br><img src="/blog/2018/11/12/%E8%81%9A%E7%B1%BB%E6%96%B9%E6%B3%95/5.png" alt="image"><br>（5）新闻聚类中采取的方式<br>feature词表<br>fearture词表是采用tf-idf来提取的，分别训练出了每一类的特征词以及所对应的权重，以及整个系统的特征词以及权重。聚类拿的是系统的特征词表。<br>一篇文档的处理：<br>首先对文档进行分词，查看是否出现特征词，计算特征词的权重，形成一个向量。<br>tf：在当前文档中出现的次数<br>idf：从分类特征中加载的idf<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">weight = tf * <span class="built_in">log</span>(1/idf +0.01)</span><br><span class="line">Topic质心的计算方式(term1......termm)</span><br><span class="line">page1： weight11，weight12，weight1m</span><br><span class="line">page2： weight21，weight22，weight2m</span><br><span class="line">pagen： weightn1，weightn2，weightnm</span><br><span class="line">首先计算平均值：</span><br><span class="line">w1=  ( weight11+weight21+weighn1)/n</span><br><span class="line">w2= (weight12+weight22+...weightn2)/n</span><br><span class="line">wm=（weight1m+weight2m+...weightnm）/n</span><br><span class="line">用阈值过滤（weight值最大不可超过阈值）</span><br><span class="line">归一化</span><br><span class="line">w1 = w1 /(w1*w1 + w2*w2 + ... wm *wm)</span><br><span class="line">wm = wm /(w1*w1 + w2*w2 + ... wm *wm)</span><br></pre></td></tr></table></figure>
+（6）处理的流程<br>将每一个文档都当做一个topic；<br>选择距离最近的两个topic；<br>计算两个topic合并前后的凝聚力大小变化（凝聚力为topic下文档两两之间距离的均值（此距离用的是欧式距离）），变化过大则跳转到第二步，重新选择；<br>合并两个topic，更新新的topic的质心，并重新计算该topic和其他topic之间的距离<br>如果topic的数量少于最少的topic数目，跳出循环返回，否则跳转到第二步；</li>
+</ul>
+<p>（7）两个topic之间距离的计算，最大为1，最小为0</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">topic 1: X1 =  (w11, w21, ...... wm1)</span><br><span class="line">topic 2: X2 = (w12, w22, ...... wm2)</span><br><span class="line">sum = w11 *w12 + .... wm1* wm2</span><br><span class="line">num =  (w11 &amp; w12 ? 1:0)+ ..... (wm1&amp;wm2?1:0）</span><br><span class="line">avg = sum /num</span><br><span class="line">dis  = (w11 &amp; w12)?(w11*w12-avg)*(w11*w12-avg):0  + ...... (wm1 &amp; wm2)?(wm1*wm2-avg)*(wm1*wm2-avg):0</span><br><span class="line">dis = dis / num</span><br></pre></td></tr></table></figure>
+<p>（8）聚类的结果调整<br>同一个网站发布了大量同一个类的文章，比如某一时间段健康频道下会出现大量的关于某一疾病的说明、治疗方式等，这个可以通过url过滤掉。同一个网站不同频道发布的也算。<br>影响聚类结果调整的参数：topic之间的相似度、topic的凝聚力、特征选取的多少<br>topic的排序：按照转载量，即每个topic下的文章的数量（焦点新闻）<br>（9）KNN<br>算法接受一个未标记的数据集，然后将数据聚类成不同的组。<br>首先随机的选取K个点，作为聚类的中心。<br>对于每一篇文档计算与聚类中心的距离，将其归类为距离最小的那一组中，并更新该组的聚类中心。<br>直到中心点不再变化。</p>
+
+      
+
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			
+        		<li class="article-tag-list-item">
+        			<a href="/blog/categories/NLP//" class="article-tag-list-link color4">NLP</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/blog/2018/11/12/%E8%81%9A%E7%B1%BB%E6%96%B9%E6%B3%95/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+  
     <article id="post-SVM分类" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     

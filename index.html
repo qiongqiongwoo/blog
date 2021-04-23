@@ -948,6 +948,235 @@ select/poll在接收到一个连接时，会通知内核（发生从用户态复
     </div>
 </aside>
   
+    <article id="post-文本表示和词向量" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2019/11/17/%E6%96%87%E6%9C%AC%E8%A1%A8%E7%A4%BA%E5%92%8C%E8%AF%8D%E5%90%91%E9%87%8F/">文本表示和词向量</a>
+    </h1>
+  
+
+        
+        <a href="/blog/2019/11/17/%E6%96%87%E6%9C%AC%E8%A1%A8%E7%A4%BA%E5%92%8C%E8%AF%8D%E5%90%91%E9%87%8F/" class="archive-article-date">
+  	<time datetime="2019-11-17T11:10:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-17</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>自然语言处理 = 文本处理 + 机器学习<br>文本处理的首要任务是文本表示，也就是将文字等符号数学化。</p>
+<h4 id="Distributional-representation-和-Distributed-representations"><a href="#Distributional-representation-和-Distributed-representations" class="headerlink" title="Distributional representation 和 Distributed representations"></a>Distributional representation 和 Distributed representations</h4><p>属于文本表示的两种思路，而不是具体的算法，并且不是一个维度上的对比；</p>
+<ul>
+<li>Distributional representation：通过观察一个词的上下文，来得到这个词的语义，与之相对的是wordnet的方式；</li>
+<li>Distributed representations: 用在deep learning中，每个词语不是表示成稀疏的变量，而是表示为一个低纬度、稠密的向量，向量的每一项没有具体的指征意义。（词的分布式表示）</li>
+</ul>
+<h4 id="词向量和语言模型"><a href="#词向量和语言模型" class="headerlink" title="词向量和语言模型"></a>词向量和语言模型</h4><p>词向量是用一个向量的形式表示词，词向量可以作为很多模型的输入，比如计算相似度，做high-level的文本分类、命名实体识别、情感分析等任务；<br><img src="/blog/2019/11/17/%E6%96%87%E6%9C%AC%E8%A1%A8%E7%A4%BA%E5%92%8C%E8%AF%8D%E5%90%91%E9%87%8F/E66D44CC-B4F3-4F77-B545-03DD047E6DE0.png" alt="13ffc752b4703c73c91f34d16bff3dbb"></p>
+<h4 id="词向量One-hot-embedding"><a href="#词向量One-hot-embedding" class="headerlink" title="词向量One-hot embedding"></a>词向量One-hot embedding</h4><p>构建词表，比如n维，根据词表将词在文本中的频次构建n维向量表示文本；<br>缺点：丢失上下文信息；依赖词表大小，维度过大，过于稀疏；</p>
+<p><img src="/blog/2019/11/17/%E6%96%87%E6%9C%AC%E8%A1%A8%E7%A4%BA%E5%92%8C%E8%AF%8D%E5%90%91%E9%87%8F/25506576-1409-4B63-8D70-EDE74F77B47A.png" alt="2521bd7d8f80613702bff1644c26ba4a"></p>
+<h4 id="Word2vec"><a href="#Word2vec" class="headerlink" title="Word2vec"></a>Word2vec</h4><p>word2vec: 根据神经网络，从大量无标注的文本中提取有用的信息而产生；word2vec可以理解为是一种降维的方式。</p>
+<p>假设如下是一个三层的神经网络：如果上下文只考虑一个词，那就相当于用当前词x预测下一个词y，x和y用什么来表示？one hot encoder; </p>
+<p>假设词表大小是|V|，则x和y都是一个|V|* 1维的向量。<br>从输入层到隐藏层、从隐藏层到输出层的两个权重矩阵可以用反向传播算法来求得到；<br>假设隐层层的节点数是N，则从输入层到隐藏层的权重矩阵是N * V维，根据one hot encoder的表示，x中只有一个1，这样只有这一个位置的权重被激活，得到的这个N维的向量就可以唯一的表示x。</p>
+<p>同理从隐藏层到输出层，由于y中只有一个位置为1，这样同样能得到一个N维的向量来表示y;这两个向量分别被称为输入向量和输出向量；一般会使用输入向量；从这里可以看出，word2vec实际是一个降维的操作，将|V|维的one hot encoder向量降到N维的向量；</p>
+<p><img src="/blog/2019/11/17/%E6%96%87%E6%9C%AC%E8%A1%A8%E7%A4%BA%E5%92%8C%E8%AF%8D%E5%90%91%E9%87%8F/504DA1E8-3AA6-461C-9A35-20D09DD91CF5.png" alt="d9ac653783f46f392a2ff5429c981cf0"></p>
+<h4 id="CBOW-amp-skip-Gram"><a href="#CBOW-amp-skip-Gram" class="headerlink" title="CBOW &amp; skip-Gram"></a>CBOW &amp; skip-Gram</h4><p>embedding的两个训练算法CBOW和skip-Gram，前者的训练速度会更快，后者对生僻字的处理更好：</p>
+<ul>
+<li><p>CBOW：拿一个词的上下文来预测整个词语本身,输入是C个词串联组成的向量；<br><img src="/blog/2019/11/17/%E6%96%87%E6%9C%AC%E8%A1%A8%E7%A4%BA%E5%92%8C%E8%AF%8D%E5%90%91%E9%87%8F/3CF60F9E-F02B-4D2B-9DB6-0B9CB1494B89.png" alt="556c281b6ddeee58052e738de63d1223"></p>
+</li>
+<li><p>Skip-Gram：拿这个词来预测它周围的上下文，输出为C个词y串联的向量;<br><img src="/blog/2019/11/17/%E6%96%87%E6%9C%AC%E8%A1%A8%E7%A4%BA%E5%92%8C%E8%AF%8D%E5%90%91%E9%87%8F/D9192797-BBD8-4BEA-A651-3AC0C848D822.png" alt="8f74a5f8b84765279f859078850c95a5"></p>
+</li>
+</ul>
+<h4 id="skip-grammar训练"><a href="#skip-grammar训练" class="headerlink" title="skip_grammar训练"></a>skip_grammar训练</h4><p>skip-gram的训练流程如下：<br><img src="/blog/2019/11/17/%E6%96%87%E6%9C%AC%E8%A1%A8%E7%A4%BA%E5%92%8C%E8%AF%8D%E5%90%91%E9%87%8F/4E2FAE9E-542A-404E-8F8E-E0411FFC8EC3.png" alt="c734ebd53771b502780c8f642dcbe303"></p>
+<p>其中交叉熵的计算公式：<br><img src="/blog/2019/11/17/%E6%96%87%E6%9C%AC%E8%A1%A8%E7%A4%BA%E5%92%8C%E8%AF%8D%E5%90%91%E9%87%8F/3A93DCAF-9770-436A-8EAE-55B588C3940C.png" alt="34c7ce1de38d51b32c438a47aeaecc71"></p>
+<p>为了降低训练成本，提高训练效率，可以随机构造负样本，将问题处理成一个二分类的问题。<br><img src="/blog/2019/11/17/%E6%96%87%E6%9C%AC%E8%A1%A8%E7%A4%BA%E5%92%8C%E8%AF%8D%E5%90%91%E9%87%8F/D55315B2-E001-42ED-89ED-BF8F41D4DBBA.png" alt="99e3a38ae4cb33acc4847b3b4a37809a"></p>
+<p><img src="/blog/2019/11/17/%E6%96%87%E6%9C%AC%E8%A1%A8%E7%A4%BA%E5%92%8C%E8%AF%8D%E5%90%91%E9%87%8F/9E079693-8308-461D-9097-78054C6E2C93.png" alt="8abbb2f035d3034175af1a7e64427409"></p>
+<p>使用paddlepaddle训练的forward函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line">#定义skip-gram训练网络结构</span><br><span class="line">#这里我们使用的是paddlepaddle的1.8.0版本</span><br><span class="line">#一般来说，在使用fluid训练的时候，我们需要通过一个类来定义网络结构，这个类继承了fluid.dygraph.Layer</span><br><span class="line">class SkipGram(fluid.dygraph.Layer):</span><br><span class="line">    def __init__(self, vocab_size, embedding_size, init_scale&#x3D;0.1):</span><br><span class="line">        #vocab_size定义了这个skipgram这个模型的词表大小</span><br><span class="line">        #embedding_size定义了词向量的维度是多少</span><br><span class="line">        #init_scale定义了词向量初始化的范围，一般来说，比较小的初始化范围有助于模型训练</span><br><span class="line">        super(SkipGram, self).__init__()</span><br><span class="line">        self.vocab_size &#x3D; vocab_size</span><br><span class="line">        self.embedding_size &#x3D; embedding_size</span><br><span class="line"></span><br><span class="line">        #使用paddle.fluid.dygraph提供的Embedding函数，构造一个词向量参数</span><br><span class="line">        #这个参数的大小为：[self.vocab_size, self.embedding_size]</span><br><span class="line">        #数据类型为：float32</span><br><span class="line">        #这个参数的名称为：embedding_para</span><br><span class="line">        #这个参数的初始化方式为在[-init_scale, init_scale]区间进行均匀采样</span><br><span class="line">        self.embedding &#x3D; Embedding(</span><br><span class="line">            size&#x3D;[self.vocab_size, self.embedding_size],</span><br><span class="line">            dtype&#x3D;&#39;float32&#39;,</span><br><span class="line">            param_attr&#x3D;fluid.ParamAttr(</span><br><span class="line">                name&#x3D;&#39;embedding_para&#39;,</span><br><span class="line">                initializer&#x3D;fluid.initializer.UniformInitializer(</span><br><span class="line">                    low&#x3D;-0.5&#x2F;embedding_size, high&#x3D;0.5&#x2F;embedding_size)))</span><br><span class="line"></span><br><span class="line">        #使用paddle.fluid.dygraph提供的Embedding函数，构造另外一个词向量参数</span><br><span class="line">        #这个参数的大小为：[self.vocab_size, self.embedding_size]</span><br><span class="line">        #数据类型为：float32</span><br><span class="line">        #这个参数的名称为：embedding_para_out</span><br><span class="line">        #这个参数的初始化方式为在[-init_scale, init_scale]区间进行均匀采样</span><br><span class="line">        #跟上面不同的是，这个参数的名称跟上面不同，因此，</span><br><span class="line">        #embedding_para_out和embedding_para虽然有相同的shape，但是权重不共享</span><br><span class="line">        self.embedding_out &#x3D; Embedding(</span><br><span class="line">            size&#x3D;[self.vocab_size, self.embedding_size],</span><br><span class="line">            dtype&#x3D;&#39;float32&#39;,</span><br><span class="line">            param_attr&#x3D;fluid.ParamAttr(</span><br><span class="line">                name&#x3D;&#39;embedding_out_para&#39;,</span><br><span class="line">                initializer&#x3D;fluid.initializer.UniformInitializer(</span><br><span class="line">                    low&#x3D;-0.5&#x2F;embedding_size, high&#x3D;0.5&#x2F;embedding_size)))</span><br><span class="line"></span><br><span class="line">    #定义网络的前向计算逻辑</span><br><span class="line">    #center_words是一个tensor（mini-batch），表示中心词</span><br><span class="line">    #target_words是一个tensor（mini-batch），表示目标词</span><br><span class="line">    #label是一个tensor（mini-batch），表示这个词是正样本还是负样本（用0或1表示）</span><br><span class="line">    #用于在训练中计算这个tensor中对应词的同义词，用于观察模型的训练效果</span><br><span class="line">    def forward(self, center_words, target_words, label):</span><br><span class="line">        #首先，通过embedding_para（self.embedding）参数，将mini-batch中的词转换为词向量</span><br><span class="line">        #这里center_words和eval_words_emb查询的是一个相同的参数</span><br><span class="line">        #而target_words_emb查询的是另一个参数</span><br><span class="line">        center_words_emb &#x3D; self.embedding(center_words)</span><br><span class="line">        target_words_emb &#x3D; self.embedding_out(target_words)</span><br><span class="line"></span><br><span class="line">        #center_words_emb &#x3D; [batch_size, embedding_size]</span><br><span class="line">        #target_words_emb &#x3D; [batch_size, embedding_size]</span><br><span class="line">        #我们通过点乘的方式计算中心词到目标词的输出概率，并通过sigmoid函数估计这个词是正样本还是负样本的概率。</span><br><span class="line">        word_sim &#x3D; fluid.layers.elementwise_mul(center_words_emb, target_words_emb)</span><br><span class="line">        word_sim &#x3D; fluid.layers.reduce_sum(word_sim, dim &#x3D; -1)</span><br><span class="line">        word_sim &#x3D; fluid.layers.reshape(word_sim, shape&#x3D;[-1])</span><br><span class="line">        pred &#x3D; fluid.layers.sigmoid(word_sim)</span><br><span class="line">        </span><br><span class="line">        #通过估计的输出概率定义损失s函数，注意我们使用的是sigmoid_cross_entropy_with_logits函数</span><br><span class="line">        #将sigmoid计算和cross entropy合并成一步计算可以更好的优化，所以输入的是word_sim，而不是pred</span><br><span class="line">        </span><br><span class="line">        loss &#x3D; fluid.layers.sigmoid_cross_entropy_with_logits(word_sim, label)</span><br><span class="line">        loss &#x3D; fluid.layers.reduce_mean(loss)</span><br><span class="line">        #返回前向计算的结果，飞桨会通过backward函数自动计算出反向结果。</span><br><span class="line">        return pred, loss</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line">#开始训练，定义一些训练过程中需要使用的超参数</span><br><span class="line">batch_size &#x3D; 512</span><br><span class="line">epoch_num &#x3D; 3</span><br><span class="line">embedding_size &#x3D; 200</span><br><span class="line">step &#x3D; 0</span><br><span class="line">learning_rate &#x3D; 0.001</span><br><span class="line"></span><br><span class="line">#定义一个使用word-embedding查询同义词的函数</span><br><span class="line">#这个函数query_token是要查询的词，k表示要返回多少个最相似的词，embed是我们学习到的word-embedding参数</span><br><span class="line">#我们通过计算不同词之间的cosine距离，来衡量词和词的相似度</span><br><span class="line">#具体实现如下，x代表要查询词的Embedding，Embedding参数矩阵W代表所有词的Embedding</span><br><span class="line">#两者计算Cos得出所有词对查询词的相似度得分向量，排序取top_k放入indices列表</span><br><span class="line">def get_similar_tokens(query_token, k, embed):</span><br><span class="line">    W &#x3D; embed.numpy()</span><br><span class="line">    x &#x3D; W[word2id_dict[query_token]]</span><br><span class="line">    cos &#x3D; np.dot(W, x) &#x2F; np.sqrt(np.sum(W * W, axis&#x3D;1) * np.sum(x * x) + 1e-9)</span><br><span class="line">    flat &#x3D; cos.flatten()</span><br><span class="line">    indices &#x3D; np.argpartition(flat, -k)[-k:]</span><br><span class="line">    indices &#x3D; indices[np.argsort(-flat[indices])]</span><br><span class="line">    for i in indices:</span><br><span class="line">        print(&#39;for word %s, the similar word is %s&#39; % (query_token, str(id2word_dict[i])))</span><br><span class="line"></span><br><span class="line">#将模型放到GPU上训练（fluid.CUDAPlace(0)），如果需要指定CPU，则需要改为fluid.CPUPlace()</span><br><span class="line">with fluid.dygraph.guard(fluid.CUDAPlace(0)):</span><br><span class="line">    #通过我们定义的SkipGram类，来构造一个Skip-gram模型网络</span><br><span class="line">    skip_gram_model &#x3D; SkipGram(vocab_size, embedding_size)</span><br><span class="line">    #构造训练这个网络的优化器</span><br><span class="line">    adam &#x3D; fluid.optimizer.AdamOptimizer(learning_rate&#x3D;learning_rate, parameter_list &#x3D; skip_gram_model.parameters())</span><br><span class="line"></span><br><span class="line">    #使用build_batch函数，以mini-batch为单位，遍历训练数据，并训练网络</span><br><span class="line">    for center_words, target_words, label in build_batch(</span><br><span class="line">        dataset, batch_size, epoch_num):</span><br><span class="line">        #使用fluid.dygraph.to_variable函数，将一个numpy的tensor，转换为飞桨可计算的tensor</span><br><span class="line">        center_words_var &#x3D; fluid.dygraph.to_variable(center_words)</span><br><span class="line">        target_words_var &#x3D; fluid.dygraph.to_variable(target_words)</span><br><span class="line">        label_var &#x3D; fluid.dygraph.to_variable(label)</span><br><span class="line"></span><br><span class="line">        #将转换后的tensor送入飞桨中，进行一次前向计算，并得到计算结果</span><br><span class="line">        pred, loss &#x3D; skip_gram_model(</span><br><span class="line">            center_words_var, target_words_var, label_var)</span><br><span class="line"></span><br><span class="line">        #通过backward函数，让程序自动完成反向计算</span><br><span class="line">        loss.backward()</span><br><span class="line">        #通过minimize函数，让程序根据loss，完成一步对参数的优化更新</span><br><span class="line">        adam.minimize(loss)</span><br><span class="line">        #使用clear_gradients函数清空模型中的梯度，以便于下一个mini-batch进行更新</span><br><span class="line">        skip_gram_model.clear_gradients()</span><br><span class="line"></span><br><span class="line">        #每经过100个mini-batch，打印一次当前的loss，看看loss是否在稳定下降</span><br><span class="line">        step +&#x3D; 1</span><br><span class="line">        if step % 100 &#x3D;&#x3D; 0:</span><br><span class="line">            print(&quot;step %d, loss %.3f&quot; % (step, loss.numpy()[0]))</span><br><span class="line"></span><br><span class="line">        #经过10000个mini-batch，打印一次模型对eval_words中的10个词计算的同义词</span><br><span class="line">        #这里我们使用词和词之间的向量点积作为衡量相似度的方法</span><br><span class="line">        #我们只打印了5个最相似的词</span><br><span class="line">        if step % 10000 &#x3D;&#x3D; 0:</span><br><span class="line">            get_similar_tokens(&#39;one&#39;, 5, skip_gram_model.embedding.weight)</span><br><span class="line">            get_similar_tokens(&#39;she&#39;, 5, skip_gram_model.embedding.weight)</span><br><span class="line">            get_similar_tokens(&#39;chip&#39;, 5, skip_gram_model.embedding.weight)</span><br></pre></td></tr></table></figure>
+
+<h4 id="doc2vec"><a href="#doc2vec" class="headerlink" title="doc2vec"></a>doc2vec</h4><p>在处理文本任务时候，比如长文本相似度、文本分类等任务，一般会先提取关键词，然后用关键词的向量进行平均或者拼接，来计算相似度；其实使用word2vec往往会丢失语序信息，因此提出了doc2vec模型；doc2vec模型加入了一个paragraph vector信息表达语序意义；和关键词向量一起作为输入；</p>
+
+      
+
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			
+        		<li class="article-tag-list-item">
+        			<a href="/blog/categories/NLP//" class="article-tag-list-link color4">NLP</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/blog/2019/11/17/%E6%96%87%E6%9C%AC%E8%A1%A8%E7%A4%BA%E5%92%8C%E8%AF%8D%E5%90%91%E9%87%8F/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+  
+    <article id="post-hadoop" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2019/10/04/hadoop/">Hadoop</a>
+    </h1>
+  
+
+        
+        <a href="/blog/2019/10/04/hadoop/" class="archive-article-date">
+  	<time datetime="2019-10-04T10:10:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-04</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="hadoop"><a href="#hadoop" class="headerlink" title="hadoop"></a>hadoop</h4><p>组成：</p>
+<ul>
+<li>hadoop common：各种工具配置；</li>
+<li>hadoop HDFS：分布式文件系统；</li>
+<li>hadoop MapReduce：分布式海量数据处理的软件框架集群；</li>
+<li>hadoop Yarn：作业调度和集群资源调度；</li>
+<li>mapreduce: 分布式计算系统；<br>生态：</li>
+<li>支持结构化数据存储的数据库HBASE；</li>
+<li>分布式协调服务框架zookeeper；</li>
+<li>基于内存的数据处理框架Spark；</li>
+<li>数据仓库软件Hive；</li>
+<li>可扩展的机器学习和挖掘框架Mahout;</li>
+</ul>
+<p><img src="/blog/2019/10/04/hadoop/A7FCBADC-682F-4475-9CBF-7E76D58FA87A.png" alt="20567b3ea38c7aa789a8541edcc5fc3b"></p>
+<h4 id="HDFS架构"><a href="#HDFS架构" class="headerlink" title="HDFS架构"></a>HDFS架构</h4><p><img src="/blog/2019/10/04/hadoop/F96D99EE-1D59-445E-9273-544F8D3CA754.png" alt="fdde795e5d06eb9f93d954f2aa083560"></p>
+<ul>
+<li>client：客户端，提供一些命令来访问hdfs;</li>
+<li>nameNode: 就是master，是一个管理者，管理整个文件系统的元数据以及每一个文件所对应的数据块信息；</li>
+<li>dataNode: slave，存储实际的数据库，执行数据的读/写操作；</li>
+<li>secondaryNameNode：保存了一份和nameNode中一致的镜像文件和编辑日志，当NameNode发生故障时，可以从中恢复数据。<h4 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">hadoop dfs –ls &#x2F;user&#x2F;  # 查看指定目录</span><br><span class="line"></span><br><span class="line">hadoop dfs –cat &#x2F;user&#x2F;input.txt # 显示文件</span><br><span class="line">hadoop dfs –put test.txt &#x2F;user&#x2F; # 存储文件</span><br><span class="line">hadoop dfs –get &#x2F;user&#x2F;input.txt . # 拉取文件到本地</span><br><span class="line">hadoop dfs –rmr &#x2F;user&#x2F;input.txt # 删除文件</span><br><span class="line">hadoop dfs –mkdir &#x2F;user&#x2F;aa # 创建目录</span><br><span class="line">hadoop dfs –touchz &#x2F;user&#x2F;bb # 创建文件</span><br><span class="line">hadoop dfs –mv &#x2F;user&#x2F;bb &#x2F;user&#x2F;cc # 创建文件</span><br><span class="line">hadoop job -list # 列出job</span><br><span class="line">hadoop job -kill job-id #删除一个job</span><br></pre></td></tr></table></figure>
+<h4 id="文件存储"><a href="#文件存储" class="headerlink" title="文件存储"></a>文件存储</h4></li>
+</ul>
+<p>block: 是hdfs中的最小存储单位，它是物理划分；<br>hdfs中的block默认是保存三份(dfs.replication设置)；blocksize默认是128mb。（可以通过参数dfs.block.size来设置）<br>设置为128MB的原因：读取hdfs文件的时间=block寻址时间+读取block的时间，如果分块太小，会导致block寻址时间过大，因此不能设置太小。</p>
+<h4 id="MapReduce"><a href="#MapReduce" class="headerlink" title="MapReduce"></a>MapReduce</h4><p>Hadoop任务的核心思想是MapReduce，shuffle是MapReduce的核心。shuffle的主要工作是从Map结束到Reduce开始之间的过程。shuffle阶段又可以分为Map端的shuffle和Reduce端的shuffle。<br><img src="/blog/2019/10/04/hadoop/1DF573B9-E982-4656-921A-80F222EAEE81.png" alt="f670231269b9996bf9c076d0549492af"><br><strong>map和reduce的数量：</strong><br>totalSize: mapreduce job输入文件的总大小；<br>numSplits: map的个数；（设置的希望切成多少份）<br>goalSize: totalSize/numSplits；<br>minSize: split的最小值；<br>finalSplitSize=max(minSize,min(goalSize,blockSize))，最终的分片数；<br>map的设置mapred.map.tasks参数只是一个引导值，最终的map数量为: default_num = total_size / split_size;<br>reducer的数量完全依赖于mapred.reduce.tasks这个设置；</p>
+<p>词频统计的例子：</p>
+<ul>
+<li><p>split阶段：逻辑划分阶段，目的是将输入划分给map；<br>finalSplitSize=max(minSize,min(goalSize,blockSize))</p>
+</li>
+<li><p>map阶段：分工的阶段</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#!&#x2F;usr&#x2F;bin&#x2F;env python</span><br><span class="line">&quot;&quot;&quot; mapper.py &quot;&quot;&quot;</span><br><span class="line">import sys</span><br><span class="line">for line in sys.stdin:</span><br><span class="line">    line &#x3D; line.strip()</span><br><span class="line">    words &#x3D; line.split()</span><br><span class="line">    for word in words:</span><br><span class="line">        print &#39;%s\t%s&#39; % (word, 1)</span><br></pre></td></tr></table></figure></li>
+<li><p>shuffle: 从map输出到reduce输入的中间过程为shuffle的阶段；它是将map输出的无规则的数据搭乱成有规则的数据，以便reduce端接收；分为map shuffle和reduce shuffle。<br><img src="/blog/2019/10/04/hadoop/82FB9C5E-9B36-4AA7-95AA-E2589B7A361C.png" alt="30b34db80670938be0d0277f2172a5c2"><br>map阶段的shuffle特点：</p>
+<ol>
+<li>map产生的kv结果是先放到缓冲区的，缓冲区满了再写io生成spill文件</li>
+<li>map任务完成前利用多路归并算法合并spill文件</li>
+<li><strong>partition的作用是将数据排序归类分区，分区由用户定义的partition函数控制，默认是按照hash</strong>；</li>
+<li>combiner可有可无，<strong>目的是在map端做一次合并，减少传输的数据量，提升速度</strong>。<br><img src="/blog/2019/10/04/hadoop/BC53CCE6-8B0C-4BE7-A5A0-D5DA827B1C54.png" alt="2a5927be741bce96fb735938197adbd2"><br>reduce端的shuffle会进行数据的copy和再次sort合并，然后发给不同的reducer进行处理；<br><img src="/blog/2019/10/04/hadoop/5598E445-0609-4906-BBB0-78C6EE658E91.png" alt="c6369a9316047bc669ea52e8b1b66b42"></li>
+</ol>
+</li>
+<li><p>reduce阶段: 汇总阶段</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">#!&#x2F;usr&#x2F;bin&#x2F;env python</span><br><span class="line">from operator import itemgetter</span><br><span class="line">import sys</span><br><span class="line"></span><br><span class="line">current_word &#x3D; None</span><br><span class="line">current_count &#x3D; 0</span><br><span class="line">word &#x3D; None</span><br><span class="line"></span><br><span class="line">for line in sys.stdin:</span><br><span class="line">    line &#x3D; line.strip()</span><br><span class="line">    word, count &#x3D; line.split(&#39;\t&#39;, 1)</span><br><span class="line">    try:</span><br><span class="line">        count &#x3D; int(count)</span><br><span class="line">    except ValueError:</span><br><span class="line">        continue</span><br><span class="line"></span><br><span class="line">    if current_word &#x3D;&#x3D; word:</span><br><span class="line">        current_count +&#x3D; count</span><br><span class="line">    else:</span><br><span class="line">        if current_word:</span><br><span class="line">            print &#39;%s\t%s&#39; % (current_word, current_count)</span><br><span class="line">        current_count &#x3D; count</span><br><span class="line">        current_word &#x3D; word</span><br><span class="line">if current_word &#x3D;&#x3D; word:</span><br><span class="line">    print &#39;%s\t%s&#39; % (current_word, current_count)</span><br></pre></td></tr></table></figure>
+<p>hadoop任务提交：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">hadoop streaming </span><br><span class="line">    -input 输入文件 \</span><br><span class="line">    -output 输出文件 \</span><br><span class="line">    -mapper &quot;python mapper.py&quot; \</span><br><span class="line">    -reducer &quot;python reducer.py&quot; \</span><br><span class="line">    -file reducer.py #打包文件到提交的作业中 \</span><br><span class="line">    -file mapper.py \</span><br><span class="line">    -D mapred.job.name&#x3D;任务名 \</span><br><span class="line">    -D mapred.job.map.capacity&#x3D;最多同时运行的map任务数 \</span><br><span class="line">    -D mapred.map.tasks&#x3D;map任务个数 \</span><br><span class="line">    -D mapred.reduce.tasks&#x3D;reduce任务个数 \</span><br><span class="line">    -D mapred.map.over.capacity.allowed&#x3D;false \</span><br><span class="line">    -D mapred.job.priority&#x3D;NORMAL \</span><br><span class="line">    -D abaci.job.base.environment&#x3D;default</span><br></pre></td></tr></table></figure>
+<h4 id="数据倾斜"><a href="#数据倾斜" class="headerlink" title="数据倾斜"></a>数据倾斜</h4><p>数据经过map后，由于key的数据量分布不均，相同的key打到同一个reducer，导致reducer的压力过大；<br><img src="/blog/2019/10/04/hadoop/FAE0F2B3-A8E9-4C45-9040-5B9CE9CAD6A3.png" alt="74ae4df677d20a0093267bc14155db8d"><br>处理方式：</p>
+</li>
+<li><p>加combiner，在mapper阶段提前进行聚合操作，减少reduce端的压力；</p>
+</li>
+<li><p>加两级reduce，第一级对key随机加值，第二级在去掉随机数对全局进行聚合。</p>
+<h4 id="mapreduce优化"><a href="#mapreduce优化" class="headerlink" title="mapreduce优化"></a>mapreduce优化</h4></li>
+<li><p>数据输入：需要合并小文件。小文件是指小于block size的文件，小文件会导致namenode中的map过大，另外每个小文件会独占一个分片，导致任务的装载耗时；</p>
+</li>
+<li><p>通过设置，减少spill次数，增大一次merge的文件数目，从而减少merge的次数；</p>
+</li>
+<li><p>不影响业务的前提下，进行combiner处理；</p>
+</li>
+<li><p>合理设置map和reduce数，设置二者共存；</p>
+</li>
+</ul>
+<h4 id="spark-amp-mapreduce"><a href="#spark-amp-mapreduce" class="headerlink" title="spark &amp; mapreduce"></a>spark &amp; mapreduce</h4><p><strong>磁盘IO&amp;延迟</strong></p>
+<ul>
+<li>mapreduce必须依赖于磁盘以及大量的网络开销，磁盘的IO开销大，延迟也高；</li>
+<li>spark是基于内存的计算框架，中间结果直接放内存，可以更快的进行迭代计算；迭代运算效率spark : mapreduce = 110:0.9</li>
+<li><em>表达能力</em>*<br>spark不仅仅是map reduce，还可以支持RDD等；</li>
+</ul>
+
+      
+
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			
+        		<li class="article-tag-list-item">
+        			<a href="/blog/categories/DataBase//" class="article-tag-list-link color4">DataBase</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/blog/2019/10/04/hadoop/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+  
     <article id="post-odp框架" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1109,160 +1338,6 @@ select/poll在接收到一个连接时，会通知内核（发生从用户态复
       
         <p class="article-more-link">
           <a class="article-more-a" href="/blog/2019/01/07/%E7%BD%91%E7%BB%9C%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-  
-    <article id="post-gdb调试技巧" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2019/01/07/gdb%E8%B0%83%E8%AF%95%E6%8A%80%E5%B7%A7/">gdb调试技巧</a>
-    </h1>
-  
-
-        
-        <a href="/blog/2019/01/07/gdb%E8%B0%83%E8%AF%95%E6%8A%80%E5%B7%A7/" class="archive-article-date">
-  	<time datetime="2019-01-07T03:49:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-07</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><img src="/blog/2019/01/07/gdb%E8%B0%83%E8%AF%95%E6%8A%80%E5%B7%A7/1.png" alt="image"></p>
-
-      
-
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			
-        		<li class="article-tag-list-item">
-        			<a href="/blog/categories/后端//" class="article-tag-list-link color3">后端</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2019/01/07/gdb%E8%B0%83%E8%AF%95%E6%8A%80%E5%B7%A7/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-  
-    <article id="post-call和apply以及this的指向深入" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2018/12/24/call%E5%92%8Capply%E4%BB%A5%E5%8F%8Athis%E7%9A%84%E6%8C%87%E5%90%91%E6%B7%B1%E5%85%A5/">call和apply以及this的指向深入</a>
-    </h1>
-  
-
-        
-        <a href="/blog/2018/12/24/call%E5%92%8Capply%E4%BB%A5%E5%8F%8Athis%E7%9A%84%E6%8C%87%E5%90%91%E6%B7%B1%E5%85%A5/" class="archive-article-date">
-  	<time datetime="2018-12-24T07:14:37.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-24</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>1、call的一种实现， apply的实现同下，唯一不同的是传入的arguments是全部的变量数组</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">var a = &#123;</span><br><span class="line">    name: <span class="string">&#x27;zhangsan&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var b = <span class="keyword">function</span>(age) &#123;</span><br><span class="line">console.log(this.name)</span><br><span class="line">console.log(age)</span><br><span class="line">&#125;</span><br><span class="line">Function.prototype.call2 = <span class="keyword">function</span>(context)&#123;</span><br><span class="line">  //  call 和 apply的作用 是在 要绑定的obj上添加一个fn， fn为当前要执行的fn，通过执行obj.fn改变真正执行时候的this</span><br><span class="line">  context.fn = this</span><br><span class="line">  var args = Array.prototype.slice.call(arguments,1);</span><br><span class="line">  var result = context.fn(...args)</span><br><span class="line">    delete context.fn</span><br><span class="line">  <span class="built_in">return</span> result</span><br><span class="line">&#125;</span><br><span class="line">b.call2(a, <span class="string">&#x27;23&#x27;</span>)</span><br></pre></td></tr></table></figure>
-<p>2、执行上下文：js引擎在执行一段代码之前，会将当前代码中用到的变量、函数以及this放到一个object中。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">var a = 1;</span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">fun</span></span>() &#123;</span><br><span class="line">   <span class="string">&#x27;use strict&#x27;</span>;</span><br><span class="line">      var a = 2;</span><br><span class="line">      <span class="built_in">return</span> this.a;</span><br><span class="line">&#125;</span><br><span class="line">fun();//严格模式下函数中的this为undefined，非严格模式下this = window （非严格模式下this为undefined时会默认指向window）</span><br><span class="line">var a = 1;</span><br><span class="line">Var obj = &#123;</span><br><span class="line">    a: 2,</span><br><span class="line">    b: <span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">        <span class="keyword">function</span> <span class="function"><span class="title">test</span></span>()&#123;</span><br><span class="line">            console.log(this.a)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">test</span>()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">obj.b()  // 同样在输出为1 而不是2</span><br><span class="line">var a = 1;</span><br><span class="line">Var obj = &#123;</span><br><span class="line">    a: 2,</span><br><span class="line">    b: <span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">       console.log(this.a)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">Obj.b()  // this为obj，输出为2</span><br><span class="line">var t = obj.b</span><br><span class="line">t() // 输出为1 此时代码执行的上下文为window</span><br></pre></td></tr></table></figure>
-<p>3、箭头函数的this是不变的</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">var a = 1;</span><br><span class="line">var obj = &#123;</span><br><span class="line">  a: 2</span><br><span class="line">&#125;;</span><br><span class="line">var fun = () =&gt; console.log(this.a); // 箭头函数会捕获当前上下文的this作为执行的this并且保持不变，此处为window</span><br><span class="line">fun();//1</span><br><span class="line">fun.call(obj)//1</span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">Fun</span></span>() &#123;</span><br><span class="line">  this.name = <span class="string">&#x27;Damonare&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line">Fun.prototype.say = () =&gt; &#123;</span><br><span class="line">   console.log(this);</span><br><span class="line">&#125;</span><br><span class="line">var f = new Fun();</span><br><span class="line">f.say();//window  say在定义时已经确定上下文是window</span><br></pre></td></tr></table></figure>
-<p>4、构造函数中的this代表实例对象</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">function Fun() &#123;</span><br><span class="line">  this.name &#x3D; &#39;Damonre&#39;;</span><br><span class="line">  this.age &#x3D; 21;</span><br><span class="line">  this.sex &#x3D; &#39;man&#39;;</span><br><span class="line">  this.run &#x3D; function () &#123;</span><br><span class="line">    return this.name + &#39;正在跑步&#39;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">var a &#x3D; new Fun();</span><br><span class="line">a.run() &#x2F;&#x2F; Damonre</span><br></pre></td></tr></table></figure>
-<p>5、</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">Fun</span></span>() &#123;</span><br><span class="line">  this.name = <span class="string">&#x27;Damonare&#x27;</span>;</span><br><span class="line">    this.say = () =&gt; &#123;</span><br><span class="line">              console.log(this);</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br><span class="line">var f = new Fun();</span><br><span class="line">f.say();//Fun的实例对象  此时的箭头函数的上下文为构造函数，构造函数的上下文为实例对象</span><br></pre></td></tr></table></figure>
-<p>6、执行执行上下文的创建流程<br>（1）默认是全局上下文global context， 每遇到一个函数会创建一个函数执行上下文，进入栈， 只有在栈顶时才会激活执行上下文。<br><img src="/blog/2018/12/24/call%E5%92%8Capply%E4%BB%A5%E5%8F%8Athis%E7%9A%84%E6%8C%87%E5%90%91%E6%B7%B1%E5%85%A5/1.png" alt="image"><br>（2）闭包的执行上下文创建过程</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">f1</span></span>()&#123;</span><br><span class="line">    var n=999;</span><br><span class="line">    <span class="keyword">function</span> <span class="function"><span class="title">f2</span></span>()&#123;</span><br><span class="line">        alert(n);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">return</span> f2;</span><br><span class="line">&#125;</span><br><span class="line">var result=f1();</span><br><span class="line">result();</span><br></pre></td></tr></table></figure>
-<p><img src="/blog/2018/12/24/call%E5%92%8Capply%E4%BB%A5%E5%8F%8Athis%E7%9A%84%E6%8C%87%E5%90%91%E6%B7%B1%E5%85%A5/2.png" alt="image"><br><img src="/blog/2018/12/24/call%E5%92%8Capply%E4%BB%A5%E5%8F%8Athis%E7%9A%84%E6%8C%87%E5%90%91%E6%B7%B1%E5%85%A5/3.png" alt="image"><br>通过闭包的作用域链可以发现，innerFoo在全局中保留了一个引用，导致未被回收。<br>（3）一个执行上下文的结构如下：<br><img src="/blog/2018/12/24/call%E5%92%8Capply%E4%BB%A5%E5%8F%8Athis%E7%9A%84%E6%8C%87%E5%90%91%E6%B7%B1%E5%85%A5/4.png" alt="image"><br>执行过程中对属性的查找是按照作用域链条进行查找，并且查找过程是不可逆的， 只能向后查找，因此全局的无法访问内部函数的变量。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">var a = 20;</span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">test</span></span>() &#123;</span><br><span class="line">  var b = a + 10;</span><br><span class="line">  <span class="keyword">function</span> <span class="function"><span class="title">innerTest</span></span>() &#123;</span><br><span class="line">    var c = 10;</span><br><span class="line">    console.log(f); // f最后没查找到， 返回为undefined。</span><br><span class="line">    <span class="built_in">return</span> a + b + c;  // 此处对a的访问，首先查找AO(innerTest),然后查找AO(<span class="built_in">test</span>), 最后查找vo(global)查找到。</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">return</span> innerTest();</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">test</span>();</span><br></pre></td></tr></table></figure>
-
-
-
-
-      
-
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			
-        		<li class="article-tag-list-item">
-        			<a href="/blog/categories/JS-React//" class="article-tag-list-link color4">JS/React</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2018/12/24/call%E5%92%8Capply%E4%BB%A5%E5%8F%8Athis%E7%9A%84%E6%8C%87%E5%90%91%E6%B7%B1%E5%85%A5/">展开全文 >></a>
         </p>
       
 
