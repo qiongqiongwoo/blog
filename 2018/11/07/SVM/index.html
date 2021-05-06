@@ -8,23 +8,20 @@
   <link rel="dns-prefetch" href="https://qiongqiongwoo.github.io/blog">
   <title>SVM分类 | blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="SVM的分类问题（1）特征空间上间隔最大的线性分类器（2）线性分类：找到一个超平面将数据分开（3）当超平面离数据的距离越远，找到的这个超平面的置信度就越高（4）因此为了找到最合适的超平面，则需要找到距离最大的位置，如下图，虚线上的点即为支持向量（5）找到超平面，分类的问题就转换为f(x)的正负问题（6）对于低维不可份的情况，需要映射到高维空间，使其可分，但为了防止维度变大，此处采用了核函数的性质。">
+  <meta name="description" content="svm的作用SVM是一个二分类的模型，优化目标是找到集合间隔最大的分离超平面；对于给定的训练样本集D&#x3D;{(x1,y1), (x2,y2),… (xn,yn)}，yi属于{-1，+1}，希望能找出一个超平面，把不同类别的数据集分开，对于线性可分的数据集来说，这样的超平面有无穷多个，而最优的超平面即是分隔间距最大的中间那个超平面。 SVM的三类问题 训练数据是线性可分：通过硬间隔最大化，学习一个线性分">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SVM分类">
-<meta property="og:url" content="https://qiongqiongwoo.github.io/blog/2018/11/07/SVM%E5%88%86%E7%B1%BB/index.html">
+<meta property="og:url" content="https://qiongqiongwoo.github.io/blog/2018/11/07/SVM/index.html">
 <meta property="og:site_name" content="blog">
-<meta property="og:description" content="SVM的分类问题（1）特征空间上间隔最大的线性分类器（2）线性分类：找到一个超平面将数据分开（3）当超平面离数据的距离越远，找到的这个超平面的置信度就越高（4）因此为了找到最合适的超平面，则需要找到距离最大的位置，如下图，虚线上的点即为支持向量（5）找到超平面，分类的问题就转换为f(x)的正负问题（6）对于低维不可份的情况，需要映射到高维空间，使其可分，但为了防止维度变大，此处采用了核函数的性质。">
+<meta property="og:description" content="svm的作用SVM是一个二分类的模型，优化目标是找到集合间隔最大的分离超平面；对于给定的训练样本集D&#x3D;{(x1,y1), (x2,y2),… (xn,yn)}，yi属于{-1，+1}，希望能找出一个超平面，把不同类别的数据集分开，对于线性可分的数据集来说，这样的超平面有无穷多个，而最优的超平面即是分隔间距最大的中间那个超平面。 SVM的三类问题 训练数据是线性可分：通过硬间隔最大化，学习一个线性分">
 <meta property="og:locale">
-<meta property="og:image" content="https://qiongqiongwoo.github.io/blog/2018/11/07/SVM%E5%88%86%E7%B1%BB/1.png">
-<meta property="og:image" content="https://qiongqiongwoo.github.io/blog/2018/11/07/SVM%E5%88%86%E7%B1%BB/2.png">
-<meta property="og:image" content="https://qiongqiongwoo.github.io/blog/2018/11/07/SVM%E5%88%86%E7%B1%BB/3.png">
-<meta property="og:image" content="https://qiongqiongwoo.github.io/blog/2018/11/07/SVM%E5%88%86%E7%B1%BB/3.png">
-<meta property="og:image" content="https://qiongqiongwoo.github.io/blog/2018/11/07/SVM%E5%88%86%E7%B1%BB/4.png">
+<meta property="og:image" content="https://qiongqiongwoo.github.io/blog/2018/11/07/SVM/19854067-A2DF-4D82-9356-ADC137FAD85D.png">
+<meta property="og:image" content="https://qiongqiongwoo.github.io/blog/2018/11/07/SVM/4E4B2AFE-F3AA-4589-B9D7-977744C0F9B5.png">
 <meta property="article:published_time" content="2018-11-07T08:17:58.000Z">
-<meta property="article:modified_time" content="2021-03-22T03:05:38.007Z">
+<meta property="article:modified_time" content="2021-05-06T07:35:52.891Z">
 <meta property="article:author" content="Qiong Qiong Woo">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://qiongqiongwoo.github.io/blog/2018/11/07/SVM%E5%88%86%E7%B1%BB/1.png">
+<meta name="twitter:image" content="https://qiongqiongwoo.github.io/blog/2018/11/07/SVM/19854067-A2DF-4D82-9356-ADC137FAD85D.png">
   
   
   <link rel="stylesheet" type="text/css" href="/blog/./main.25115c.css">
@@ -153,7 +150,7 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-SVM分类" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-SVM" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -165,7 +162,7 @@
   
 
         
-        <a href="/blog/2018/11/07/SVM%E5%88%86%E7%B1%BB/" class="archive-article-date">
+        <a href="/blog/2018/11/07/SVM/" class="archive-article-date">
   	<time datetime="2018-11-07T08:17:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-07</time>
 </a>
         
@@ -173,7 +170,19 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>SVM的分类问题<br>（1）特征空间上间隔最大的线性分类器<br>（2）线性分类：找到一个超平面将数据分开<br>（3）当超平面离数据的距离越远，找到的这个超平面的置信度就越高<br>（4）因此为了找到最合适的超平面，则需要找到距离最大的位置，如下图，虚线上的点即为支持向量<br><img src="/blog/2018/11/07/SVM%E5%88%86%E7%B1%BB/1.png" alt="image"><br>（5）找到超平面，分类的问题就转换为f(x)的正负问题<br>（6）对于低维不可份的情况，需要映射到高维空间，使其可分，但为了防止维度变大，此处采用了核函数的性质。核函数的价值在于它虽然也是讲特征进行从低维到高维的转换，但核函数绝就绝在它事先在低维上进行计算，而将实质上的分类效果表现在了高维上，也就如上文所说的避免了直接在高维空间中的复杂计算。核函数有高斯核，多项式核函数。<br>（7）svm中存在噪音数据，如下例，outlier，用松弛变量处理<br><img src="/blog/2018/11/07/SVM%E5%88%86%E7%B1%BB/2.png" alt="image"><br>（8）将svm用于多分类的方法<br><img src="/blog/2018/11/07/SVM%E5%88%86%E7%B1%BB/3.png" alt="image"><br>假设待分类别有五类：<br>（1）可以按照下图的方式，进行分类<br><img src="/blog/2018/11/07/SVM%E5%88%86%E7%B1%BB/3.png" alt="image"><br>这种方法的坏处是需要训练的分类器太多。<br>（2）第一次就把类别1的样本定为正样本，其余2，3，4，5的样本合起来定为负样本，这样得到一个两类分类器，它能够指出一篇文章是还是不是第1类的；第二次我们把类别2 的样本定为正样本，把1，3，4，5的样本合起来定为负样本，得到一个分类器，如此下去，我们可以得到5个这样的两类分类器（总是和类别的数目一致）。<br>这样容易出现数据倾斜的问题，样本不均航。<br>（9）svm模型训练的方法<br><img src="/blog/2018/11/07/SVM%E5%88%86%E7%B1%BB/4.png" alt="image"><br>svm模型训练的前提是特征的选取以及模型的训练。<br>（10）特征选取的方法<br>特征选取后，将文本映射为向量，进而表示为高纬空间的一个点，调用分类器，判断其类别。<br>tf*idf方法：tf表示该词在文档中的词频，idf，出现的文档数据。<br>信息增益的方法：特征能够为整个系统所带来的信息量，带来的信息量越大，信息增益越大；</p>
+        <h4 id="svm的作用"><a href="#svm的作用" class="headerlink" title="svm的作用"></a>svm的作用</h4><p>SVM是一个二分类的模型，优化目标是找到集合间隔最大的分离超平面；<br>对于给定的训练样本集D={(x1,y1), (x2,y2),… (xn,yn)}，yi属于{-1，+1}，希望能找出一个超平面，把不同类别的数据集分开，对于线性可分的数据集来说，这样的超平面有无穷多个，而最优的超平面即是分隔间距最大的中间那个超平面。<br><img src="/blog/2018/11/07/SVM/19854067-A2DF-4D82-9356-ADC137FAD85D.png" alt="020adce76bafb12d305f0c020c7b3723"></p>
+<h4 id="SVM的三类问题"><a href="#SVM的三类问题" class="headerlink" title="SVM的三类问题"></a>SVM的三类问题</h4><ul>
+<li>训练数据是线性可分：通过硬间隔最大化，学习一个线性分类器。</li>
+<li>训练数据近似线性可分：通过引入松弛变量（作用是允许一些样本点出错）<br><img src="/blog/2018/11/07/SVM/4E4B2AFE-F3AA-4589-B9D7-977744C0F9B5.png" alt="bf02e9cf02790239ba1d40a4ffa4309c"></li>
+<li>训练数据不可分时，引入核函数，学习非线性支持向量机；<h4 id="核函数"><a href="#核函数" class="headerlink" title="核函数"></a>核函数</h4>数学上已经证明，如果原始空间是有限维，则一定存在一个高维度空间使得高为特征空间使样本可分；<br>libSVM库中的核函数有：（libsvm库中有svmTrain和svmPredict分别来做训练和预测）</li>
+<li>线性核函数: 一般用于线性可分的情况，参数少，训练快；</li>
+<li>多项式核函数；</li>
+<li>RBF核函数：高斯核，用于线性不可分的情况，参数多；</li>
+<li>sigmoid tanh核函数；</li>
+<li>precomputed： 用户自定义的核函数；<br>一般建议用RBF核函数；<h4 id="特征选取"><a href="#特征选取" class="headerlink" title="特征选取"></a>特征选取</h4>svm模型训练的前提是特征的选取、表示以及模型的训练。特征选取后，将文本映射为向量，进而表示为高纬空间的一个点，调用分类器，判断其类别。</li>
+<li>tf * idf方法：tf表示该词在文档中的词频，idf，出现的文档数据。</li>
+<li>信息增益的方法：特征能够为整个系统所带来的信息量，带来的信息量越大，信息增益越大；</li>
+</ul>
 
       
 

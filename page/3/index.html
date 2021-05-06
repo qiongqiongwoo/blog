@@ -147,6 +147,86 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-客户端http请求的header信息" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2018/12/12/%E5%AE%A2%E6%88%B7%E7%AB%AFhttp%E8%AF%B7%E6%B1%82%E7%9A%84header%E4%BF%A1%E6%81%AF/">客户端http请求的header信息</a>
+    </h1>
+  
+
+        
+        <a href="/blog/2018/12/12/%E5%AE%A2%E6%88%B7%E7%AB%AFhttp%E8%AF%B7%E6%B1%82%E7%9A%84header%E4%BF%A1%E6%81%AF/" class="archive-article-date">
+  	<time datetime="2018-12-12T07:41:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-12</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="1、HTTP请求方式"><a href="#1、HTTP请求方式" class="headerlink" title="1、HTTP请求方式"></a>1、HTTP请求方式</h2><p>GET：向Web服务器请求一个文件<br>POST：向Web服务器发送数据让Web服务器进行处理<br>PUT：向Web服务器发送数据并存储在Web服务器内部<br>HEAD：检查一个对象是否存在<br>DELETE：从Web服务器上删除一个文件<br>CONNECT：对通道提供支持<br>TRACE：跟踪到服务器的路径<br>OPTIONS：查询Web服务器的性能<br>请求说明：主要使用到“GET”和“POST”。<br>实例：<br>POST /test/tupian/cm HTTP/1.1<br>分成三部分：<br>（1）POST：HTTP请求方式<br>（2）/test/tupian/cm：请求Web服务器的目录地址（或者指令）<br>（3）HTTP/1.1: URI（Uniform Resource Identifier，统一资源标识符）及其版本</p>
+<h2 id="2、Host"><a href="#2、Host" class="headerlink" title="2、Host"></a>2、Host</h2><p>说明：请求的web服务器域名地址<br>实例：<br>例如web请求URL：<a target="_blank" rel="noopener" href="http://zjm-forum-test10.zjm.baidu.com:8088/test/tupian/cm">http://zjm-forum-test10.zjm.baidu.com:8088/test/tupian/cm</a><br>Host就为zjm-forum-test10.zjm.baidu.com:8088</p>
+<h2 id="3、User-Agent"><a href="#3、User-Agent" class="headerlink" title="3、User-Agent"></a>3、User-Agent</h2><p>说明：HTTP客户端运行的浏览器类型的详细信息。通过该头部信息，web服务器可以判断到当前HTTP请求的客户端浏览器类别。<br>实例：User-Agent: Mozilla/5.0 (Windows; U; Windows NT 5.1; zh-CN; rv:1.8.1.11) Gecko/20071127 Firefox/2.0.0.11</p>
+<h2 id="4、Accept"><a href="#4、Accept" class="headerlink" title="4、Accept"></a>4、Accept</h2><p>说明：指定客户端能够接收的内容类型，内容类型中的先后次序表示客户端接收的先后次序。<br>实例：<br>例如：Accept:text/xml,application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,<em>/</em>;q=0.5<br>备注：<br>在Prototyp（1.5）的Ajax代码封装中，将Accept默认设置为“text/javascript, text/html, application/xml, text/xml, */*”。这是因为Ajax默认获取服务器返回的Json数据模式。<br>在Ajax代码中，可以使用XMLHttpRequest 对象中setRequestHeader函数方法来动态设置这些Header信息。</p>
+<h2 id="5、Accept-Language"><a href="#5、Accept-Language" class="headerlink" title="5、Accept-Language"></a>5、Accept-Language</h2><p>说明：指定HTTP客户端浏览器用来展示返回信息所优先选择的语言。<br>实例：<br>Accept-Language: zh-cn,zh;q=0.5<br>这里默认为中文。</p>
+<h2 id="6、Accept-Encoding"><a href="#6、Accept-Encoding" class="headerlink" title="6、Accept-Encoding"></a>6、Accept-Encoding</h2><p>说明：指定客户端浏览器可以支持的web服务器返回内容压缩编码类型。表示允许服务器在将输出内容发送到客户端以前进行压缩，以节约带宽。而这里设置的就是客户端浏览器所能够支持的返回压缩格式。<br>实例：Accept-Encoding: gzip,deflate<br>备注：<br>其实在百度很多产品线中，apache在给客户端返回页面数据之前，将数据以gzip格式进行压缩。<br>另外有关deflate压缩介绍：<br><a target="_blank" rel="noopener" href="http://man.chinaunix.net/newsoft/ApacheMenual_CN_2.2new/mod/mod_deflate.html">http://man.chinaunix.net/newsoft/ApacheMenual_CN_2.2new/mod/mod_deflate.html</a></p>
+<h2 id="7、Accept-Charset"><a href="#7、Accept-Charset" class="headerlink" title="7、Accept-Charset"></a>7、Accept-Charset</h2><p>说明：浏览器可以接受的字符编码集。<br>实例：Accept-Charset: gb2312,utf-8;q=0.7,*;q=0.7</p>
+<h2 id="8、Content-Type"><a href="#8、Content-Type" class="headerlink" title="8、Content-Type"></a>8、Content-Type</h2><p>说明：显示此HTTP请求提交的内容类型。一般只有post提交时才需要设置该属性。<br>实例：Content-type: application/x-www-form-urlencoded;charset:UTF-8<br>有关Content-Type属性值可以如下两种编码类型：<br>（1）“application/x-www-form-urlencoded”： 表单数据向服务器提交时所采用的编码类型，默认的缺省值就是“application/x-www-form-urlencoded”。 然而，在向服务器发送大量的文本、包含非ASCII字符的文本或二进制数据时这种编码方式效率很低。<br>（2）“multipart/form-data”： 在文件上载时，所使用的编码类型应当是“multipart/form-data”，它既可以发送文本数据，也支持二进制数据上载。<br>当提交为单单数据时，可以使用“application/x-www-form-urlencoded”；当提交的是文件时，就需要使用“multipart/form-data”编码类型。<br>在Content-Type属性当中还是指定提交内容的charset字符编码。一般不进行设置，它只是告诉web服务器post提交的数据采用的何种字符编码。<br>一般在开发过程，是由前端工程与后端UI工程师商量好使用什么字符编码格式来post提交的，然后后端ui工程师按照固定的字符编码来解析提交的数据。所以这里设置的charset没有多大作用。</p>
+<h2 id="9、Connection"><a href="#9、Connection" class="headerlink" title="9、Connection"></a>9、Connection</h2><p>说明：表示是否需要持久连接。如果web服务器端看到这里的值为“Keep-Alive”，或者看到请求使用的是HTTP 1.1（HTTP 1.1默认进行持久连接），它就可以利用持久连接的优点，当页面包含多个元素时（例如Applet，图片），显著地减少下载所需要的时间。要实现这一点， web服务器需要在返回给客户端HTTP头信息中发送一个Content-Length（返回信息正文的长度）头，最简单的实现方法是：先把内容写入ByteArrayOutputStream，然 后在正式写出内容之前计算它的大小。<br>实例：Connection: keep-alive</p>
+<h2 id="10、Keep-Alive"><a href="#10、Keep-Alive" class="headerlink" title="10、Keep-Alive"></a>10、Keep-Alive</h2><p>说明：显示此HTTP连接的Keep-Alive时间。使客户端到服务器端的连接持续有效，当出现对服务器的后继请求时，Keep-Alive功能避免了建立或者重新建立连接。<br>以前HTTP请求是一站式连接，从HTTP/1.1协议之后，就有了长连接，即在规定的Keep-Alive时间内，连接是不会断开的。<br>实例：Keep-Alive: 300</p>
+<h2 id="11、cookie"><a href="#11、cookie" class="headerlink" title="11、cookie"></a>11、cookie</h2><p>说明：HTTP请求发送时，会把保存在该请求域名下的所有cookie值一起发送给web服务器。</p>
+<h2 id="12、Referer"><a href="#12、Referer" class="headerlink" title="12、Referer"></a>12、Referer</h2><p>说明：包含一个URL，用户从该URL代表的页面出发访问当前请求的页面<br>服务器端返回HTTP头部信息<br>1、Content-Length<br>说明：表示web服务器返回消息正文的长度<br>2、Content-Type:<br>说明：返回数据的类型（例如text/html文本类型）和字符编码格式。<br>实例：Content-Type: text/html;charset=utf-8<br>3、Date<br>说明：显示当前的时间</p>
+
+      
+
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			
+        		<li class="article-tag-list-item">
+        			<a href="/blog/categories/网络//" class="article-tag-list-link color3">网络</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/blog/2018/12/12/%E5%AE%A2%E6%88%B7%E7%AB%AFhttp%E8%AF%B7%E6%B1%82%E7%9A%84header%E4%BF%A1%E6%81%AF/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+  
     <article id="post-ES6中的proxy和应用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -309,19 +389,19 @@
     </div>
 </aside>
   
-    <article id="post-SVM分类" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-SVM" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/blog/2018/11/07/SVM%E5%88%86%E7%B1%BB/">SVM分类</a>
+      <a class="article-title" href="/blog/2018/11/07/SVM/">SVM分类</a>
     </h1>
   
 
         
-        <a href="/blog/2018/11/07/SVM%E5%88%86%E7%B1%BB/" class="archive-article-date">
+        <a href="/blog/2018/11/07/SVM/" class="archive-article-date">
   	<time datetime="2018-11-07T08:17:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-07</time>
 </a>
         
@@ -329,7 +409,19 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>SVM的分类问题<br>（1）特征空间上间隔最大的线性分类器<br>（2）线性分类：找到一个超平面将数据分开<br>（3）当超平面离数据的距离越远，找到的这个超平面的置信度就越高<br>（4）因此为了找到最合适的超平面，则需要找到距离最大的位置，如下图，虚线上的点即为支持向量<br><img src="/blog/2018/11/07/SVM%E5%88%86%E7%B1%BB/1.png" alt="image"><br>（5）找到超平面，分类的问题就转换为f(x)的正负问题<br>（6）对于低维不可份的情况，需要映射到高维空间，使其可分，但为了防止维度变大，此处采用了核函数的性质。核函数的价值在于它虽然也是讲特征进行从低维到高维的转换，但核函数绝就绝在它事先在低维上进行计算，而将实质上的分类效果表现在了高维上，也就如上文所说的避免了直接在高维空间中的复杂计算。核函数有高斯核，多项式核函数。<br>（7）svm中存在噪音数据，如下例，outlier，用松弛变量处理<br><img src="/blog/2018/11/07/SVM%E5%88%86%E7%B1%BB/2.png" alt="image"><br>（8）将svm用于多分类的方法<br><img src="/blog/2018/11/07/SVM%E5%88%86%E7%B1%BB/3.png" alt="image"><br>假设待分类别有五类：<br>（1）可以按照下图的方式，进行分类<br><img src="/blog/2018/11/07/SVM%E5%88%86%E7%B1%BB/3.png" alt="image"><br>这种方法的坏处是需要训练的分类器太多。<br>（2）第一次就把类别1的样本定为正样本，其余2，3，4，5的样本合起来定为负样本，这样得到一个两类分类器，它能够指出一篇文章是还是不是第1类的；第二次我们把类别2 的样本定为正样本，把1，3，4，5的样本合起来定为负样本，得到一个分类器，如此下去，我们可以得到5个这样的两类分类器（总是和类别的数目一致）。<br>这样容易出现数据倾斜的问题，样本不均航。<br>（9）svm模型训练的方法<br><img src="/blog/2018/11/07/SVM%E5%88%86%E7%B1%BB/4.png" alt="image"><br>svm模型训练的前提是特征的选取以及模型的训练。<br>（10）特征选取的方法<br>特征选取后，将文本映射为向量，进而表示为高纬空间的一个点，调用分类器，判断其类别。<br>tf*idf方法：tf表示该词在文档中的词频，idf，出现的文档数据。<br>信息增益的方法：特征能够为整个系统所带来的信息量，带来的信息量越大，信息增益越大；</p>
+        <h4 id="svm的作用"><a href="#svm的作用" class="headerlink" title="svm的作用"></a>svm的作用</h4><p>SVM是一个二分类的模型，优化目标是找到集合间隔最大的分离超平面；<br>对于给定的训练样本集D={(x1,y1), (x2,y2),… (xn,yn)}，yi属于{-1，+1}，希望能找出一个超平面，把不同类别的数据集分开，对于线性可分的数据集来说，这样的超平面有无穷多个，而最优的超平面即是分隔间距最大的中间那个超平面。<br><img src="/blog/2018/11/07/SVM/19854067-A2DF-4D82-9356-ADC137FAD85D.png" alt="020adce76bafb12d305f0c020c7b3723"></p>
+<h4 id="SVM的三类问题"><a href="#SVM的三类问题" class="headerlink" title="SVM的三类问题"></a>SVM的三类问题</h4><ul>
+<li>训练数据是线性可分：通过硬间隔最大化，学习一个线性分类器。</li>
+<li>训练数据近似线性可分：通过引入松弛变量（作用是允许一些样本点出错）<br><img src="/blog/2018/11/07/SVM/4E4B2AFE-F3AA-4589-B9D7-977744C0F9B5.png" alt="bf02e9cf02790239ba1d40a4ffa4309c"></li>
+<li>训练数据不可分时，引入核函数，学习非线性支持向量机；<h4 id="核函数"><a href="#核函数" class="headerlink" title="核函数"></a>核函数</h4>数学上已经证明，如果原始空间是有限维，则一定存在一个高维度空间使得高为特征空间使样本可分；<br>libSVM库中的核函数有：（libsvm库中有svmTrain和svmPredict分别来做训练和预测）</li>
+<li>线性核函数: 一般用于线性可分的情况，参数少，训练快；</li>
+<li>多项式核函数；</li>
+<li>RBF核函数：高斯核，用于线性不可分的情况，参数多；</li>
+<li>sigmoid tanh核函数；</li>
+<li>precomputed： 用户自定义的核函数；<br>一般建议用RBF核函数；<h4 id="特征选取"><a href="#特征选取" class="headerlink" title="特征选取"></a>特征选取</h4>svm模型训练的前提是特征的选取、表示以及模型的训练。特征选取后，将文本映射为向量，进而表示为高纬空间的一个点，调用分类器，判断其类别。</li>
+<li>tf * idf方法：tf表示该词在文档中的词频，idf，出现的文档数据。</li>
+<li>信息增益的方法：特征能够为整个系统所带来的信息量，带来的信息量越大，信息增益越大；</li>
+</ul>
 
       
 
@@ -352,7 +444,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2018/11/07/SVM%E5%88%86%E7%B1%BB/">展开全文 >></a>
+          <a class="article-more-a" href="/blog/2018/11/07/SVM/">展开全文 >></a>
         </p>
       
 

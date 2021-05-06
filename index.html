@@ -1079,6 +1079,169 @@ select/poll在接收到一个连接时，会通知内核（发生从用户态复
     </div>
 </aside>
   
+    <article id="post-神经网络&amp;深度学习基础" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2020/03/17/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C&%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/">神经网络&amp;深度学习基础</a>
+    </h1>
+  
+
+        
+        <a href="/blog/2020/03/17/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C&%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/" class="archive-article-date">
+  	<time datetime="2020-03-17T08:01:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-17</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="神经网络分类"><a href="#神经网络分类" class="headerlink" title="神经网络分类"></a>神经网络分类</h4><p><img src="/blog/2020/03/17/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C&%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/BD8BC014-0CC8-41C8-A42A-2EC80B1854E8.png" alt="927dc1e9a4be522352f60f46bcfcae73"></p>
+<h4 id="神经网络的发展"><a href="#神经网络的发展" class="headerlink" title="神经网络的发展"></a>神经网络的发展</h4><ul>
+<li>网络结构发展<br><img src="/blog/2020/03/17/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C&%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/AFB3AD72-5625-4F61-A108-E9226C0A3DB3.png" alt="a08e84c5e2ed64c02a82de91dc4f64cd"></li>
+<li>算力发展<br><img src="/blog/2020/03/17/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C&%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/283AD758-0C93-4B32-AA98-F9BE9B3499BA.png" alt="9d1fdca32b26f517bfc311d0c2ab72b1"><br>神经网络在ACL中的占比图：<br><img src="/blog/2020/03/17/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C&%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/BAEA9D2D-8631-4D35-89BC-9DBD943AC14F.png" alt="ccd40e6e45d62f0e5a8ddeafb15d403c"></li>
+</ul>
+<h4 id="神经网络-amp-深度学习"><a href="#神经网络-amp-深度学习" class="headerlink" title="神经网络&amp;深度学习"></a>神经网络&amp;深度学习</h4><p>神经网络最开始是单层神经网络，单层神经网络只能处理线性分类的问题，后来有人提出了双层神经网络，也就是单层神经网络中加了一个隐藏层，可以很好的解决非线性分类的任务。<br>但双层神经网络的隐藏层从设计完全依赖于经验，节点数需要不断调参，并且优化很难，研究人员不爱用。神经网络进入冰河期。<br>2006年提出了多层神经网络，和传统的神经网络训练方式不同的是，他先有一个“预训练”（pre-training）的过程，找到一个接近最优解的值，然后在通过微调（fine-tuning）技术进行优化网络。这两个技术的利用减少了训练的时间和难度，这就是深度学习。</p>
+<p>深度学习不等于多层神经网络，深度学习是让多层神经网络可训练，可以work的一套架构和方法；<br>深度学习四大要素:</p>
+<ul>
+<li>训练数据</li>
+<li>模型</li>
+<li>算力</li>
+<li>应用</li>
+</ul>
+<p>深度学习在自然语言处理的位置：<br><img src="/blog/2020/03/17/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C&%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/CDA1B48C-351D-40C8-84F4-2C4CDEB37FFE.png" alt="7993390e292830ce130e2acb0468fd4e"></p>
+<h4 id="BP算法"><a href="#BP算法" class="headerlink" title="BP算法"></a>BP算法</h4><p>BP算法：backPropagation，误差反向传播算法；<br>正常情况下如果一个训练好的网络，给定输入，可以通过正向传播得到输出。但是训练网络才是最难的。训练的过程是为了减小LOSS值。<br>BP算法的原理：在确认L+1层的误差向量以及权值矩阵后，就可以求出当前层的误差向量；因此如果得到最后一层的误差，就能找到所有的误差；<br>训练过程为：</p>
+<ul>
+<li>先将训练集沿正向传播走一遍，保存下各种中间变量</li>
+<li>先计算出最后一层的误差；</li>
+<li>用误差更新最后一层的权重；</li>
+<li>计算前一层的误差；</li>
+<li>更新前一层的权重；</li>
+<li>再计算前一层的误差；</li>
+<li>更新权重，直到所有权重更新完成；</li>
+</ul>
+<h4 id="BPTT"><a href="#BPTT" class="headerlink" title="BPTT"></a>BPTT</h4><p>训练RNN的方法用BPTT（基于时间反向传播），本质还是BP算法。<br><img src="/blog/2020/03/17/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C&%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/57696FCC-3DD1-474F-B032-08788CD9DC6A.png" alt="508c90553babecd53f3fbe09dcd79f58"></p>
+<h4 id="梯度下降"><a href="#梯度下降" class="headerlink" title="梯度下降"></a>梯度下降</h4><p><img src="/blog/2020/03/17/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C&%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/0E15333D-BEBA-4DF1-9690-4524721FBAC9.png" alt="b43bce21a7dda6a8fd36b45c0ded7664"><br>BP算法根据损失函数计算的误差通过反向传播的方式，指导深度网络参数的更新优化。优化的目的是减少误差，即取得loss函数最小值；求解最小值的方法在数学上即使用梯度下降法；<br>求解最优不是只有梯度下降法，还有拉格朗日松弛、分支定界、启发式模型等等；<br><strong>使用梯度下降需要保证优化的函数是凸函数</strong>。<br><img src="/blog/2020/03/17/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C&%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/9F10A43E-311C-4B38-A431-FEB527B27CEA.png" alt="db919ce6677b0fc96d2d72d09d37b024"></p>
+<h4 id="训练出现loss-NAN的情况"><a href="#训练出现loss-NAN的情况" class="headerlink" title="训练出现loss=NAN的情况"></a>训练出现loss=NAN的情况</h4><p><img src="/blog/2020/03/17/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C&%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/E8EF2BB4-30A7-43CE-B06E-29A91EF9D577.png" alt="3d2d228372db0311796557ab7bf10482"></p>
+<h4 id="模型微调"><a href="#模型微调" class="headerlink" title="模型微调"></a>模型微调</h4><p>基于预训练模型去微调，比从头开始训练能节省大量的计算资源和计算时间，从而提高计算效率甚至提高准确率。<br>浅层的卷积提取的是基础特征，深层的卷积层提取的是抽象的特征。预训练模型相当于已经具备了浅层的基础特征和深层的抽象特征能力。<br>不同数据集下使用微调：（以下不具有指导意义，需要具体问题具体分析）</p>
+<ul>
+<li>训练数据少，但数据相似度极高，只需要修改最后几层或者最终的softmax层。</li>
+<li>数据量少，数据相似度低，可以冻结训练模型的前K层，重新训练剩余的n-k层。</li>
+<li>训练数据量大，相似度低，可以从头训练神经网络。</li>
+<li>数据量大，数据相似度高，使用预训练模型中的权重重新训练网络。</li>
+</ul>
+<p><strong>网络计算量大的优化方式：</strong></p>
+<ul>
+<li>FPGA硬件加速：除了用GPU之外，卷积操作也可以通过FPGA硬件加速。</li>
+<li>隐藏层共享，缓存；</li>
+<li>将多个属性拆成几个独立的部分进行训练，直接降维，最后再进行特征整合；</li>
+<li>进行模型蒸馏；</li>
+</ul>
+<h4 id="transfer-learning和fine-tune的区别："><a href="#transfer-learning和fine-tune的区别：" class="headerlink" title="transfer learning和fine tune的区别："></a>transfer learning和fine tune的区别：</h4><ul>
+<li>fine-tuning：是一个trick，在迁移学习中有所涉及，但不仅仅出现在迁移学习中，指对参数进行微调；</li>
+<li>Transfer learning： 可以看成是一套完整的体系，是一种处理流程；</li>
+</ul>
+<h4 id="损失函数"><a href="#损失函数" class="headerlink" title="损失函数"></a>损失函数</h4><p>损失函数是为了衡量预测值和实际值之间的距离的，损失函数越小说明预测的约准确。假设真实值为y，预测值为f(x)，样本数为m，常见的几种损失函数有：</p>
+<ul>
+<li>绝对值损失函数：m个样本的真实值和预测值之间距离的平均值；<br><img src="/blog/2020/03/17/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C&%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/DF7BBF6B-2F4B-4AC8-8B08-39A4ECB25CE5.png" alt="dfa2a81e84cb9eec2760a4470324a56d"></li>
+<li>均方差损失函数<br><img src="/blog/2020/03/17/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C&%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/61EE4C09-9587-4256-9E45-9D6C238279F3.png" alt="98f090075346e9cd770ff76a7154e54d"></li>
+<li>交叉熵损失函数<br>交叉熵损失函数常用于解决分类的问题，y的取值只有0或1。<br><img src="/blog/2020/03/17/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C&%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/8A4BEB58-4110-413B-BF0D-1651E532F8C2.png" alt="dfcc77cf5835778f6b6d577d9fde8aa1"></li>
+</ul>
+<h4 id="激活函数"><a href="#激活函数" class="headerlink" title="激活函数"></a>激活函数</h4><p><strong>引入激活函数的原因：</strong> 神经网络的每一层相当于一个线性函数，多个神经网络层次相乘，最终还是一个线性函数。因此需要进行非线性映射。非线性变换相当于对空间进行变换，把原来线性不可分的问题变为线性可分的。<br><strong>常见的激活函数</strong></p>
+<ul>
+<li>sigmoid：也称之为Logistic函数，是LR模型指定的激活函数；公式和导数为：<br><img src="/blog/2020/03/17/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C&%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/F15FC01C-13A6-4DF4-B2BE-86D6AD2AF918.png" alt="591277fa9dccc6b5c8993ab4acad4fa9"></li>
+</ul>
+<p><img src="/blog/2020/03/17/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C&%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/4B5D45A3-1EEA-4303-876E-45C4DB81E2D1.png" alt="d3d966262ff8a1ad96bf4e06e409bb04"><br>优点：平滑，易求导<br>缺点：激活函数计算量大，正向和逆向都包含幂等运算；导数在【0，0.25】之间，容易发生梯度消失；输出不是0均值；</p>
+<ul>
+<li>tanh： 为sigmoid的平移和拉伸；解决了不是0均值的问题；但是梯度小时和幂等运算的问题依然存在；</li>
+</ul>
+<p><img src="/blog/2020/03/17/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C&%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/F30C3617-1D54-469B-AC19-1ACC9CA05483.png" alt="a439b0e65d434fa5da1bd51e985584f1"></p>
+<p><img src="/blog/2020/03/17/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C&%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/DEAEAAB2-C06A-432E-AD3A-481684F3DA77.png" alt="2002885f1065aa03e89c3e24c4dbe6ba"></p>
+<ul>
+<li><p>ReLu：修正线性单元函数；有效导数为1，解决了梯度消失和运算量的问题。导数为0，相当于一个去噪声的过程，但如果用ReLu，学习率不能设置的过大，容易导致模型学不到有效的特征；<br><img src="/blog/2020/03/17/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C&%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/41F27C27-8DB4-4760-BCE8-AB7FBC2E3C50.png" alt="9a48cfce1c17a23bae3db64dfcc35901"><br><img src="/blog/2020/03/17/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C&%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/F7015B32-FF2A-4BFD-9594-7DCC2B53F4DF.png" alt="57be31fd34704c9737d961a52bcdb661"><br><img src="/blog/2020/03/17/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C&%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/7C930D70-7F37-4F27-A84D-C9E8FD8A81D1.png" alt="b2b200899da95ac543b5bb0f171370d3"></p>
+</li>
+<li><p>Leaky Relu<br>为了防止模型”dead“的情况，在RELU的x&lt;0的部分不设置为0，而是给一个很小的负数；<br><img src="/blog/2020/03/17/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C&%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/A25C4D33-C317-4145-A896-C48091E6268A.png" alt="ab099140410e29adab1b07de6b288e45"><br><img src="/blog/2020/03/17/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C&%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/8E4A4561-1B2E-407F-8B08-FAA80CD5465F.png" alt="f0d9c735ff5c97b17f7c925a1600904a"></p>
+</li>
+<li><p>GELU：高斯误差线性单元激活函数。transformer使用的是gelu，似乎是当前最优秀的，能避免梯度爆炸、消失的问题。<br><img src="/blog/2020/03/17/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C&%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/6BD7F4EC-1B79-4E34-A38B-448803B632E9.png" alt="762415bf85cc972099fbc25ee45a8589"><br><img src="/blog/2020/03/17/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C&%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/1E9E42B1-C788-4803-B7D5-619E385C820E.png" alt="948eb0b13824c632fe0d91e5f7c2b79d"></p>
+</li>
+</ul>
+<p><strong>ReLu的效果要优于tanh和sigmoid</strong>：<br>    1. tanh和sigmoid需要求导，计算量大。ReLu计算量会节省很多。<br>    2. Relu会使一部分的神经元的输出为0，会缓解过拟合的发生。<br>    3. sigmoid和tanh在饱和区域的gradient非常平缓，接近于0，容易造成梯度消失的问题。而ReLu的gradient是常数。</p>
+<h4 id="梯度爆炸和消失产生的原因"><a href="#梯度爆炸和消失产生的原因" class="headerlink" title="梯度爆炸和消失产生的原因"></a>梯度爆炸和消失产生的原因</h4><p>梯度下降作为一种最常见的迭代式优化策略，应用在神经网络的BP算法中，由于深度神经网络层级太深，在求导的过程中，由于链式法则，可能会出现梯度消失和梯度爆炸现象，为了搞清楚为什么会出现这些情况，以sigmoid激活函数为例子，从最简单的单层神经网络的求导过程着手，查看求导的结果。<br><img src="/blog/2020/03/17/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C&%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/1179FE3D-F8F8-45BD-B15A-2B28D031F804.png" alt="a98d610c2a81b3b16372be9682279b5c"><br><img src="/blog/2020/03/17/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C&%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/DCF81A93-EE5A-4ACC-AA13-47BF810271C2.png" alt="c8525eb0b2b143713fdf8c4635c65acd"><br><img src="/blog/2020/03/17/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C&%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/DA4F7E98-7FA8-4DE5-9849-D831127E5043.png" alt="90ff64daa801a2638205924553537636"><br>梯度消失：如果层层之间的梯度均在（0，1）之间，层层缩小，那么就会出现梯度消失；表现是训练变慢；<br>梯度爆炸：如果层层传递的梯度大于1，那么经过层层扩大，就会出现梯度爆炸，表现为：训练波动很大，不稳定；<br>可见梯度的消失与爆炸与激活函数没有特别大的关系，反而和权重有较大关系，因此权重的初始化对神经网络的训练很重要。<br><strong>总之梯度爆炸和梯度消失的产生主要是由于链式法则的求导、梯度层层缩放导致的，因为神经网络的不只有激活函数的作用，还有权重与神经元的相互作用。</strong></p>
+<h4 id="解决梯度爆炸和消失的常用技术"><a href="#解决梯度爆炸和消失的常用技术" class="headerlink" title="解决梯度爆炸和消失的常用技术"></a>解决梯度爆炸和消失的常用技术</h4><ul>
+<li>【缓解爆炸】合理的随机初始化策略：随机选取一些较小的数值，防止参数过大导致梯度爆炸；但参数过小，收敛过慢；</li>
+<li>【缓解消失】使用非饱和参数作为激活函数（如RELU）</li>
+<li>【缓解消失和爆炸】使用批归一化（Batch Normalization ）。是指在每层的激活函数之前添加一个BN操作，使得特征图数据归一化为均值为0，标准差为1的分布；<br>归一化：数据预处理，将数据限定在特定范围内；<br>标准化：数据预处理，使数据符合标准正态分布；<br>正则化：在损失函数中添加惩罚项，增加建模的模糊性；</li>
+<li>【缓解爆炸】梯度剪裁（gradient clipping）：其思想是设置一个梯度剪切阈值，然后更新梯度的时候，如果梯度超过这个阈值，那么就将其强制限制在这个范围之内，通过这种直接的方法就可以防止梯度爆炸。</li>
+<li>【缓解消失和爆炸】复用预训练层，直接使用已经训练好的网略来训练一个新的任务；</li>
+<li>【缓解爆炸】权重正则化：比较常见的是l1正则，和l2正则，在各个深度框架中都有相应的API可以使用正则化，比如在tensorflow中，搭建网络的时候已经设置了正则化参数，则调用以下代码可以直接计算出正则损失：<br>regularization_loss = tf.add_n(tf.losses.get_regularization_losses(scope=’my_resnet_50’))<br>如果没有设置初始化参数，也可以使用以下代码计算l2正则损失：<br>l2_loss = tf.add_n([tf.nn.l2_loss(var) for var in tf.trainable_variables() if ‘weights’ in var.name])</li>
+<li>【缓解消失】残差结构</li>
+<li>【缓解消失】LSTM：长短期记忆网络（long-short term memory networks），是不那么容易发生梯度消失的，主要原因在于LSTM内部复杂的“门”(gates)，LSTM通过它内部的“门”可以接下来更新的时候“记住”前几次训练的”残留记忆“，因此，经常用于生成文本中。</li>
+</ul>
+<h4 id="FC-全连接网络"><a href="#FC-全连接网络" class="headerlink" title="FC-全连接网络"></a>FC-全连接网络</h4><p>每个节点都与上一层的所有节点相连。特点是参数剧多。</p>
+<h4 id="CNN-卷积神经网络"><a href="#CNN-卷积神经网络" class="headerlink" title="CNN-卷积神经网络"></a>CNN-卷积神经网络</h4><p>卷积神经网络的分层：</p>
+<ul>
+<li><strong>输入层</strong>：一般做数据预处理</li>
+<li><strong>卷积层</strong>：是为了提取特征，在不断的训练过程中，最终优化的就是这个特征，特征在CNN中称之为卷积核。卷积层是局部连接+参数共享，它可以看做是计算量和准确度的一种妥协；<img src="/blog/2020/03/17/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C&%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/DB0C0A84-D2E7-4277-87B4-DCC202018017.png" alt="b626c7ec466f7712b36277bed2b8006f"></li>
+<li><strong>激活层</strong>：对卷积层的结果做一次非线性映射。</li>
+<li><strong>池化层</strong>：欠采样或者下采样，主要用于特征降维，压缩数据和参数的数量，减少过拟合；有max polling（最大池化）和average polling（平均池化）两种。</li>
+<li><strong>全连接FC层</strong>：作用是将前面学到的特征引用到样本标记空间；参数量最大，通常在卷积神经网络的尾部。<br>除了最后一层是全连接层，前面几层均为局部连接层，原因是：全连接层的参数太多，并且一个像素只和他周边的点相关，因此用局部关联可以减少参数。</li>
+</ul>
+<p>其他概念<br><strong>局部连接</strong>：CNN认为神经元没有必要对整个全局图像进行感知，他只和周边的元素联系较为紧密，因此只需要对其周边的神经元进行连接；</p>
+<p><strong>权值共享</strong>：定义一小块（<strong>卷积核</strong>，一般为3 * 3或者5 * 5），并已知这一块的每个像素点的权重参数，这一块的权重参数也会被其他块共享，这就是权值共享。<br>局部连接和权值共享的作用是减少参数量，这两种措施组合在一起称之为<strong>卷积</strong>操作。<br><img src="/blog/2020/03/17/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C&%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/F5752625-E79E-4866-85CA-6A0FAFC89BFE.gif" alt="b31cb0491c045ba58873715ec71294c5"><br><strong>步长</strong>：卷积核每次划过窗口的大小。<br><strong>零填充</strong>：为了不丢失图像边上的信息，在图像四周添加0信息；<br><strong>深度</strong>：卷积核的个数；<br><strong>内积</strong>：1* 1 + 0* 0 + 1* 1 + 0* 0 + 1* 1 + 0* 0 + 1* 1 + 0* 0 + 1* 1 = 5<br><img src="/blog/2020/03/17/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C&%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/4DA2631B-3F54-4CEF-9069-5E87FB03D76B.png" alt="1fe94925e674b13a53775015cfb0d22a"></p>
+<h4 id="RNN-循环神经网络"><a href="#RNN-循环神经网络" class="headerlink" title="RNN-循环神经网络"></a>RNN-循环神经网络</h4><p>传统神经网络输入和输出是独立的，RNN通过循环结构引入记忆的概念，输出不仅仅依赖输入，还依赖于记忆。<br>RNN可以更好的处理具有时序关系的任务。<br><img src="/blog/2020/03/17/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C&%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/2DAF90F4-5145-4877-A931-6266D49C3AC7.png" alt="6acedd8a93cbce71e982b981cfce59e5"><br>Xt是时间t处的输入，Yt为时间t时刻的输出。U是从输入到隐藏态，W从前一隐藏态到下一个隐藏态，V是从隐藏态到输出。</p>
+<h4 id="LSTM（long-short-term-memory）长短期记忆模型"><a href="#LSTM（long-short-term-memory）长短期记忆模型" class="headerlink" title="LSTM（long short-term memory）长短期记忆模型"></a>LSTM（long short-term memory）长短期记忆模型</h4><p>LSTM拥有三个门（遗忘门、输入门，输出门）来保护和控制细胞状态<br>遗忘门：决定丢弃信息；<br>输入门：确定需要更新信息；<br>输出门：输出信息；<br>RNN的”记忆“在每个时间点都会被新的输入覆盖，但LSTM中”记忆”是与新的输入相加；</p>
+<h4 id="GRU（Gate-recurrent-Unit）门控循环单元"><a href="#GRU（Gate-recurrent-Unit）门控循环单元" class="headerlink" title="GRU（Gate recurrent Unit）门控循环单元"></a>GRU（Gate recurrent Unit）门控循环单元</h4><p><img src="/blog/2020/03/17/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C&%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/A40A2623-33C3-4BE8-A581-A98BDD44EAC5.png" alt="d0ef9b9f549a3a4f0ad7e7f59b8ee406"><br>能够较好的处理训练文本中长距离依赖的问题。<br>GRU只有两个门：<br>重置门：控制忽略前一时刻状态信息的程度，重置门越小表示忽视的越多；<br>更新门：控制前一时刻的状态信息被带入到当前状态中的程度，更新门越大表示前一时刻的状态信息带入的越多；</p>
+
+      
+
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			
+        		<li class="article-tag-list-item">
+        			<a href="/blog/categories/NLP//" class="article-tag-list-link color4">NLP</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/blog/2020/03/17/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C&%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+  
     <article id="post-文本表示和词向量" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1267,77 +1430,6 @@ select/poll在接收到一个连接时，会通知内核（发生从用户态复
       
         <p class="article-more-link">
           <a class="article-more-a" href="/blog/2019/08/18/odp%E6%A1%86%E6%9E%B6/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-  
-    <article id="post-网络知识总结" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2019/01/07/%E7%BD%91%E7%BB%9C%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/">网络知识总结</a>
-    </h1>
-  
-
-        
-        <a href="/blog/2019/01/07/%E7%BD%91%E7%BB%9C%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/" class="archive-article-date">
-  	<time datetime="2019-01-07T07:55:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-07</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="网络中的知识点"><a href="#网络中的知识点" class="headerlink" title="网络中的知识点"></a>网络中的知识点</h2><p>1、网络层次分为物理层、数据链路层、网络层、传输层、会话层、表示层和应用层。IP协议对应于网络层，TCP协议对应于传输层，而HTTP协议对应于应用层，三者从本质上来说没有可比性。<br>2、socket &amp; http &amp; tcp/ip<br>  socket是提供给程序员的接口API<br>  http是应用层协议，决定了怎么打包数据<br>  TCP/IP是传输层协议，解决如何在网络中传输数据。<br>3、http 和https区别<br>（1）http是一种网络传输协议，https = http + ssl（ssl为非对称加密的一种形式，非对称加密就是利用公钥和私钥来以及数字证书来校验）<br>（2）http传输的是明文，https传输的是加密后的数据<br>（3）http是80端口，https是443端口<br>（4）https常用在银行登录、支付、密码、网站验证等<br>4、Tcp建立连接需要三次握手，建立连接后，任何一方均可以断开连接<br>（1）A发送syn=1 &amp; sequence number 给B，然后A进入syn_send状态<br>（2）B收到请求，发送syn=1 ack=1 acknowledge_number = 1 给A，然后B进入syn_recv状态<br>（3）A收到反馈，验证ack以及acknowledge_number，进入establish状态<br>5、Tcp是全双工的，任何一方都要单独进行关闭，过程需要四次<br>（1）主机A发送FIN，用来关闭从A到B的数据传输，此时A进入FIN_WAIT状态，<br>（2）主机B收到A发送的FIN，返回ACK和FIN, 此时B进入LAST_ACK状态；<br>（3）主机A收到B返回的FIN和ACK，此时进入Time_WAIT状态；<br>（4）主机A接收到B发送的FIN，然后返回ACK和FIN，A和B均进入到CLOSE状态。<br>6、Tcp和Udp<br>（1）tcp是面向连接的，因为有三次握手，因而保证了连接的可靠性<br>（2）udp是播报性质，是无连接的，udp的连接开销小，传输速率高、实时性好<br>7、http1.0和http1.1<br>网络请求的影响因素最主要的是HOL （head of  line）blocking： 浏览器对每个域名的连接数量有限制，最多是4个（不同的内核实现不同），超过数量会阻塞请求<br>1.1对1.0的升级项有：<br>（1）缓存的处理 引入cache-control 、entity tag<br>（2）长链接(持久连接)：即多次http请求可以公用一个Tcp连接，这样省去了三次握手的时间，但每个单独网页的请求和应答还是要使用各自的连接。并且允许同一个连接中的请求同时发出，但后台服务器的处理需要是顺序处理。<br><img src="/blog/2019/01/07/%E7%BD%91%E7%BB%9C%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/1.png" alt="image"><br><img src="/blog/2019/01/07/%E7%BD%91%E7%BB%9C%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/2.png" alt="image"><br>8、websocket：websocket基于tcp连接的全双工通讯协议，是一种持久化的协议。他利用http协议完成了一部分的握手工作。<br><img src="/blog/2019/01/07/%E7%BD%91%E7%BB%9C%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/3.png" alt="image"></p>
-<h2 id="浏览器缓存策略"><a href="#浏览器缓存策略" class="headerlink" title="浏览器缓存策略"></a>浏览器缓存策略</h2><p>1、缓存类型：<br>（1）强缓存：直接使用浏览器缓存，不请求服务器<br>（2）协商缓存：发送请求到服务器，由服务器来判定是否取缓存数据<br>2、浏览器缓存策略的整个过程<br><img src="/blog/2019/01/07/%E7%BD%91%E7%BB%9C%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/4.png" alt="image"><br>过程详解<br>（1）是否有缓存：到cache下去找这个文件是否存在<br>（2）是否过期：用存储的文件的header中的信息expire、cach-control中的max-age、smax-age 以及Date信息，和当前的客户端时间进行比较，如果判定为缓存未过期，直接从缓存中取数据，此为强缓存。（smax-age &gt; max-age &gt;expire）expire返回的是服务器的时间，如果当前客户端的时间设置错误，会影响缓存是否过期的判断。<br><img src="/blog/2019/01/07/%E7%BD%91%E7%BB%9C%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/5.png" alt="image"><br>（3）如果没有相关的是否过期的判断，可以根据响应头中的date和last-modified的10%来作为缓存周期，即启发式缓存。<br>（4）如果缓存判定为过期，此时需要将服务器发送请求。其中If-Modified-Since = 缓存的文件头中的last-modified，If-None-Match = 缓存文件头中的eTag值。eTag可以理解为当前文件内容的一个md5值，内容发生变化，md5值会变化。<br>（5）如果服务器判断文件未发生变化，直接返回304，浏览器取本地文件，否则返回200 以及新的文件，浏览器更新header信息。<br>4、Cache-control中的no-cache 和 no-store<br>（1）no-cache并非指的浏览器不允许缓存而是每次都需要向后端请求来判断是否使用缓存。<br>（2）no-store: 绝对禁止缓存<br>5、用户影响浏览器缓存的行为：<br><img src="/blog/2019/01/07/%E7%BD%91%E7%BB%9C%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/6.png" alt="image"></p>
-<h2 id="Http请求的header、response以及状态码"><a href="#Http请求的header、response以及状态码" class="headerlink" title="Http请求的header、response以及状态码"></a>Http请求的header、response以及状态码</h2><p>1、请求方式<br>GET: 向Web服务器请求一个文件<br>POST: 向Web服务器发送数据让Web服务器进行处理<br>PUT: 向Web服务器发送数据并存储在Web服务器内部<br>HEAD: 检查一个对象是否存在<br>DELETE: 从Web服务器上删除一个文件<br>CONNECT: 对通道提供支持<br>TRACE: 跟踪到服务器的路径<br>OPTIONS: 查询Web服务器的性能<br>2、header中字段信息<br>1、method：说明：请求方式<br>2、Host  说明：请求的web服务器域名地址<br>3、User-Agent：客户端运行的浏览器类型的详细信息。如：User-Agent: Mozilla/5.0 (Windows; U; Windows NT 5.1; zh-CN; rv:1.8.1.11) Gecko/20071127 Firefox/2.0.0.11<br>4、Accept：指定客户端能够接收的内容类型，内容类型中的先后次序表示客户端接收的先后次序。<br>例如：Accept:text/xml,application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,<em>/</em>;q=0.5<br>5、Accept-Language：指定HTTP客户端浏览器用来展示返回信息所优先选择的语言，此处是语言而非编码。如：Accept-Language: zh-cn,zh;q=0.5 ，此项是在浏览器中设置中可以随意设置的。<br>6、Accept-Encoding：浏览器可以支持的内容压缩编码类型如：Accept-Encoding: gzip,deflate<br>7、Accept-Charset：浏览器可以接受的字符编码集。如：Accept-Charset: gb2312,utf-8;q=0.7,*;q=0.7<br>8、Content-Type：显示此HTTP请求提交的内容类型。一般只有post提交时才需要设置该属性。如：Content-type: application/x-www-form-urlencoded;charset:UTF-8<br>有关Content-Type属性值可以如下两种编码类型：<br>（1）“application/x-www-form-urlencoded”： 表单数据向服务器提交时所采用的编码类型，默认的缺省值就是“application/x-www-form-urlencoded”。 然而，在向服务器发送大量的文本、包含非ASCII字符的文本或二进制数据时这种编码方式效率很低。<br>（2）“multipart/form-data”： 在文件上载时，所使用的编码类型应当是“multipart/form-data”，它既可以发送文本数据，也支持二进制数据上载。<br>当提交为单数据时，可以使用“application/x-www-form-urlencoded”；当提交的是文件时，就需要使用“multipart/form-data”编码类型。<br>在Content-Type属性当中还是指定提交内容的charset字符编码。一般不进行设置，它只是告诉web服务器post提交的数据采用的何种字符编码。<br>一般在开发过程，是由前端工程与后端工程师商量好使用什么字符编码格式来post提交的。<br>9、Connection：是否需要持久连接。如果web服务器端看到这里的值为“Keep-Alive”，或者看到请求使用的是HTTP 1.1（HTTP 1.1默认进行持久连接），它就可以利用持久连接的优点，当页面包含多个元素时（例如Applet，图片），显著地减少下载所需要的时间。要实现这一点， web服务器需要在返回给客户端HTTP头信息中发送一个Content-Length（返回信息正文的长度）头，最简单的实现方法是：先把内容写入ByteArrayOutputStream，然 后在正式写出内容之前计算它的大小。<br>10、Keep-Alive：显示此HTTP连接的Keep-Alive时间。如：Keep-Alive: 300。使客户端到服务器端的连接持续有效，当出现对服务器的后继请求时，Keep-Alive功能避免了建立或者重新建立连接。以前HTTP请求是一站式连接，从HTTP/1.1协议之后，就有了长连接，即在规定的Keep-Alive时间内，连接是不会断开的。<br>11、cookie：HTTP请求发送时，会把保存在该请求域名下的所有cookie值一起发送给web服务器。<br>12、Referer：值为一个URL，表示用户从该URL代表的页面出发访问当前请求的页面。<br>3、response中的字段<br>1、Content-Length：表示web服务器返回消息正文的长度<br>2、Content-Type：返回数据的类型（例如text/html文本类型）和字符编码格式。如 Content-Type: text/html;charset=utf-8<br>3、Date：显示当前的时间<br>4、status：返回的请求状态码<br>4、http返回的状态码<br>200 &amp; OK: 请求成功；<br>204 &amp; No Content: 请求处理成功，但没有资源可以返回；<br>206 &amp; Partial Content: 对资源某一部分进行请求(比如对于只加载了一般的图片剩余部分的请求)；<br>301 &amp; Move Permanently: 永久性重定向；<br>302 &amp; Found： 临时性重定向；<br>303 &amp; See Other: 请求资源存在另一个URI，应使用get方法请求；<br>304 &amp; Not Modified: 服务器判断本地缓存未更新，可以直接使用本地的缓存；<br>307 &amp; Temporary Redirect: 临时重定向；<br>400 &amp; Bad Request: 请求报文存在语法错误；<br>401 &amp; Unauthorized: 请求需要通过HTTP认证；<br>403 &amp; Forbidden: 请求资源被服务器拒绝，访问权限的问题；<br>404 &amp; Not Found: 服务器上没有请求的资源；<br>500 &amp; Internal Server Error: 服务器执行请求时出现错误；<br>502 &amp; Bad Gateway: 错误的网关；<br>503 &amp; Service Unavailable: 服务器超载或正在维护，无法处理请求；<br>504 &amp; Gateway timeout: 网关超时；<br><img src="/blog/2019/01/07/%E7%BD%91%E7%BB%9C%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/7.png" alt="image"></p>
-
-      
-
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			
-        		<li class="article-tag-list-item">
-        			<a href="/blog/categories/网络//" class="article-tag-list-link color3">网络</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2019/01/07/%E7%BD%91%E7%BB%9C%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/">展开全文 >></a>
         </p>
       
 
