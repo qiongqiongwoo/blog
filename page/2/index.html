@@ -147,6 +147,236 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-语言模型&amp;预训练模型" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2019/11/07/%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B&%E9%A2%84%E8%AE%AD%E7%BB%83%E6%A8%A1%E5%9E%8B/">语言模型&amp;预训练模型</a>
+    </h1>
+  
+
+        
+        <a href="/blog/2019/11/07/%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B&%E9%A2%84%E8%AE%AD%E7%BB%83%E6%A8%A1%E5%9E%8B/" class="archive-article-date">
+  	<time datetime="2019-11-07T07:17:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-07</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="NLU-amp-NLG"><a href="#NLU-amp-NLG" class="headerlink" title="NLU&amp;NLG"></a>NLU&amp;NLG</h4><ul>
+<li><p>自然语言理解（NLU，Natural Language Understanding）: 使计算机理解自然语言（人类语言文字）等，重在理解。具体来说，就是理解语言、文本等，提取出有用的信息，用于下游的任务。它可以是使自然语言结构化，比如分词、词性标注、句法分析等；也可以是表征学习，字、词、句子的向量表示(Embedding)，构建文本表示的文本分类；还可以是信息提取，如信息检索（包括个性化搜索和语义搜索，文本匹配等），又如信息抽取（命名实体提取、关系抽取、事件抽取等）。</p>
+</li>
+<li><p>自然语言生成（NLG，Natural Language Generation）: 提供结构化的数据、文本、图表、音频、视频等，生成人类可以理解的自然语言形式的文本。NLG又可以分为三大类，文本到文本（text-to-text），如翻译、摘要等、文本到其他（text-to-other），如文本生成图片、其他到文本（other-to-text），如视频生成文本。</p>
+<h4 id="语言模型"><a href="#语言模型" class="headerlink" title="语言模型"></a>语言模型</h4><p>语言模型一个语言模型可以理解为一个句子S在所有句子中出现的概率分布P(s)，也就是检测一句话是不是正常的一句话；</p>
+</li>
+<li><p>n-gramm: 出现在第i位置上的词，仅与它前面的n-1个历史词有关；<br>存在的问题：<br>1、无法建模出更远的关系；<br>2、无法建模出词语之间的相似度；（是使用的一种统计的思想）<br>3、依赖于语料，未出现过的直接会出现概率为0的情况；</p>
+</li>
+<li><p>NNLM（神经网络语言模型）：同样是n-gram模型，用三层的神经网络来构建语言模型；<br><img src="/blog/2019/11/07/%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B&%E9%A2%84%E8%AE%AD%E7%BB%83%E6%A8%A1%E5%9E%8B/3A8C9CB1-4020-4604-A511-671B91E54D55.png" alt="719d8874a96cf8420048d0695d44b06b"></p>
+</li>
+</ul>
+<p>输入层为（n-1）* m个节点，每个词向量为m维；隐藏层为h个节点，输入层到隐藏层的权重矩阵为H，维度为h &nbsp;X （n-1）* m的矩阵；</p>
+<p>输出层为|V|维的向量，第i个节点表示输出为词i的未归一化log概率；隐藏层到输出层的权重矩阵为矩阵U： &nbsp;|V| X h的矩阵；模型的目标是学到一个好的函数来估计条件概率：<img src="/blog/2019/11/07/%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B&%E9%A2%84%E8%AE%AD%E7%BB%83%E6%A8%A1%E5%9E%8B/1EF72640-5A38-4D04-B248-4959E6CEDE34.png" alt="fdd93e88be7c99a70431ee23bef59dda"><br>且需要满足的条件：<img src="/blog/2019/11/07/%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B&%E9%A2%84%E8%AE%AD%E7%BB%83%E6%A8%A1%E5%9E%8B/2FEEC869-39B5-4E19-85C9-A206869B5EC1.png" alt="02cd9cca5f8bd4263e7e9b0afebb673a"><br>输出层采用softmax函数：<img src="/blog/2019/11/07/%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B&%E9%A2%84%E8%AE%AD%E7%BB%83%E6%A8%A1%E5%9E%8B/E492F8FE-A5A9-470A-86AB-A77374C6FF14.png" alt="5b4503b6c5a63c2d9af78509621ccf2f"><br><img src="/blog/2019/11/07/%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B&%E9%A2%84%E8%AE%AD%E7%BB%83%E6%A8%A1%E5%9E%8B/6B94A4A9-BC33-423D-8404-30BE2854D885.png" alt="dd563c35ca9b04e7bd3eab0510babe05"><br>其中b，W，U，d和H都是参数，x为输入，则θ=(b, W, U, d,H)一般的神经网络输入层就是输入值，在这个模型中输入层x也是需要优化的参数；其中W可以为0；<img src="/blog/2019/11/07/%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B&%E9%A2%84%E8%AE%AD%E7%BB%83%E6%A8%A1%E5%9E%8B/229659F5-97D1-4082-B38A-8DA2133B20AF.png" alt="2c5b9e2a1e98824549b1f0644cd40453"></p>
+<p>优点：建模出了词语之间的相似度缺点：因为这是通过前馈神经网络来训练语言模型，<br>缺点：显而易见就是其中的参数过多计算量较大，同时softmax那部分计算量也过大。另一方面NNLM直观上看就是使用神经网络编码的 n-gram 模型，也无法解决长期依赖的问题。</p>
+<ul>
+<li>RNNLM<br><img src="/blog/2019/11/07/%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B&%E9%A2%84%E8%AE%AD%E7%BB%83%E6%A8%A1%E5%9E%8B/719EFE24-9BFB-4A9C-9624-3A46CC06E520.png" alt="2d3c83f05213f97feb61fddba247aff0"></li>
+</ul>
+<h4 id="n-grammer和NNLM、CNNLM的共同点以及区别"><a href="#n-grammer和NNLM、CNNLM的共同点以及区别" class="headerlink" title="n-grammer和NNLM、CNNLM的共同点以及区别"></a>n-grammer和NNLM、CNNLM的共同点以及区别</h4><p>共同点：都是计算语言模型，将句子看作一个词序列，来计算句子的概率<br>不同点：</p>
+<ul>
+<li>计算概率方式不同，n-gram基于马尔可夫假设只考虑前n个词，nnlm要考虑整个句子的上下文；</li>
+<li>训练模型的方式不同，n-gram基于最大似然估计来计算参数，nnlm基于神经网络的优化方法来训练模型，并且这个过程中往往会有word embedding作为输入，这样对于相似的词可以有比较好的计算结果，但n-gram是严格基于词本身的；</li>
+<li>循环神经网络可以将任意长度的上下文信息存储在隐藏状态中，而不仅限于n-gram模型中的窗口限制；</li>
+</ul>
+<h4 id="LM-、-Bi-LM、-MLM、sequence-to-sequence-LM"><a href="#LM-、-Bi-LM、-MLM、sequence-to-sequence-LM" class="headerlink" title="LM 、 Bi-LM、 MLM、sequence-to-sequence LM"></a>LM 、 Bi-LM、 MLM、sequence-to-sequence LM</h4><ul>
+<li><p>LM：是指一类能够求解句子概率的概率模型，通常通过概率论中的链式法则来表示整个句子各个单词间的联合概率。LM使用的是单向的。LM更适合做生成任务；<br>为什么不能同时使用两侧的数据呢？<br>主要是因为我们的学习目标是预测下一个词，如果让当前词同时融入两侧的信息，会造成label的leak问题。</p>
+</li>
+<li><p>bidirectional LM (Bi-LM)：分别考虑从左到右的LM和从右到左的LM，这两个方向的LM是分开建模的。</p>
+</li>
+<li><p>MLM：mask languge model，同时利用左侧和右侧的元素（字、词、实体）来预测被mask掉的元素；MLM天生不适合做NLG（自然语言生成）任务；</p>
+</li>
+<li><p>sequence-to-sequence LM：输入的source句子和target句子，mask单词在target上，那么当前mask的上下文就是source句子的所有单词和target句子中mask单词左侧的词汇可以被看到；</p>
+</li>
+</ul>
+<h4 id="预训练模型的分类"><a href="#预训练模型的分类" class="headerlink" title="预训练模型的分类"></a>预训练模型的分类</h4><p>预训练模型可以通过四种分类维度来划分：</p>
+<ul>
+<li>表征的类型，即：是否上下文感知；</li>
+<li>编码器结构，如：LSTM、CNN、Transformer；</li>
+<li>语言模型，如：语言模型LM，带掩码的语言模型MLM，排列语言模型PLM，对比学习等；</li>
+<li>针对特定场景的拓展和延伸。如：知识增强预训练，多语言预训练，多模态预训练和模型压缩等；</li>
+</ul>
+<p>目前主流的语言表征方式采用的是「分布式表征」(distributed representation)，即低维实值稠密向量，每个维度没有特定的含义，但是「整个向量表达了一种具体的概念」。预训练模型是学习分布式表征的重要途径之一，它的好处主要包括：在大规模语料上进行预训练能够学习到「通用的语言表示」，并有助于下游任务。提供好的模型「参数初始化」，提高泛化性和收敛速度。在「小数据集」上可以看作是一种「正则化」，防止过拟合。<img src="/blog/2019/11/07/%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B&%E9%A2%84%E8%AE%AD%E7%BB%83%E6%A8%A1%E5%9E%8B/06CD0379-DC7F-4432-82BB-01E90BB26BD5.png" alt="beee371e4a8a96c3a46d95dbaef4deb2"></p>
+<h4 id="几种常见的预训练模型"><a href="#几种常见的预训练模型" class="headerlink" title="几种常见的预训练模型"></a>几种常见的预训练模型</h4><ul>
+<li>Glove 是属于统计语言模型，通过统计学知识来训练词向量;</li>
+<li>ELMO 通过使用多层双向的LSTM（一般都是使用两层）来训练语言模型，任务是利用上下文来预测当前词，上文信息通过正向的LSTM获得，下文信息通过反向的LSTM获得，这种双向是一种弱双向性，因此获得的不是真正的上下文信息;</li>
+<li>GPT是通过Transformer来训练语言模型，它所训练的语言模型是单向的，通过上文来预测下一个单词;</li>
+<li>BERT通过Transformer来训练MLM这种真正意义上的双向的语言模型，它所训练的语言模型是根据上下文来预测当前词。<br><img src="/blog/2019/11/07/%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B&%E9%A2%84%E8%AE%AD%E7%BB%83%E6%A8%A1%E5%9E%8B/91568F97-F068-4EAC-90EA-0EB4319CBC20.png" alt="0ad60124fce70a4cde4dd74dfc29d479"></li>
+</ul>
+
+      
+
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			
+        		<li class="article-tag-list-item">
+        			<a href="/blog/categories/NLP//" class="article-tag-list-link color4">NLP</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/blog/2019/11/07/%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B&%E9%A2%84%E8%AE%AD%E7%BB%83%E6%A8%A1%E5%9E%8B/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+  
+    <article id="post-odp框架" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2019/08/18/odp%E6%A1%86%E6%9E%B6/">odp框架</a>
+    </h1>
+  
+
+        
+        <a href="/blog/2019/08/18/odp%E6%A1%86%E6%9E%B6/" class="archive-article-date">
+  	<time datetime="2019-08-18T13:39:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>从使用上看，Odp框架和其他的php或者web框架项目比如django框架相比，规范比较严格，比如有严格的目录要求，类名和目录名要对应。</p>
+<h4 id="1、odp项目的主要目录结构"><a href="#1、odp项目的主要目录结构" class="headerlink" title="1、odp项目的主要目录结构"></a>1、odp项目的主要目录结构</h4><ul>
+<li>app：应用程序目录，存放置产品线业务（app）代码；</li>
+<li>conf：配置文件目录，包括app的配置、db的配置等, 比如代码中的auth.conf, bos.conf, db.conf；</li>
+<li>log：odp运行环境中产生的日志，包括webserver日志、app日志、ral日志等</li>
+<li>data：放置组件和app生成的本机数据、缓存等</li>
+<li>bin：ODP的插件的执行命令。包括php，pcheck，ptest等</li>
+<li>install：ODP组件安装信息存储目录。ocm命令读取的即为该目录中的信息;</li>
+<li>php：php安装后所在的目录。php目录中的phplib目录为公共库目录，存放ODP和产品线的公共库；</li>
+<li>template：用于存放php的页面模板；</li>
+<li>webroot：默认的web文档目录，用于存放静态文件以及每个app的index.php</li>
+<li>webserver：web服务的安装目录，支持lighttpd以及nginx；</li>
+</ul>
+<p>Php-cgi 就是解析php脚本的程序而已， 作用和HHVM一样；<br>Php-fpm是实现fastcgi协议的的进程管理器，有一个master和多个work，是一个进程管理池，用来处理web的请求；</p>
+<h4 id="2、app项目基本的目录结构如下："><a href="#2、app项目基本的目录结构如下：" class="headerlink" title="2、app项目基本的目录结构如下："></a>2、app项目基本的目录结构如下：</h4><p><img src="/blog/2019/08/18/odp%E6%A1%86%E6%9E%B6/8BDB872F-5821-4C19-A106-08DC5B87BB14.png" alt="78786394797ca1761aa5ae8004b0053b"></p>
+<p>Odp框架app目录下的业务代码需要按照业务层规范来开发，Odp框架属于mvc框架，业务层粗略的可以分为controller，action、 model，controller是很薄的一层；action主要处理参数校验以及权限验证等；model层相比其他的框架划分的更细，下又分为 Pageservice、 dataservice以及dao层；</p>
+<ul>
+<li>Action的类名：必须以大写的Action开头，继承自Ap_Action_Abstract，命名方式为驼峰， 下面只有execute方法。Action层一般会调用PS层的类，来做后续的处理。</li>
+<li>model目录下有dao和service， service下又分为pageService和dataService；</li>
+<li>一个PageService层可对应多个Action,而一个Action则只能对应一个PageService。PageService层是唯一可以和action直接交互的，具体的数据处理逻辑应该在PageService层进行处理。pageService层和dataService层进行交互；</li>
+<li>DataService层并不是和DB层直接交互，而是作为数据库操作的一个封装，并将数据库中需要处理的数据进行一个与Dao层需要的参数格式一致的一个处理，并处理dao层返回的失败或成功信息。</li>
+<li>Dao层是直接和数据库进行交互；</li>
+</ul>
+<p>综上可得数据的流向为： action -&gt; pageService-&gt; dataService-&gt; Dao-&gt; DB，然后一层层向上级返回信息，最后还是在action层中返回信息。<br><img src="/blog/2019/08/18/odp%E6%A1%86%E6%9E%B6/D0A8B29A-369F-4118-AFBB-701C6D161B8A.png" alt="27e92881c6c090280a1283bb84115b99"></p>
+<h4 id="3、ral组件"><a href="#3、ral组件" class="headerlink" title="3、ral组件"></a>3、ral组件</h4><p>服务除了访问mysql等数据库之外，还可能调用后端的服务，交互协议可能是http或者rpc，数据传输协议可能是string或者mcpack之类的；RAL组件就是ODP的资源访问层，实现了通过添加配置的方式就做到对后端服务端交互的支持;后端服务可以定义为IP或者bns group的形式；</p>
+<ul>
+<li>RAL组件的服务配置支持local和webfoot等方式</li>
+<li>方便：添加相关配置即可实现与后端服务的交互</li>
+<li>支持并发调用和异步接口、支持负载均衡、健康检查等</li>
+</ul>
+<p><img src="/blog/2019/08/18/odp%E6%A1%86%E6%9E%B6/A7BCFBEC-AB34-4076-9E3E-4EF165ECF596.png" alt="759400b29a3314af4f7b66f7f8358031"></p>
+<h4 id="4、AP框架的流程"><a href="#4、AP框架的流程" class="headerlink" title="4、AP框架的流程"></a>4、AP框架的流程</h4><p>Odp框架的底层是ap框架，一个用户请求到来，首先会经过nginx转发，然后转交到ap框架；Ap框架的处理流程还原了一个请求在整个业务系统中执行的完整流程；<br>Ap框架规定类名中必须包含路径信息，也就是以下划线分割的目录信息。Ap将依照类名中的目录信息，完成类的自动加载，而不需要通过include与require语句载入类的具体实现的文件。<br>odp框架禁止添加include和require语句，所有的类都通过ap框架来加载，load一个类的方式是：类名按照_分割成路径，然后按照路径完成加载；<br>ap目录映射规则（加载类的规则）<br>数据模型的类寻址目录是从model开始的，比如Service_Page_A的目录的地址映射路径为：<br><code>&#123;项目目录&#125;/models/service/page/Sample.php</code><br><img src="/blog/2019/08/18/odp%E6%A1%86%E6%9E%B6/99672AAE-1FF1-4D3E-9E34-325B7CEE8FF4.png" alt="fe6a18b2b09b4a49701a88104ff77a93"></p>
+<p>Ap框架首先会初始化一个ap_application的对象，然后先去读取app目录下每个app中的Bootstrap.php文件，做app初始化的工作。Bootstrap.php文件是Ap提供的一个全局配置的入口, 可以做很多全局自定义的工作。比如路由的定义，插件的定义等；<br>run方法主要包括两部分，一部分是路由功能Router，一部分是分发功能dispatch；Ap的Router模块的主要功能是从中解析出model、Controller以及Action信息。</p>
+<p>odp框架默认的路由协议Ap_Route_Static, 就是分析请求中的request_uri,在去除掉base_uri以后, 获取到真正的负载路由信息的request_uri片段,具体的策略是, 根据”/“对request_uri分段,依次得到Module,Controller,Action, 在得到Module以后,还需要根据Ap_Application::$modules来判断Module是否是合法的Module，如果不是，则认为Module并没有体现在request_uri中，而把原Module当做Controller,原Controller当做Action。”<br>ap框架默认的model和controller为index；controller中会记录所有的actions的地址，action为真正的业务入口，通过调用action的execute方法调用底层的业务逻辑。</p>
+<h4 id="4、下面以-api-project-list为例结合代码说明具体的流程；"><a href="#4、下面以-api-project-list为例结合代码说明具体的流程；" class="headerlink" title="4、下面以/api/project/list为例结合代码说明具体的流程；"></a>4、下面以/api/project/list为例结合代码说明具体的流程；</h4><p>一个请求到来后，先经过nginx的rewrite规则进行转发，转发规则如下：</p>
+<p><img src="/blog/2019/08/18/odp%E6%A1%86%E6%9E%B6/28E685C3-B4EE-4ACD-9753-AC368B17A627.png" alt="e4033c5ca25e9503a8cb81345211e087"></p>
+<p>可以看到请求转发到 /dunker-pro/index.php 文件；</p>
+<p>Index.php入口文件中这两行的意义：<br><img src="/blog/2019/08/18/odp%E6%A1%86%E6%9E%B6/3C2EB01D-94C8-4FF6-A472-42A52DA23AAB.png" alt="7be03ddf96f1d0c41633920c98b8b81d"></p>
+<p>Bd_Init::init（）方法中会new一个Ap_application的类，并返回Ap_application是ap框架的核心类；<br>第二句是调用了Ap_application的boostrap和run方法；</p>
+<p>boostrap方法主要是找到Boostrap.php文件并执行一系列的init方法；<br>duncker_pro目录的Boostrap文件内容如下：</p>
+<p><img src="/blog/2019/08/18/odp%E6%A1%86%E6%9E%B6/28EC82CE-C2AD-4B89-8BC2-B48FD9BA4237.png" alt="1d1c2789e9ebc6b2f143bd31965ad625"></p>
+<p>首先路由是使用的aip_router，自定义的路由如下：</p>
+<p><img src="/blog/2019/08/18/odp%E6%A1%86%E6%9E%B6/FDDB5C6C-BF7A-44D9-9DD7-338E7C51D60C.png" alt="de877e24235825a8e53d81b8d65135ce"></p>
+<p>规则为：干掉结尾的/, 将uri分为controller和action; action默认为index，其中如果有/替换为”_“作为真正的action；controller层只做action的转发；action中通过执行execute方法调用底层的业务逻辑，处理完成后将结果返回；</p>
+<p><img src="/blog/2019/08/18/odp%E6%A1%86%E6%9E%B6/AD4FA73B-B4CD-42A3-A3C1-69C6BB4879AC.png" alt="d66a6cde0c2678cfa63a671fe7c993fc"></p>
+<h4 id="5、ap插件"><a href="#5、ap插件" class="headerlink" title="5、ap插件"></a>5、ap插件</h4><p>AP插件会触发以下的几个hook函数：<br><img src="/blog/2019/08/18/odp%E6%A1%86%E6%9E%B6/AF81EEB3-D8F9-4275-8FB1-68CFF6543BB3.png" alt="3edb1d71a1c0031a24a5d6705f6274f7"><br>插件Init中实现了routerStartUp方法，主要功能是初始化、参数格式化和打印URI请求日志（URI、开始时间、当前内存占用）。<br><img src="/blog/2019/08/18/odp%E6%A1%86%E6%9E%B6/D5160B59-DD7F-4EB9-B235-CBDF8E8C6822.png" alt="e0d507bb19f4e1ab72cbb02af592f5ad"></p>
+<p>dispatchLoopShutdown方法，主要功能是打印日志，包括URI、耗时、内存占用；<br><img src="/blog/2019/08/18/odp%E6%A1%86%E6%9E%B6/856B4DF1-CF45-4899-AFE3-B7905422E93C.png" alt="eef06b4c4ad237f19f0881591cecaf13"></p>
+
+      
+
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			
+        		<li class="article-tag-list-item">
+        			<a href="/blog/categories/后端//" class="article-tag-list-link color3">后端</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/blog/2019/08/18/odp%E6%A1%86%E6%9E%B6/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+  
     <article id="post-网络知识总结" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -949,183 +1179,6 @@ css 规则如下：<figure class="highlight bash"><table><tr><td class="gutter">
       
         <p class="article-more-link">
           <a class="article-more-a" href="/blog/2018/12/14/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-  
-    <article id="post-整理的css知识" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2018/12/14/%E6%95%B4%E7%90%86%E7%9A%84css%E7%9F%A5%E8%AF%86/">整理的css知识</a>
-    </h1>
-  
-
-        
-        <a href="/blog/2018/12/14/%E6%95%B4%E7%90%86%E7%9A%84css%E7%9F%A5%E8%AF%86/" class="archive-article-date">
-  	<time datetime="2018-12-14T05:01:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-14</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>css标准地址 <a target="_blank" rel="noopener" href="https://www.w3.org/TR/CSS2/visuren.html#inline-formatting">https://www.w3.org/TR/CSS2/visuren.html#inline-formatting</a><br>1、block、inline、inline-block<br>每个页面元素都有一个display属性，每个元素的display属性都有一个默认值，比如div的display属性为block，span的display属性为inline，inline元素不会自动换行且没有宽和高、block元素有宽和高度，且会自动换行。常见的元素分类如下：<br>（1）block元素：body form textarea h1 - h6 html table button p ul ol div<br>（2）inline元素：title span a em b strong I map 等<br>（3）inline-block元素：img input td select textarea label<br>区别方式为：是否可以设置宽、高、margin、padding值、是否会换行。<br>对inline元素这只padding-top padding-bottom margin-bottom margin-top不会对周边元素产生影响，会加大自身的范围。<br>2、嵌套规则：<br>（1）块状元素可以包含内联元素或者块元素，内连元素不可以包含块元素只包含内连元素</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;a href=<span class="string">&quot;#&quot;</span>&gt;&lt;span&gt;&lt;/span&gt;&lt;/a&gt;  — 正确</span><br><span class="line">&lt;div&gt;&lt;h1&gt;&lt;/h1&gt;&lt;p&gt;&lt;/p&gt;&lt;/div&gt; — 正确</span><br><span class="line">&lt;span&gt;&lt;div&gt;&lt;/div&gt;&lt;/span&gt; — 正确</span><br></pre></td></tr></table></figure>
-<p>（2）h1- h6、p、 dt这几个块元素只能包含内联元素或者可变元素</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;p&gt;&lt;ol&gt;&lt;li&gt;&lt;/li&gt;&lt;/ol&gt;&lt;/p&gt; -- wrong</span><br><span class="line">&lt;p&gt;&lt;div&gt;&lt;/div&gt;&lt;/p&gt;  — wrong</span><br></pre></td></tr></table></figure>
-<p>（3）特殊的li标签内可以出现div标签<br>（4）块级元素可以与块级元素并列、内联元素可以和内联元素并列</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;div&gt;&lt;h2&gt;&lt;/h2&gt;&lt;p&gt;&lt;/p&gt;&lt;/div&gt;  — right</span><br><span class="line">&lt;div&gt;&lt;a href=<span class="string">&quot;#&quot;</span>&gt;&lt;/a&gt;&lt;span&gt;&lt;/span&gt;&lt;/div&gt;  — right</span><br><span class="line">&lt;div&gt;&lt;h2&gt;&lt;/h2&gt;&lt;span&gt;&lt;/span&gt;&lt;/div&gt; -- wrong</span><br></pre></td></tr></table></figure>
-<p>3、inline元素改为block元素的方式<br>（1）直接将display值设置为block/inline-block<br>（2）直接将position设置为absolute或者fix<br>4、inline-block元素出现缝隙的解决方式<br>（1）两个inline-block元素之间不能出现换行、空格等<br>（2）设置margin-right值为负值<br>（3）将父元素的font-size、letter-spacing、word-spacing值<br>5、block元素内的inline-block元素出现底部空白或者两个inline-block元素无法对齐的情况<br>（1）使用vertical-align：top<br>（2）例子： <a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000010934928">https://segmentfault.com/a/1190000010934928</a><br>6、em: 相对于父级元素font-size的比例。<br>rem：相对于根元素html的font-size比例。<br>ex：所用字体中x的高度，通常取em的一半。<br>7、css的三种定位机制：普通流、浮动和绝对定位。position有relative、absolute、fix、static<br>relative：相对于元素应该出现的位置的相对位置。<br>absolute：绝对定位的盒子是相对于离他最近的一个已定位的盒子进行定位的，可能是relative，可能是absolute。默认是body。<br>浮动和绝对定位都将元素剥离了文档流。<br>8、background-origin: 取值可以为content-box、padding-box、border-box，规定背景图放置的位置。<br>9、box盒子模型<br>（1）ie设置的height和 width = margin + padding +content-width<br>（2）标准的盒子模型的 width = content-width<br>（3）css3中加了一个属性叫box-sizing 来区分上面的情况（content-box \ border-box \ padding-box）<br>10、formatting context:  它是页面中的一块渲染区域、并且有自己的一套渲染规则、他决定了元素如何定位以及与其他元素如何相互作用。常见的类别有：<br>（1）BFC (block formatting context)</p>
-<ul>
-<li>BFC是一个独立的区域，不受外部元素影响也不影响外部元素</li>
-<li>只有块级元素参加</li>
-<li>box会在垂直方向上一个接一个的放置</li>
-<li>属于同一个BFC的相邻的两个box的margin会重叠</li>
-<li>计算BFC高度时，浮动元素也参与计算</li>
-<li>每个元素的margin box的左边与包含块的border box的左边相接处，存在浮动也是如此<br>会生成BFC的方式：</li>
-<li>根元素比如body</li>
-<li>float不为none</li>
-<li>position为absolute或者fixed</li>
-<li>display为inline-block、table-cell、table-caption、flex、inline-flex</li>
-<li>overflow为hidden、scroll、auto<br>例子： <a target="_blank" rel="noopener" href="https://www.jianshu.com/p/66632298e355">https://www.jianshu.com/p/66632298e355</a><br>（2）IFC (inline formatting context)</li>
-<li>只会在一个块级元素中只包含内连级别元素时才会生成。</li>
-<li>行内级元素（inline-level element）的display为inline、inline-block、inline-table</li>
-<li>行内级元素生成行内盒（inline-level box），参与行内格式化上下文</li>
-<li>行框的宽度由其内部包含的块以及浮动元素所决定</li>
-<li>如果几个行内框无法放入一个行框内，他们可能分配在两个或者多个垂直的行框内</li>
-<li>同一个行内框如果不能放入一个行框内，也会分配到多个垂直的行框</li>
-<li>行框的高度可以容纳所包含的框，对齐标准为vertical-align（此处会引入下面的12问题）<br>（3）GFC<br>（4）FFC<br>11、line-height: 设置行间的距离，可以设置的方式<br>（1）number：以当前的字体属性值来设置行高(不同的浏览器默认值不同， 介于1 - 1.2之间)<br>（2）百分比：以当前字体属性的百分比来设置<br>（3）length：固定的值<br>12、vertical-align: 默认值为baseline，即按照基线进行对齐，此值是和line-height相关的。<br>（1）css中对基线的定义为：inline-block元素的基线是标准流中最后一个行框的基线， 除非这个行框没有行盒子或者本身overflow属性计算值不是visible，这种情况下，基线是该元素margin底边缘。<br>（2）inline元素有两个高度：和字体相关的content-area，以及实际区域virtual-area（line-height）</li>
-</ul>
-
-      
-
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			
-        		<li class="article-tag-list-item">
-        			<a href="/blog/categories/JS-React//" class="article-tag-list-link color4">JS/React</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2018/12/14/%E6%95%B4%E7%90%86%E7%9A%84css%E7%9F%A5%E8%AF%86/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-  
-    <article id="post-compose的执行和实现方式" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2018/12/13/compose%E7%9A%84%E6%89%A7%E8%A1%8C%E5%92%8C%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F/">compose的执行和实现方式</a>
-    </h1>
-  
-
-        
-        <a href="/blog/2018/12/13/compose%E7%9A%84%E6%89%A7%E8%A1%8C%E5%92%8C%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F/" class="archive-article-date">
-  	<time datetime="2018-12-13T07:11:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-13</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="compose：执行一系列任务的函数-tasks-step1-step2-step3…"><a href="#compose：执行一系列任务的函数-tasks-step1-step2-step3…" class="headerlink" title="compose：执行一系列任务的函数 tasks = [ step1, step2, step3… ]"></a>compose：执行一系列任务的函数 tasks = [ step1, step2, step3… ]</h2><ul>
-<li>Bulleted</li>
-<li>List</li>
-</ul>
-<ol>
-<li>执行顺序从右到左边</li>
-<li>第一个函数的参数可以是多个，后面的函数参数只能是一个</li>
-<li>函数的执行是同步的</li>
-</ol>
-<p>let init = (…args) =&gt; args.reduce((ele1, ele2) =&gt; ele1 + ele2, 0)<br>let step2 = (val) =&gt; val + 2<br>let step3 = (val) =&gt; val + 3<br>let step4 = (val) =&gt; val + 4<br>输出： 15</p>
-<h2 id="compose的实现"><a href="#compose的实现" class="headerlink" title="compose的实现"></a>compose的实现</h2><p>（1）lodash中的实现</p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">var flow = function（funcs）&#123;</span><br><span class="line"><span class="code">    Var length = funcs.length</span></span><br><span class="line"><span class="code">    Var index = length</span></span><br><span class="line"><span class="code"></span></span><br><span class="line"><span class="code">    while (index--) &#123;</span></span><br><span class="line"><span class="code">        if (typeof funcs[index] !== &#x27;function&#x27;) &#123;</span></span><br><span class="line"><span class="code">            throw new TypeError(&#x27;Expected a function&#x27;);</span></span><br><span class="line"><span class="code">        &#125;</span></span><br><span class="line"><span class="code">    &#125;</span></span><br><span class="line"><span class="code">        Return function(…args) &#123;</span></span><br><span class="line"><span class="code">        var index = 0</span></span><br><span class="line"><span class="code">        var result = length ? funcs[index].apply(this, args) : args[0]</span></span><br><span class="line"><span class="code">        while (++index &lt; length) &#123;</span></span><br><span class="line"><span class="code">            result = funcs[index].call(this, result)</span></span><br><span class="line"><span class="code">        &#125;</span></span><br><span class="line"><span class="code">        return result</span></span><br><span class="line"><span class="code">        &#125;</span></span><br><span class="line"><span class="code">&#125;</span></span><br></pre></td></tr></table></figure>
-<p>（2）promise实现compose</p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">const compose = function(…funcs) &#123;</span><br><span class="line">  let init = funcs.pop()</span><br><span class="line">  return function(...arg) &#123;</span><br><span class="line"><span class="code">    return funcs.reverse().reduce(function(sequence, func) &#123;</span></span><br><span class="line"><span class="code">      return sequence.then(function(result) &#123;</span></span><br><span class="line"><span class="code">        return func.call(null, result)</span></span><br><span class="line"><span class="code">      &#125;)</span></span><br><span class="line"><span class="code">    &#125;, Promise.resolve(init.apply(null, arg)))</span></span><br><span class="line"><span class="code">  &#125;</span></span><br><span class="line"><span class="code">&#125;</span></span><br></pre></td></tr></table></figure>
-
-      
-
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			
-        		<li class="article-tag-list-item">
-        			<a href="/blog/categories/JS-React//" class="article-tag-list-link color4">JS/React</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2018/12/13/compose%E7%9A%84%E6%89%A7%E8%A1%8C%E5%92%8C%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F/">展开全文 >></a>
         </p>
       
 

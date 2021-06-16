@@ -1242,6 +1242,124 @@ select/poll在接收到一个连接时，会通知内核（发生从用户态复
     </div>
 </aside>
   
+    <article id="post-机器学习基础" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2020/03/05/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/">机器学习基础</a>
+    </h1>
+  
+
+        
+        <a href="/blog/2020/03/05/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/" class="archive-article-date">
+  	<time datetime="2020-03-05T11:17:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-05</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h5 id="监督学习的2个任务"><a href="#监督学习的2个任务" class="headerlink" title="监督学习的2个任务"></a>监督学习的2个任务</h5><ul>
+<li>回归： 预测连续的、具体的数值，比如支付宝中的芝麻信用分数</li>
+<li>分类： 预测离散的值，比如性别，是否垃圾页面等；<h5 id="分类监督任务"><a href="#分类监督任务" class="headerlink" title="分类监督任务"></a>分类监督任务</h5></li>
+<li>朴素贝叶斯：贝叶斯分类法是基于贝叶斯定定理的统计学分类方法。它通过预测一个给定的元组属于一个特定类的概率，来进行分类。朴素贝叶斯分类法假定一个属性值在给定类的影响独立于其他属性的–类条件独立性。</li>
+<li>决策树：决策树是一种简单但广泛使用的分类器，它通过训练数据构建决策树，对未知的数据进行分类。</li>
+<li>SVM：支持向量机把分类问题转化为寻找分类平面的问题，并通过最大化分类边界点距离分类平面的距离来实现分类。</li>
+<li>逻辑回归：逻辑回归是用于处理因变量为分类变量的回归问题，常见的是二分类或二项分布问题，也可以处理多分类问题，它实际上是属于一种分类方法。<h5 id="回归监督任务"><a href="#回归监督任务" class="headerlink" title="回归监督任务"></a>回归监督任务</h5></li>
+<li>线性回归: 线性回归是处理回归任务最常用的算法之一。该算法的形式十分简单，它期望使用一个超平面拟合数据集（只有两个变量的时候就是一条直线）。</li>
+<li>回归树: 回归树（决策树的一种）通过将数据集重复分割为不同的分支而实现分层学习，分割的标准是最大化每一次分离的信息增益。这种分支结构让回归树很自然地学习到非线性关系。</li>
+<li>K邻近: 通过搜索K个最相似的实例（邻居）的整个训练集并总结那些K个实例的输出变量，对新数据点进行预测。</li>
+<li>Adaboosting: Adaboost目的就是从训练数据中学习一系列的弱分类器或基本分类器，然后将这些弱分类器组合成一个强分类器。<br>神经网络: 它从信息处理角度对人脑神经元网络进行抽象， 建立某种简单模型，按不同的连接方式组成不同的网络。</li>
+</ul>
+<h5 id="数据集"><a href="#数据集" class="headerlink" title="数据集"></a>数据集</h5><ul>
+<li>训练集：用来训练模型</li>
+<li>验证集：确保模型没有过拟合</li>
+<li>测试集：评估效果</li>
+</ul>
+<h4 id="决策树"><a href="#决策树" class="headerlink" title="决策树"></a>决策树</h4><p>决策树算法采用树形结构，使用层层推理（if-then-else）来实现最终的分类。决策树由下面几种元素构成：</p>
+<ul>
+<li>根节点：包含样本的全集;</li>
+<li>内部节点：对应一个特征属性值;</li>
+<li>叶节点：代表决策的结果;<br>训练的三个步骤：</li>
+<li>特征选择：筛选出和结果最相关的特征；</li>
+<li>决策树生成： 从根节点出发，每次对节点计算所有特征的信息增益，选择信息增益最大的特征作为节点特征；</li>
+<li>决策树剪枝<br>典型的决策树算法：</li>
+<li>ID3： 利用信息增益来选择特征</li>
+<li>C4.5：引入“信息增益比”指标作为特征的选择依据</li>
+<li>CART：使用了基尼系数取代了信息熵模型。<h4 id="boosting"><a href="#boosting" class="headerlink" title="boosting"></a>boosting</h4>Boosting是一种集合技术，试图从多个弱分类器中创建出一个强分类器。它的核心思路是——挑选精英。<br><img src="/blog/2020/03/05/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/85116B2D-30DD-478A-A002-311FF336D33D.png" alt="66f259c0df3ca0ec3f49beef1693ab25"><h4 id="GBDT的原理"><a href="#GBDT的原理" class="headerlink" title="GBDT的原理"></a>GBDT的原理</h4>GBDT（Gradient Boosting Decision Tree）是一种迭代的决策树算法，又叫 MART（Multiple Additive Regression Tree)，它通过构造一组弱的学习器（树），并把多颗决策树的结果累加起来作为最终的预测输出。该算法将决策树与集成思想进行了有效的结合。<h4 id="XGBoost"><a href="#XGBoost" class="headerlink" title="XGBoost"></a>XGBoost</h4>和GBDT不同，xgboost给损失函数增加了正则化项（L1或L2正则化项，视学习目标不同而取不同正则化参数。）<br>有些损失函数是难以计算导数的，鉴于这种情况，xgboost使用损失函数的二阶泰勒展开作为损失函数的拟合<br>GBDT的节点分裂方式是遍历所有特征的所有可能划分，再选取最优者分裂。xgboost使用分位点及分位数法，近似地计算，有效降低计算量。<h4 id="L1-amp-L2-正则"><a href="#L1-amp-L2-正则" class="headerlink" title="L1 &amp; L2 正则"></a>L1 &amp; L2 正则</h4></li>
+<li>L1正则化可以产生稀疏权值矩阵，即产生一个稀疏模型，可以用于特征选择；</li>
+<li>L2正则化可以防止模型过拟合（overfitting）；一定程度上，L1也可以防止过拟合；<h4 id="随机森林"><a href="#随机森林" class="headerlink" title="随机森林"></a>随机森林</h4><img src="/blog/2020/03/05/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/CA2E2775-1E5D-4D89-9D77-257860AADFCC.png" alt="2fdbc2fe0f3ba2c40c340833605af11b"><h4 id="bias（偏差）-amp-variance（方差）-amp-Error-误差"><a href="#bias（偏差）-amp-variance（方差）-amp-Error-误差" class="headerlink" title="bias（偏差）&amp; variance（方差）&amp; Error(误差)"></a>bias（偏差）&amp; variance（方差）&amp; Error(误差)</h4></li>
+<li>Error = bias + variance</li>
+<li>bias: Bias表示的就是模型预测的值和真实值之间的距离的期望。</li>
+<li>variance: 模型每一次输出结果与模型输出期望之间的误差，即模型的稳定性。<h4 id="欧氏距离-amp-曼哈顿距离-amp-余弦夹角"><a href="#欧氏距离-amp-曼哈顿距离-amp-余弦夹角" class="headerlink" title="欧氏距离&amp;曼哈顿距离&amp;余弦夹角"></a>欧氏距离&amp;曼哈顿距离&amp;余弦夹角</h4></li>
+<li>欧氏距离： 两个点在空间中的距离；<br><img src="/blog/2020/03/05/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/0041E333-5C70-4E69-8668-5AF3ED95C7E6.png" alt="d93f87591759e580b4854fcdc4922217"></li>
+<li>曼哈顿距离：城市街区距离<br><img src="/blog/2020/03/05/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/CC66B947-9DFA-414F-96FA-22803CC75A26.png" alt="34d01ebc0ee904edd071e4fa895d47a5"></li>
+<li>余弦距离： 两个向量之间的差异<br><img src="/blog/2020/03/05/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/59D81016-8894-4F64-A8D5-C344231A5985.png" alt="8e9182f36ebdf56c5ace3a91abdaf0ea"><h4 id="softmax函数"><a href="#softmax函数" class="headerlink" title="softmax函数"></a>softmax函数</h4>softmax函数把一些输入映射为0-1之间的实数，并归一化保证和为1，常用在多分类中；<h4 id="Attention"><a href="#Attention" class="headerlink" title="Attention"></a>Attention</h4>将有限的注意力集中到重点信息上，从而节省资源，快速获取有效信息；引入的原因：</li>
+<li>参数少</li>
+<li>速度快： 可以并行计算（RNN是不可以并行计算，CNN可以并行计算）</li>
+<li>效果好：因为是挑重点，因此即使文本长，也能从中抓住重点。<br><img src="/blog/2020/03/05/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/A426913C-C61C-4926-9301-42DECC76DA0D.png" alt="f62bc5b9d4e33c3208faaa8be51a73f0"><h4 id="encoder-decoder"><a href="#encoder-decoder" class="headerlink" title="encoder - decoder"></a>encoder - decoder</h4>标准的encoder-decoder中的变量是定长的。<br><img src="/blog/2020/03/05/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/ADF02EFA-31ED-4DBF-917C-A989DF86D1F8.png" alt="b6326c8007bb80777f6e7b317ad4d60c"><br>这样的缺点是：容易丢失信息；<br>加入attention机制的encoder-decoder模型，中间是一组C向量；<br><img src="/blog/2020/03/05/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/D68F2D69-0C94-477D-BE83-9BD516B5F430.png" alt="eb15b8846409fab1f20aa90ed67b802c"></li>
+</ul>
+<h4 id="seq2seq"><a href="#seq2seq" class="headerlink" title="seq2seq"></a>seq2seq</h4><p>Seq2Seq是属于encoder-decoder，输入一个序列，输出另一个序列。这种结构最重要的地方在于输入序列和输出序列的长度是可变的。<br><img src="/blog/2020/03/05/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/D4E5BD12-A760-4590-9023-172E8B59E862.png" alt="f479b10b92ed812ad26668d0550406fa"></p>
+<h4 id="KNN和K-means"><a href="#KNN和K-means" class="headerlink" title="KNN和K-means"></a>KNN和K-means</h4><p>KNN：K近邻算法，找出样本X最相近的K个样本，K个样本中大多数属于哪个类别，则X样本就属于哪个类别；<br>Kmeans：无监督的聚类的方法，首先会选出K个值作为质心，然后对数据集合中的每个样本，计算与质心的距离并划分到最近的一类；</p>
+<h4 id="点击模型-amp-相关性排序"><a href="#点击模型-amp-相关性排序" class="headerlink" title="点击模型 &amp; 相关性排序"></a>点击模型 &amp; 相关性排序</h4><p>点击模型：将用户的点击数据直接反馈到搜索引擎返回结果排序的模型。是一种后验排序；<br>相关性排序: 根据query和page的相关性进行排序；这是一种先验排序；</p>
+<h5 id="朴素贝叶斯"><a href="#朴素贝叶斯" class="headerlink" title="朴素贝叶斯"></a>朴素贝叶斯</h5><p>朴素贝叶斯是假设样本中间是相互独立的。</p>
+<h5 id="ctr预估模型"><a href="#ctr预估模型" class="headerlink" title="ctr预估模型"></a>ctr预估模型</h5><p>ctr预估模型广泛的用于个性化推荐、检索、在线广告等，用来学习和预测用户的反馈（购买、点击、收藏等）。<br>ctr预估模型通常包含多个特征，高维、稀疏以及多类别是CTR预估模型的特征数据的典型特点。<br>实际场景中数据分部严重失衡，query长尾效应很严重。<br>点击率模型一般为线上系统，对响应时间要求很高，一般要小于&lt;30ms;<br><img src="/blog/2020/03/05/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/60EE823C-3B65-4BF3-8775-1A4A5469F6CC.png" alt="f28cfc5c40348d4120c86e137bdce4f1"><br>ctr预估的一个例子：<br>如果用户搜索的历史query中出现了“宝马”，则认为用户对汽车类的推荐感兴趣。一种具体的做法是将当前用户的前三个或者五个query串联再加上用户的点击序列作为输入，利用LSTM模型，进行预估。</p>
+<h4 id="点击模型"><a href="#点击模型" class="headerlink" title="点击模型"></a>点击模型</h4><p>点击模型一般可以分为：</p>
+<ul>
+<li>在线服务： 完成训练数据的采集和线上预估服务，采用BaiduRPC框架，配置热加载；</li>
+<li>离线计算：完成线上日志和用户日志的拼接清洗、生成训练数据、模型训练。</li>
+</ul>
+
+      
+
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			
+        		<li class="article-tag-list-item">
+        			<a href="/blog/categories/NLP//" class="article-tag-list-link color4">NLP</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/blog/2020/03/05/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+  
     <article id="post-文本表示和词向量" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1315,121 +1433,6 @@ select/poll在接收到一个连接时，会通知内核（发生从用户态复
       
         <p class="article-more-link">
           <a class="article-more-a" href="/blog/2019/11/17/%E6%96%87%E6%9C%AC%E8%A1%A8%E7%A4%BA%E5%92%8C%E8%AF%8D%E5%90%91%E9%87%8F/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-  
-    <article id="post-odp框架" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2019/08/18/odp%E6%A1%86%E6%9E%B6/">odp框架</a>
-    </h1>
-  
-
-        
-        <a href="/blog/2019/08/18/odp%E6%A1%86%E6%9E%B6/" class="archive-article-date">
-  	<time datetime="2019-08-18T13:39:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-18</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>从使用上看，Odp框架和其他的php或者web框架项目比如django框架相比，规范比较严格，比如有严格的目录要求，类名和目录名要对应。</p>
-<h4 id="1、odp项目的主要目录结构"><a href="#1、odp项目的主要目录结构" class="headerlink" title="1、odp项目的主要目录结构"></a>1、odp项目的主要目录结构</h4><ul>
-<li>app：应用程序目录，存放置产品线业务（app）代码；</li>
-<li>conf：配置文件目录，包括app的配置、db的配置等, 比如代码中的auth.conf, bos.conf, db.conf；</li>
-<li>log：odp运行环境中产生的日志，包括webserver日志、app日志、ral日志等</li>
-<li>data：放置组件和app生成的本机数据、缓存等</li>
-<li>bin：ODP的插件的执行命令。包括php，pcheck，ptest等</li>
-<li>install：ODP组件安装信息存储目录。ocm命令读取的即为该目录中的信息;</li>
-<li>php：php安装后所在的目录。php目录中的phplib目录为公共库目录，存放ODP和产品线的公共库；</li>
-<li>template：用于存放php的页面模板；</li>
-<li>webroot：默认的web文档目录，用于存放静态文件以及每个app的index.php</li>
-<li>webserver：web服务的安装目录，支持lighttpd以及nginx；</li>
-</ul>
-<p>Php-cgi 就是解析php脚本的程序而已， 作用和HHVM一样；<br>Php-fpm是实现fastcgi协议的的进程管理器，有一个master和多个work，是一个进程管理池，用来处理web的请求；</p>
-<h4 id="2、app项目基本的目录结构如下："><a href="#2、app项目基本的目录结构如下：" class="headerlink" title="2、app项目基本的目录结构如下："></a>2、app项目基本的目录结构如下：</h4><p><img src="/blog/2019/08/18/odp%E6%A1%86%E6%9E%B6/8BDB872F-5821-4C19-A106-08DC5B87BB14.png" alt="78786394797ca1761aa5ae8004b0053b"></p>
-<p>Odp框架app目录下的业务代码需要按照业务层规范来开发，Odp框架属于mvc框架，业务层粗略的可以分为controller，action、 model，controller是很薄的一层；action主要处理参数校验以及权限验证等；model层相比其他的框架划分的更细，下又分为 Pageservice、 dataservice以及dao层；</p>
-<ul>
-<li>Action的类名：必须以大写的Action开头，继承自Ap_Action_Abstract，命名方式为驼峰， 下面只有execute方法。Action层一般会调用PS层的类，来做后续的处理。</li>
-<li>model目录下有dao和service， service下又分为pageService和dataService；</li>
-<li>一个PageService层可对应多个Action,而一个Action则只能对应一个PageService。PageService层是唯一可以和action直接交互的，具体的数据处理逻辑应该在PageService层进行处理。pageService层和dataService层进行交互；</li>
-<li>DataService层并不是和DB层直接交互，而是作为数据库操作的一个封装，并将数据库中需要处理的数据进行一个与Dao层需要的参数格式一致的一个处理，并处理dao层返回的失败或成功信息。</li>
-<li>Dao层是直接和数据库进行交互；</li>
-</ul>
-<p>综上可得数据的流向为： action -&gt; pageService-&gt; dataService-&gt; Dao-&gt; DB，然后一层层向上级返回信息，最后还是在action层中返回信息。<br><img src="/blog/2019/08/18/odp%E6%A1%86%E6%9E%B6/D0A8B29A-369F-4118-AFBB-701C6D161B8A.png" alt="27e92881c6c090280a1283bb84115b99"></p>
-<h4 id="3、ral组件"><a href="#3、ral组件" class="headerlink" title="3、ral组件"></a>3、ral组件</h4><p>服务除了访问mysql等数据库之外，还可能调用后端的服务，交互协议可能是http或者rpc，数据传输协议可能是string或者mcpack之类的；RAL组件就是ODP的资源访问层，实现了通过添加配置的方式就做到对后端服务端交互的支持;后端服务可以定义为IP或者bns group的形式；</p>
-<ul>
-<li>RAL组件的服务配置支持local和webfoot等方式</li>
-<li>方便：添加相关配置即可实现与后端服务的交互</li>
-<li>支持并发调用和异步接口、支持负载均衡、健康检查等</li>
-</ul>
-<p><img src="/blog/2019/08/18/odp%E6%A1%86%E6%9E%B6/A7BCFBEC-AB34-4076-9E3E-4EF165ECF596.png" alt="759400b29a3314af4f7b66f7f8358031"></p>
-<h4 id="4、AP框架的流程"><a href="#4、AP框架的流程" class="headerlink" title="4、AP框架的流程"></a>4、AP框架的流程</h4><p>Odp框架的底层是ap框架，一个用户请求到来，首先会经过nginx转发，然后转交到ap框架；Ap框架的处理流程还原了一个请求在整个业务系统中执行的完整流程；<br>Ap框架规定类名中必须包含路径信息，也就是以下划线分割的目录信息。Ap将依照类名中的目录信息，完成类的自动加载，而不需要通过include与require语句载入类的具体实现的文件。<br>odp框架禁止添加include和require语句，所有的类都通过ap框架来加载，load一个类的方式是：类名按照_分割成路径，然后按照路径完成加载；<br>ap目录映射规则（加载类的规则）<br>数据模型的类寻址目录是从model开始的，比如Service_Page_A的目录的地址映射路径为：<br><code>&#123;项目目录&#125;/models/service/page/Sample.php</code><br><img src="/blog/2019/08/18/odp%E6%A1%86%E6%9E%B6/99672AAE-1FF1-4D3E-9E34-325B7CEE8FF4.png" alt="fe6a18b2b09b4a49701a88104ff77a93"></p>
-<p>Ap框架首先会初始化一个ap_application的对象，然后先去读取app目录下每个app中的Bootstrap.php文件，做app初始化的工作。Bootstrap.php文件是Ap提供的一个全局配置的入口, 可以做很多全局自定义的工作。比如路由的定义，插件的定义等；<br>run方法主要包括两部分，一部分是路由功能Router，一部分是分发功能dispatch；Ap的Router模块的主要功能是从中解析出model、Controller以及Action信息。</p>
-<p>odp框架默认的路由协议Ap_Route_Static, 就是分析请求中的request_uri,在去除掉base_uri以后, 获取到真正的负载路由信息的request_uri片段,具体的策略是, 根据”/“对request_uri分段,依次得到Module,Controller,Action, 在得到Module以后,还需要根据Ap_Application::$modules来判断Module是否是合法的Module，如果不是，则认为Module并没有体现在request_uri中，而把原Module当做Controller,原Controller当做Action。”<br>ap框架默认的model和controller为index；controller中会记录所有的actions的地址，action为真正的业务入口，通过调用action的execute方法调用底层的业务逻辑。</p>
-<h4 id="4、下面以-api-project-list为例结合代码说明具体的流程；"><a href="#4、下面以-api-project-list为例结合代码说明具体的流程；" class="headerlink" title="4、下面以/api/project/list为例结合代码说明具体的流程；"></a>4、下面以/api/project/list为例结合代码说明具体的流程；</h4><p>一个请求到来后，先经过nginx的rewrite规则进行转发，转发规则如下：</p>
-<p><img src="/blog/2019/08/18/odp%E6%A1%86%E6%9E%B6/28E685C3-B4EE-4ACD-9753-AC368B17A627.png" alt="e4033c5ca25e9503a8cb81345211e087"></p>
-<p>可以看到请求转发到 /dunker-pro/index.php 文件；</p>
-<p>Index.php入口文件中这两行的意义：<br><img src="/blog/2019/08/18/odp%E6%A1%86%E6%9E%B6/3C2EB01D-94C8-4FF6-A472-42A52DA23AAB.png" alt="7be03ddf96f1d0c41633920c98b8b81d"></p>
-<p>Bd_Init::init（）方法中会new一个Ap_application的类，并返回Ap_application是ap框架的核心类；<br>第二句是调用了Ap_application的boostrap和run方法；</p>
-<p>boostrap方法主要是找到Boostrap.php文件并执行一系列的init方法；<br>duncker_pro目录的Boostrap文件内容如下：</p>
-<p><img src="/blog/2019/08/18/odp%E6%A1%86%E6%9E%B6/28EC82CE-C2AD-4B89-8BC2-B48FD9BA4237.png" alt="1d1c2789e9ebc6b2f143bd31965ad625"></p>
-<p>首先路由是使用的aip_router，自定义的路由如下：</p>
-<p><img src="/blog/2019/08/18/odp%E6%A1%86%E6%9E%B6/FDDB5C6C-BF7A-44D9-9DD7-338E7C51D60C.png" alt="de877e24235825a8e53d81b8d65135ce"></p>
-<p>规则为：干掉结尾的/, 将uri分为controller和action; action默认为index，其中如果有/替换为”_“作为真正的action；controller层只做action的转发；action中通过执行execute方法调用底层的业务逻辑，处理完成后将结果返回；</p>
-<p><img src="/blog/2019/08/18/odp%E6%A1%86%E6%9E%B6/AD4FA73B-B4CD-42A3-A3C1-69C6BB4879AC.png" alt="d66a6cde0c2678cfa63a671fe7c993fc"></p>
-<h4 id="5、ap插件"><a href="#5、ap插件" class="headerlink" title="5、ap插件"></a>5、ap插件</h4><p>AP插件会触发以下的几个hook函数：<br><img src="/blog/2019/08/18/odp%E6%A1%86%E6%9E%B6/AF81EEB3-D8F9-4275-8FB1-68CFF6543BB3.png" alt="3edb1d71a1c0031a24a5d6705f6274f7"><br>插件Init中实现了routerStartUp方法，主要功能是初始化、参数格式化和打印URI请求日志（URI、开始时间、当前内存占用）。<br><img src="/blog/2019/08/18/odp%E6%A1%86%E6%9E%B6/D5160B59-DD7F-4EB9-B235-CBDF8E8C6822.png" alt="e0d507bb19f4e1ab72cbb02af592f5ad"></p>
-<p>dispatchLoopShutdown方法，主要功能是打印日志，包括URI、耗时、内存占用；<br><img src="/blog/2019/08/18/odp%E6%A1%86%E6%9E%B6/856B4DF1-CF45-4899-AFE3-B7905422E93C.png" alt="eef06b4c4ad237f19f0881591cecaf13"></p>
-
-      
-
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			
-        		<li class="article-tag-list-item">
-        			<a href="/blog/categories/后端//" class="article-tag-list-link color3">后端</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2019/08/18/odp%E6%A1%86%E6%9E%B6/">展开全文 >></a>
         </p>
       
 
